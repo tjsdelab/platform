@@ -73,7 +73,7 @@ public class IndexPageAction extends ActionSupport {
 		//sanityTestInfo = sanityProjectDAO.getSanityValidProjectName().get(0);
 
 
-        System.out.println("action print" + SmokeProjectDAO.getSmokeValidProjectName());
+        //System.out.println("action print" + SmokeProjectDAO.getSmokeValidProjectName());
 		
 	IndexPage indexPage=new IndexPage();
 	
