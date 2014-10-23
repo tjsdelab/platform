@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class ResuleSequence {
+public class ResultSequence {
 private List<String> modulesList = new ArrayList<String>();
-private String passList;
-private String failList;
-private String naList;
-private String blockList;
+private String passList="";
+private String failList="";
+private String naList="";
+private String blockList="";
 private	Map<String, ArrayList<Integer>> map = new TreeMap<String, ArrayList<Integer>>();
 
-public ResuleSequence() {
+public ResultSequence() {
 	// TODO Auto-generated constructor stub
 	map.put("phone",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
 	map.put("filemanager",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
@@ -61,24 +61,40 @@ public List<String> getModulesList() {
 
 
 public String getPassList() {
+	for(String key : modulesList){
+		passList += map.get(key).get(0) + ",";
+	}
+	passList = passList.substring(0, passList.length() - 1);
 	return passList;
 }
 
 
 
 public String getFailList() {
+	for(String key : modulesList){
+		failList += map.get(key).get(1) + ",";
+	}
+	failList = failList.substring(0, failList.length() - 1);
 	return failList;
 }
 
 
 
 public String getNaList() {
+	for(String key : modulesList){
+		naList += map.get(key).get(2) + ",";
+	}
+	naList = naList.substring(0, naList.length() - 1);
 	return naList;
 }
 
 
 
 public String getBlockList() {
+	for(String key : modulesList){
+		blockList += map.get(key).get(3) + ",";
+	}
+	blockList = blockList.substring(0, blockList.length() - 1);
 	return blockList;
 }
 

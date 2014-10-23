@@ -54,41 +54,49 @@ public class SanityHomeManagerAction extends ActionSupport {
 		//通过表单名获取所有case
 		List<SanityTestInfo> allCaseList = sanityFormDAO.getSanityTestInfoByTableName(currentFormName);
 		
-	
-		
-		
-		
-		
+
 		System.out.println("下拉列表中的数据：" + projectList);
 		System.out.println("version：" + version);
 		System.out.println("当前工程：" + currentProject);
 		System.out.println("当前表单:" + currentFormName);
+		//结果类，存储各种状态的数目
+		ResultSequence seq = new ResultSequence();
 	if(allCaseList != null){
 		for(int i = 0; i < allCaseList.size(); i++){
-			System.out.println("Case" + i + ":" + allCaseList.get(i));
+			//System.out.println("Case" + i + ":" + allCaseList.get(i).getId());
+			
 			//统计pass。fail等次数
 			String result = allCaseList.get(i).getResults();
-			if(result.equals("pass")){
+			String module = allCaseList.get(i).getModule();
+			seq.addModuleToSequence(module, result);
+			if(result.equals("Pass")){
 				pass++;
 			}
-			else if (result.equals("fail")) {
+			else if (result.equals("Fail")) {
 				fail++;
 			}
-			else if (result.equals("block")) {
+			else if (result.equals("Block")) {
 				block++;
 			}
-			else if (result.equals("na")) {
+			else if (result.equals("N/A")) {
 				na++;
 			}
 		}
 	}
+	
+	
 		System.out.println("pass：" + pass);
 		System.out.println("fail：" + fail);
 		System.out.println("na：" + na);
 		System.out.println("block：" + block);
 
+		System.out.println("模块列表：" + seq.getModulesList());
+		System.out.println("pass序列：" + seq.getPassList());
+		System.out.println("fail序列：" + seq.getFailList());
+		System.out.println("na序列：" + seq.getNaList());
+		System.out.println("block序列：" + seq.getBlockList());
+
 		
-		//Map<String, ArrayList<int>> Sequence = new Map<String, ArrayList<int>>();
 		
 		
 		
