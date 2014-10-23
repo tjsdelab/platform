@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class SanityTestInfo {
 	private int id;
 	private String caseID;
-	private String model;
+	private String module;
 	private String summary;
 	private String preconditions;
 	private String importance;
@@ -35,11 +35,12 @@ public class SanityTestInfo {
 	public void setCaseID(String caseID) {
 		this.caseID = caseID;
 	}
-	public String getModel() {
-		return model;
+
+	public String getModule() {
+		return module;
 	}
-	public void setModel(String model) {
-		this.model = model;
+	public void setModule(String module) {
+		this.module = module;
 	}
 	public String getSummary() {
 		return summary;
