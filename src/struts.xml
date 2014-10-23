@@ -36,6 +36,13 @@
             </result>
             
      </action>
+     <action name="sanity" class="com.spreadtrum.sanity_smoke.action.SanityHomeManagerAction">
+     	<result name="success">/sanity.jsp</result>
+     </action>
+     <action name="smoke" class="com.spreadtrum.sanity_smoke.action.SmokeHomeManagerAction">
+     	<result name="success">/smoke.jsp</result>
+     </action>
+     
       <action name="project"  class="com.spreadtrum.monkeytest.action.MonkeyDetailAction" method="monkeyDetail">
             <result  name="success">/project.jsp</result>
             <result  name="search">/formName.jsp</result>
