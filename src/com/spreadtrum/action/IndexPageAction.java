@@ -1,5 +1,8 @@
 package com.spreadtrum.action;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +10,11 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.spreadtrum.model.*;
+import com.spreadtrum.sanity_smoke.dao.SmokeProjectDAO;
+import com.spreadtrum.sanity_smoke.dao.SmokeTestFormDAO;
+import com.spreadtrum.sanity_smoke.dao.impl.SmokeProjectDAOImpl;
+import com.spreadtrum.sanity_smoke.dao.impl.SmokeTestFormDAOImpl;
+import com.spreadtrum.sanity_smoke.model.SmokeTestInfo;
 import com.spreadtrum.dao.*;
 import com.spreadtrum.dao.impl.*;
 
@@ -16,7 +24,10 @@ public class IndexPageAction extends ActionSupport {
 	private IndexPageDAO indexPageDAO = new IndexPageDAOImpl();
 	private NewsDAO newsDAO = new NewsDAOImpl();
 	private TestInfoDAO testInfoDAO = new TestInfoDAOImpl();
+	private SmokeProjectDAO SmokeProjectDAO = new SmokeProjectDAOImpl();
+	//private SanityTestInfo sanityTestInfo = new SanityTestInfo();
 	
+
 	//向project.action传递的formname，通过formName方法
 	private String testFormName = null;
   
@@ -58,6 +69,11 @@ public class IndexPageAction extends ActionSupport {
 		return "formName";
 	}
 	public String execute(){
+
+		//sanityTestInfo = sanityProjectDAO.getSanityValidProjectName().get(0);
+
+
+        System.out.println("action print" + SmokeProjectDAO.getSmokeValidProjectName());
 		
 	IndexPage indexPage=new IndexPage();
 	

@@ -4,9 +4,9 @@
           "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-    	<property name="connection.url">jdbc:mysql://10.5.2.48:3306/test</property>
-    	<property name="connection.username">platform</property>
-    	<property name="connection.password">platform</property>
+    	<property name="connection.url">jdbc:mysql://10.5.42.23:3306/doubleS</property>
+    	<property name="connection.username">qilong</property>
+    	<property name="connection.password">qilong</property>
     	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     	<!-- 设置dialect属性可以使用该类型数据库特性 -->
     	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
@@ -23,16 +23,11 @@
     	<!-- 在命令行输出SQL语句 -->
     	<property name="show_sql"></property>
     	<!-- Model属性与数据库字段的映射文件 -->
-    	<mapping resource="com/spreadtrum/model/IndexPage.hbm.xml" />
-    	<mapping resource="com/spreadtrum/model/News.hbm.xml" />
-    	<mapping resource="com/spreadtrum/model/TestInfo.hbm.xml" />
-    	<mapping class="com.spreadtrum.monkeytest.model.TestForm" />
-    	<mapping class="com.spreadtrum.monkeytest.model.VersionType" />
-    	<mapping class="com.spreadtrum.monkeytest.model.DeviceInfo" />
-    	<mapping class="com.spreadtrum.monkeytest.model.PhoneTestInfo" />
-    	<mapping class="com.spreadtrum.monkeytest.model.ErrorType" />
-    	<mapping class="com.spreadtrum.monkeytest.model.BugInfo" />
-    	<mapping class="com.spreadtrum.monkeytest.model.ErrorInfo" />
-    	<mapping class="com.spreadtrum.monkeytest.model.ProjectForm" />
+    	<mapping class="com.spreadtrum.sanity_smoke.model.SanityProject"/>
+    	<mapping class="com.spreadtrum.sanity_smoke.model.SmokeProject"/>
+    	<mapping class="com.spreadtrum.sanity_smoke.model.SanityTestForm"/>
+    	<mapping class="com.spreadtrum.sanity_smoke.model.SmokeTestForm"/>
+    	<mapping class="com.spreadtrum.sanity_smoke.model.SmokeTestInfo"/>
+    	<mapping class="com.spreadtrum.sanity_smoke.model.SanityTestInfo"/>
     </session-factory>
 </hibernate-configuration>
