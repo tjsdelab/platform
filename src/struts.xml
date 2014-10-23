@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+<!-- 允许访问静态成员 -->
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+    <package name="hello" extends="struts-default">
+   
+<!-- 一个action类可以被多个action映射，每个action可以对应到一个类的方法上 -->
+
+
+    <default-action-ref name="error"></default-action-ref>
+        
+    <action name="login"  class="com.spreadtrum.action.IndexPageAction" >
+            <result  name="success">/index.jsp</result>
+             <result name="error">/error.jsp</result>
+             <result type="redirectAction" name="formName">
+                    <param name="actionName">project</param>
+                    <param name="testFormName">${testFormName}</param>
+              </result>
+     </action>
+     <action name="error">
+	        <result>/error.jsp</result>
+     </action>
+     
+     <action name="monkey"  class="com.spreadtrum.monkeytest.action.MonkeyHomeManagerAction" >
+            <result  name="success">/monkey.jsp</result>
+            <result type="redirectAction" name="jump">
+            	<param name="actionName">project</param>
+            	<param name="sortedProjectList">${sortedProjectList}</param>
+            	<param name="projectSearchNameString">${projectSearchNameString}</param>
+            </result>
+            
+     </action>
+      <action name="project"  class="com.spreadtrum.monkeytest.action.MonkeyDetailAction" method="monkeyDetail">
+            <result  name="success">/project.jsp</result>
+            <result  name="search">/formName.jsp</result>
+     </action>
+     
+     <action name="download" class="com.spreadtrum.monkeytest.action.ProjectDownloadAction">
+        <result type="stream">
+            <param name="bufferSize">2048</param>
+        </result>
+     </action>
+     
+     <!-- 
+     <action name="download"  class="com.spreadtrum.monkeytest.action.MonkeyDetailAction" method="download">
+            <result  name="success">
+            <param name="testFormName">${testFormName}</param>
+            </result>
+     </action>
+
+
+     <action name="project"  class="com.spreadtrum.monkeytest.action.MonkeyDetailAction" method="monkeyDetail">
+            <result  name="success">/project.jsp</result>
+            <result type="redirectAction" name="search">
+                    <param name="actionName">formName</param>
+                    <param name="type">${type}</param>
+                    <param name="searchProject">${searchProject}</param>
+            </result>
+     </action>
+ 
+     <action name="formName" class="com.spreadtrum.monkeytest.action.MonkeySearchAction">
+        <result name="success">/formName.jsp</result>
+     </action>
+-->
+    
+     </package>
+</struts>

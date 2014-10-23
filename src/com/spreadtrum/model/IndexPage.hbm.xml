@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.spreadtrum.model">
+	<class	name="IndexPage"	table="index_page">
+		<!-- 使用只读缓存 -->
+		<cache usage="read-only"/>
+		<!-- 映射标识属性 -->
+		<id	name="index_page_id" type="integer" column="index_page_id">
+			<!-- 指定使用identity主键生成策略 -->
+			<generator class="identity"/>
+		</id>
+		<!-- 映射普通属性team_members -->
+		<property name="team_members" column="team_members"
+			type="string" not-null="true" length="200"/>
+		
+        <!-- 映射普通属性location -->
+		<property name="location" column="location"
+			type="string" not-null="true" length="200"/>
+		
+	</class>
+</hibernate-mapping>
