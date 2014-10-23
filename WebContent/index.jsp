@@ -32,7 +32,7 @@
                         <a href="monkey.action" class="button blue medium">Monkey测试</a>
                     </li>
                     <li>
-                        <a href="#" class="button blue medium">Sanity_Smoke</a>
+                        <a href="sanity.action" class="button blue medium">Sanity_Smoke</a>
                     </li>
                     <li>
                         <a href="#" class="button blue medium">性能测试</a>
