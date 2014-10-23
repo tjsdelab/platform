@@ -52,12 +52,9 @@ public class SanityHomeManagerAction extends ActionSupport {
 		//获取SanityTestForm中的testFormName等信息
 		currentFormName = sanityForm.getTestFormName();
 		//通过表单名获取所有case
-		List<SanityTestInfo> allCaseList = null;
-		if(currentFormName != null){
-		allCaseList = sanityFormDAO.getSanityTestInfoByTableName(currentFormName);
-		}
-	//柱状图数据
+		List<SanityTestInfo> allCaseList = sanityFormDAO.getSanityTestInfoByTableName(currentFormName);
 		
+	
 		
 		
 		
@@ -66,6 +63,7 @@ public class SanityHomeManagerAction extends ActionSupport {
 		System.out.println("version：" + version);
 		System.out.println("当前工程：" + currentProject);
 		System.out.println("当前表单:" + currentFormName);
+	if(allCaseList != null){
 		for(int i = 0; i < allCaseList.size(); i++){
 			System.out.println("Case" + i + ":" + allCaseList.get(i));
 			//统计pass。fail等次数
@@ -83,6 +81,7 @@ public class SanityHomeManagerAction extends ActionSupport {
 				na++;
 			}
 		}
+	}
 		System.out.println("pass：" + pass);
 		System.out.println("fail：" + fail);
 		System.out.println("na：" + na);

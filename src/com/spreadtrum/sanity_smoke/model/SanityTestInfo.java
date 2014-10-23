@@ -102,7 +102,7 @@ public class SanityTestInfo {
 	@Override
 	public String toString() {
 		return "SanityTestInfo [id=" + id + ", caseID=" + caseID + ", model="
-				+ model + ", summary=" + summary + ", preconditions="
+				+ module + ", summary=" + summary + ", preconditions="
 				+ preconditions + ", importance=" + importance + ", actions="
 				+ actions + ", expectedResults=" + expectedResults
 				+ ", results=" + results + ", bugID=" + bugID + ", comments="
