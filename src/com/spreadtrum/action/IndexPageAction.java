@@ -10,8 +10,10 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.spreadtrum.model.*;
+import com.spreadtrum.sanity_smoke.dao.SanityProjectDAO;
 import com.spreadtrum.sanity_smoke.dao.SmokeProjectDAO;
 import com.spreadtrum.sanity_smoke.dao.SmokeTestFormDAO;
+import com.spreadtrum.sanity_smoke.dao.impl.SanityProjectDAOImpl;
 import com.spreadtrum.sanity_smoke.dao.impl.SmokeProjectDAOImpl;
 import com.spreadtrum.sanity_smoke.dao.impl.SmokeTestFormDAOImpl;
 import com.spreadtrum.sanity_smoke.model.SmokeTestInfo;
@@ -24,7 +26,7 @@ public class IndexPageAction extends ActionSupport {
 	private IndexPageDAO indexPageDAO = new IndexPageDAOImpl();
 	private NewsDAO newsDAO = new NewsDAOImpl();
 	private TestInfoDAO testInfoDAO = new TestInfoDAOImpl();
-	private SmokeProjectDAO SmokeProjectDAO = new SmokeProjectDAOImpl();
+	private SanityProjectDAO SmokeProjectDAO = new SanityProjectDAOImpl();
 	//private SanityTestInfo sanityTestInfo = new SanityTestInfo();
 	
 
@@ -73,7 +75,7 @@ public class IndexPageAction extends ActionSupport {
 		//sanityTestInfo = sanityProjectDAO.getSanityValidProjectName().get(0);
 
 
-        System.out.println("action print" + SmokeProjectDAO.getSmokeValidProjectName());
+        System.out.println("action print" + SmokeProjectDAO.getSanityValidProjectName());
 		
 	IndexPage indexPage=new IndexPage();
 	
