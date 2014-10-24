@@ -591,16 +591,19 @@ $(function () {
                                    <th>Results</th>
                                 </tr></thead>
                                 <tbody>
-                                <tr class="parent" id="row_01">
-                                <td>Sanity_001</td><td>system</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td style="background-color:#339933;">pass</td>
+                                <s:iterator value="#request.allCaseList" id="case">
+                                <tr>
+                                	<td><s:property value="#case.caseID"/></td>
+                                	<td><s:property value="#case.module"/></td>
+                                	<td><s:property value="#case.summary"/></td>
+                                	<td><s:property value="#case.preconditions"/></td>
+                                	<td><s:property value="#case.importance"/></td>
+                                	<td><s:property value="#case.actions"/></td>
+                                	<td><s:property value="#case.expectedResults"/></td>
+                                	<td><s:property value="#case.results"/></td>
                                 </tr>
-                                <tr class="child_row_01"><td>Sanity_001</td><td>system</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td style="background-color:#339933;">pass</td>
-                                </tr>
-                                <tr class="child_row_01"><td>Sanity_001</td><td>system</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td style="background-color:#339933;">pass</td>
-                                </tr></tbody>
+                                </s:iterator>
+                                </tbody>
 	                    </table>    
 			        </li>
 			        <li class="taps_con">

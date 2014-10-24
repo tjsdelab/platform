@@ -38,6 +38,13 @@ public class SanityHomeManagerAction extends ActionSupport {
 	private String naList;
 	private String blockList;
 	private List<String> modulesList = new ArrayList<String>();
+	List<SanityTestInfo> allCaseList = new ArrayList<SanityTestInfo>();
+	
+	//获取SanityTestFormDAO对象
+	SanityTestFormDAO sanityFormDAO = new SanityTestFormDAOImpl();
+	//获取第一个工程名的最新Form
+	SanityTestForm  sanityForm = new SanityTestForm();
+	
 	
 	public String execute(){
 		/***************************************************************************************************/
@@ -46,26 +53,17 @@ public class SanityHomeManagerAction extends ActionSupport {
 		SanityProjectDAOImpl sanityProjectList = new SanityProjectDAOImpl();
 		//下拉列表中的有效工程名
 		projectList = sanityProjectList.getSanityValidProjectName();
-		/***************************************************************************************************/
-		/*  通过工程名获取最新的表单  */
-		/***************************************************************************************************/
-		//获取SanityTestFormDAO对象
-		SanityTestFormDAO sanityFormDAO = new SanityTestFormDAOImpl();
-		//获取第一个工程名的最新Form
-		SanityTestForm  sanityForm = new SanityTestForm();
-		if(projectList != null){
-			currentProject = projectList.get(0);
-			sanityForm= sanityFormDAO.getSanityLastInfoByProject(currentProject);
-		}
-		//获取SanityTestForm中的Version等信息
-		version = sanityForm.getVersionForNum();
-		//获取SanityTestForm中的testFormName等信息
-		currentFormName = sanityForm.getTestFormName();
+		currentProject = projectList.get(0);
+		
+		/**************************/
+		/*通过工程名获得最新的表单名***/
+		/**************************/
+		getLastFormNameByProjectName();
 		
 		/***************************************************************************************************/
 		/*  通过表单名获取所有case  */
 		/***************************************************************************************************/
-		List<SanityTestInfo> allCaseList = sanityFormDAO.getSanityTestInfoByTableName(currentFormName);
+		allCaseList = sanityFormDAO.getSanityTestInfoByTableName(currentFormName);
 		
 		//结果类，存储各种状态的数目
 		ResultSequence seq = new ResultSequence();
@@ -96,7 +94,7 @@ public class SanityHomeManagerAction extends ActionSupport {
 			naList = seq.getNaList();
 			blockList = seq.getBlockList();
 
-		
+			  ServletActionContext.getRequest().setAttribute("allCaseList",allCaseList);
 			  ServletActionContext.getRequest().setAttribute("modulesList",modulesList );
 			  ServletActionContext.getRequest().setAttribute("passList",passList );
 			  ServletActionContext.getRequest().setAttribute("failList",failList );
@@ -116,7 +114,20 @@ public class SanityHomeManagerAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	public void getLastFormNameByProjectName(){
+		/***************************************************************************************************/
+		/*  通过工程名获取最新的表单  */
+		/***************************************************************************************************/
 	
+		if(projectList != null){
+			
+			sanityForm= sanityFormDAO.getSanityLastInfoByProject(currentProject);
+		}
+		//获取SanityTestForm中的Version等信息
+		version = sanityForm.getVersionForNum();
+		//获取SanityTestForm中的testFormName等信息
+		currentFormName = sanityForm.getTestFormName();
+	}
 	
 	
 	public String getCurrentProject() {
@@ -208,6 +219,14 @@ public class SanityHomeManagerAction extends ActionSupport {
 	}
 	public void setModulesList(List<String> modulesList) {
 		this.modulesList = modulesList;
+	}
+
+	public List<SanityTestInfo> getAllCaseList() {
+		return allCaseList;
+	}
+
+	public void setAllCaseList(List<SanityTestInfo> allCaseList) {
+		this.allCaseList = allCaseList;
 	}
 	
 	}
