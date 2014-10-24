@@ -99,6 +99,15 @@ public class SanityTestInfo {
 	public void setManualFlag(int manualFlag) {
 		this.manualFlag = manualFlag;
 	}
+	@Override
+	public String toString() {
+		return "SanityTestInfo [id=" + id + ", caseID=" + caseID + ", model="
+				+ module + ", summary=" + summary + ", preconditions="
+				+ preconditions + ", importance=" + importance + ", actions="
+				+ actions + ", expectedResults=" + expectedResults
+				+ ", results=" + results + ", bugID=" + bugID + ", comments="
+				+ comments + ", manualFlag=" + manualFlag + "]";
+	}
 
 	
 }

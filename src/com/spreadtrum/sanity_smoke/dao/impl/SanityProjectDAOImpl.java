@@ -36,7 +36,7 @@ public class SanityProjectDAOImpl implements SanityProjectDAO {
 		        new HibernateUtilForSS().closeSession(session);
 		        } 
 
-		     
+
 		return results!=null&&results.size()>0?(List<String>)results:null;
 	}
 
