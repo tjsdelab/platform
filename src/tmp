@@ -1,6 +1,0 @@
-com/spreadtrum/monkeytest/dao/impl/TestFormDAOImpl.java:67:		System.out.println(hql);
-com/spreadtrum/monkeytest/dao/impl/TestFormDAOImpl.java:90:		System.out.println(hql);
-com/spreadtrum/monkeytest/dao/impl/TestFormDAOImpl.java:115:		System.out.println(hql);
-com/spreadtrum/monkeytest/dao/impl/TestFormDAOImpl.java:139:		System.out.println(hql);
-com/spreadtrum/monkeytest/dao/impl/TestFormDAOImpl.java:162:		System.out.println(hql);
-com/spreadtrum/monkeytest/dao/impl/TestFormDAOImpl.java:185:		System.out.println(hql);
