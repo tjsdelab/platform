@@ -17,14 +17,14 @@ public class SanityProjectDAOImpl implements SanityProjectDAO {
 	public List<String> getSanityValidProjectName() {
 		String hql;
 		List<String> results = null;
-		hql = "select projectName from SanityProject as sp where sp.vaildFlag=1 order by sp.id ";
+		hql = "select projectName from SanityProject as sp where sp.validFlag=1 order by sp.id ";
 		
 	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象
 		org.hibernate.Session session = new HibernateUtilForSS().openSession();
 		Transaction tx = session.beginTransaction();
 		try{
 		    //开启事务
-			results = session.createSQLQuery(hql).list();
+			results = session.createQuery(hql).list();
 
                     //返回全部的记录集       
     //遍历结果集

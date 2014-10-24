@@ -9,7 +9,7 @@ public class SmokeProject {
 	private int id;
 	private String projectName;
 	private String emailTo;
-	private int vaildFlag;
+	private int validFlag;
 	@Id
     @GeneratedValue
 	public int getId() {
@@ -30,11 +30,10 @@ public class SmokeProject {
 	public void setEmailTo(String emailTo) {
 		this.emailTo = emailTo;
 	}
-	public int getVaildFlag() {
-		return vaildFlag;
+	public int getValidFlag() {
+		return validFlag;
 	}
-	public void setVaildFlag(int vaildFlag) {
-		this.vaildFlag = vaildFlag;
+	public void setValidFlag(int validFlag) {
+		this.validFlag = validFlag;
 	}	
-	
 }
