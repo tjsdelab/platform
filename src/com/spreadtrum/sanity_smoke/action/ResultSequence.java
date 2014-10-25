@@ -11,42 +11,34 @@ private String passList="";
 private String failList="";
 private String naList="";
 private String blockList="";
+private int total = 0;
+private int pass = 0;
+private int fail = 0;
+private int na = 0;
+private int block = 0;
 private	Map<String, ArrayList<Integer>> map = new TreeMap<String, ArrayList<Integer>>();
 
-public ResultSequence() {
-	// TODO Auto-generated constructor stub
-	map.put("phone",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("filemanager",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("mms",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("sms",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("flymode",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("blacklight",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("dialer",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("gallery",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("calender",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("alarm",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("music",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("video",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("camera",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("browers",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("map",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("calculator",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("recording",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-	map.put("radio",new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
-}
 
 void addModuleToSequence(String module,String result){
-	if(result.equals("pass")){
+	if(map.get(module) == null){
+	map.put(module, new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
+	}
+
+	if(result.equals("Pass")){
 		map.get(module).set(0, map.get(module).get(0) + 1);
+		pass++;
 	}
-	else if (result.equals("fail")) {
+	else if (result.equals("Fail")) {
 		map.get(module).set(1, map.get(module).get(1) + 1);
+		fail++;
 	}
-	else if (result.equals("block")) {
+	else if (result.equals("Block")) {
 		map.get(module).set(2, map.get(module).get(2) + 1);
+		block++;
 	}
-	else if (result.equals("na")) {
+	else if (result.equals("N/A")) {
 		map.get(module).set(3, map.get(module).get(3) + 1);
+		na++;
 	}
 }
 
@@ -97,6 +89,40 @@ public String getBlockList() {
 	blockList = blockList.substring(0, blockList.length() - 1);
 	return blockList;
 }
+
+public int getTotal() {
+	total = pass + fail + na + block;
+	return total;
+}
+
+
+
+public int getPass() {
+	return pass;
+}
+
+
+
+public int getFail() {
+	return fail;
+}
+
+
+
+public int getNa() {
+	return na;
+}
+
+
+
+public int getBlock() {
+	return block;
+}
+
+
+
+
+
 
 
 

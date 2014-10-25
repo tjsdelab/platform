@@ -1,11 +1,14 @@
 package com.spreadtrum.sanity_smoke.action;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.sound.midi.Sequence;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.spreadtrum.sanity_smoke.dao.SanityTestFormDAO;
@@ -24,41 +27,44 @@ public class SanityHomeManagerAction extends ActionSupport {
 	private String currentProject;
 	private String currentFormName;
 	private String version;
+	private int total = 0;
 	private int pass = 0;
 	private int fail = 0;
 	private int na = 0;
 	private int block = 0;
+	private String pass_ratio;
 	private String passList;
 	private String failList;
 	private String naList;
 	private String blockList;
+	private List<String> modulesList = new ArrayList<String>();
+	List<SanityTestInfo> allCaseList = new ArrayList<SanityTestInfo>();
+	
+	//获取SanityTestFormDAO对象
+	SanityTestFormDAO sanityFormDAO = new SanityTestFormDAOImpl();
+	//获取第一个工程名的最新Form
+	SanityTestForm  sanityForm = new SanityTestForm();
 	
 	
 	public String execute(){
+		/***************************************************************************************************/
+		/*  获取有效工程名  */
+		/***************************************************************************************************/
 		SanityProjectDAOImpl sanityProjectList = new SanityProjectDAOImpl();
 		//下拉列表中的有效工程名
 		projectList = sanityProjectList.getSanityValidProjectName();
+		currentProject = projectList.get(0);
 		
-		//获取SanityTestFormDAO对象
-		SanityTestFormDAO sanityFormDAO = new SanityTestFormDAOImpl();
-		//获取第一个工程名的最新Form
-		SanityTestForm  sanityForm = new SanityTestForm();
-		if(projectList != null){
-			currentProject = projectList.get(0);
-			sanityForm= sanityFormDAO.getSanityLastInfoByProject(currentProject);
-		}
-		//获取SanityTestForm中的Version等信息
-		version = sanityForm.getVersionForNum();
-		//获取SanityTestForm中的testFormName等信息
-		currentFormName = sanityForm.getTestFormName();
-		//通过表单名获取所有case
-		List<SanityTestInfo> allCaseList = sanityFormDAO.getSanityTestInfoByTableName(currentFormName);
+		/**************************/
+		/*通过工程名获得最新的表单名***/
+		/**************************/
+		getLastFormNameByProjectName();
 		
-
-		System.out.println("下拉列表中的数据：" + projectList);
-		System.out.println("version：" + version);
-		System.out.println("当前工程：" + currentProject);
-		System.out.println("当前表单:" + currentFormName);
+		/***************************************************************************************************/
+		/*  通过表单名获取所有case  */
+		/***************************************************************************************************/
+		allCaseList = sanityFormDAO.getSanityTestInfoByTableName(currentFormName);
+		
 		//结果类，存储各种状态的数目
 		ResultSequence seq = new ResultSequence();
 	if(allCaseList != null){
@@ -69,42 +75,61 @@ public class SanityHomeManagerAction extends ActionSupport {
 			String result = allCaseList.get(i).getResults();
 			String module = allCaseList.get(i).getModule();
 			seq.addModuleToSequence(module, result);
-			if(result.equals("Pass")){
-				pass++;
-			}
-			else if (result.equals("Fail")) {
-				fail++;
-			}
-			else if (result.equals("Block")) {
-				block++;
-			}
-			else if (result.equals("N/A")) {
-				na++;
-			}
 		}
 	}
 	
+
+			 total = seq.getTotal();
+			 pass = seq.getPass();
+			 fail = seq.getFail();
+			 na = seq.getNa();
+			 block = seq.getBlock();
+			 NumberFormat format = NumberFormat.getPercentInstance();// 获取格式化类实例 
+		     format.setMinimumFractionDigits(2);// 设置小数位 
+		     pass_ratio = format.format(pass*1.0/total*1.0);
 	
-		System.out.println("pass：" + pass);
-		System.out.println("fail：" + fail);
-		System.out.println("na：" + na);
-		System.out.println("block：" + block);
+		    modulesList = seq.getModulesList();
+			passList = seq.getPassList();
+			failList = seq.getFailList();
+			naList = seq.getNaList();
+			blockList = seq.getBlockList();
 
-		System.out.println("模块列表：" + seq.getModulesList());
-		System.out.println("pass序列：" + seq.getPassList());
-		System.out.println("fail序列：" + seq.getFailList());
-		System.out.println("na序列：" + seq.getNaList());
-		System.out.println("block序列：" + seq.getBlockList());
+			  ServletActionContext.getRequest().setAttribute("allCaseList",allCaseList);
+			  ServletActionContext.getRequest().setAttribute("modulesList",modulesList );
+			  ServletActionContext.getRequest().setAttribute("passList",passList );
+			  ServletActionContext.getRequest().setAttribute("failList",failList );
+			  ServletActionContext.getRequest().setAttribute("naList",naList );
+			  ServletActionContext.getRequest().setAttribute("blockList",blockList );
 
-		
-		
-		
-		
-		
-		
-		System.out.println();
+
 		return SUCCESS;
 	}
+	
+	public String changeProject(){
+		
+		return SUCCESS;
+	}
+	public String search(){
+		
+		return SUCCESS;
+	}
+
+	public void getLastFormNameByProjectName(){
+		/***************************************************************************************************/
+		/*  通过工程名获取最新的表单  */
+		/***************************************************************************************************/
+	
+		if(projectList != null){
+			
+			sanityForm= sanityFormDAO.getSanityLastInfoByProject(currentProject);
+		}
+		//获取SanityTestForm中的Version等信息
+		version = sanityForm.getVersionForNum();
+		//获取SanityTestForm中的testFormName等信息
+		currentFormName = sanityForm.getTestFormName();
+	}
+	
+	
 	public String getCurrentProject() {
 		return currentProject;
 	}
@@ -176,6 +201,32 @@ public class SanityHomeManagerAction extends ActionSupport {
 	}
 	public void setBlockList(String blockList) {
 		this.blockList = blockList;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public String getPass_ratio() {
+		return pass_ratio;
+	}
+	public void setPass_ratio(String pass_ratio) {
+		this.pass_ratio = pass_ratio;
+	}
+	public List<String> getModulesList() {
+		return modulesList;
+	}
+	public void setModulesList(List<String> modulesList) {
+		this.modulesList = modulesList;
+	}
+
+	public List<SanityTestInfo> getAllCaseList() {
+		return allCaseList;
+	}
+
+	public void setAllCaseList(List<SanityTestInfo> allCaseList) {
+		this.allCaseList = allCaseList;
 	}
 	
 	}

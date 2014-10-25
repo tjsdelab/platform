@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import="java.util.ArrayList" %>
+<%
+	String pass = (String)request.getAttribute("passList");
+String fail = (String)request.getAttribute("failList");
+String na = (String)request.getAttribute("naList");
+String block = (String)request.getAttribute("blockList");
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -308,6 +315,11 @@ Highcharts.setOptions({
 	});
 
 $(function () {
+	 var ticks = [];
+	    <s:iterator  value="#request.modulesList" id="item">
+	       var value = "<s:property value="item" />";
+	       ticks.push(value);
+	    </s:iterator>
     $('#container').highcharts({
         chart: {
             type: 'column',
@@ -321,10 +333,11 @@ $(function () {
             text: ''
                },
         xAxis: {
-            categories: ['phone', 'filemanager', 'mms', 'sms','flymode','blacklight',
-                         'dialer','gallery','calender','alarm','music','video',
-                         'camera','browers','map','calculator','recording','radio'
-                         ],
+           // categories: ['phone', 'filemanager', 'mms', 'sms','flymode','blacklight',
+                         //'dialer','gallery','calender','alarm','music','video',
+                        // 'camera','browers','map','calculator','recording','radio'
+                       //  ],
+                categories:ticks,
             
             gridLineWidth: 1, 
             gridLineColor:'#FFDAB9',
@@ -404,18 +417,18 @@ $(function () {
 		}, 
         series:[{
             name: 'Block',
-            data: [5,4, 3, 2, 1, 0, 5,4, 3, 2, 1, 0, 5,4, 3, 2, 1, 0]
+            data: [<%=block%>]
         }, {
             name: 'NA',
-            data: [2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4]
+            data: [<%=na%>]
         }, {
             name: 'Fail',
-            data:[10, 10, 10, 10, 1]
+            data:[<%=fail%>]
         },
         {
             name: 'Pass',
-            data:[40, 40, 40, 50, 50,50,60, 60, 60, 70, 70,70,40, 40, 40, 50, 50,50]
-            	
+            data:[<%=pass%>]
+            
         }
         ]
 });
@@ -502,7 +515,7 @@ $(function () {
 	      
 <!-- select module -->
          <div style="text-align:left;padding-left:25px;font-size:18px;margin-top:-20px;">
-         <s:select style="width:300px;text-align:center;" id="auto" list="#{'project1':'sp9630_mainTrunk','project2':'sp9630_cmcc','project3':'sp7731gea'}" name="type"></s:select>
+         <s:select style="width:300px;text-align:center;" id="auto" list="projectList" name="currentProject"></s:select>
          </div><br><br>
 <!-- table 1 -->
          <div class="summary" >
@@ -518,19 +531,13 @@ $(function () {
                      <th>Pass-ratio</th>
                      </tr>
                      <tr>
-                     <!-- <td><s:property value="#request.overallTimeInfo.testVersion"/></td>
-                     <td><s:property value="#request.overallTimeInfo.averageStopTime"/></td>
-                     <td><s:property value="#request.overallTimeInfo.averageMiddleTime"/></td>
-                     <td><s:property value="#request.overallTimeInfo.firstErrAverageTime"/></td>
-                     <td><s:property value="#request.overallTimeInfo.firstErrMiddleTime"/></td>
-                     <td><s:property value="#request.overallTimeInfo.averJavaCrashCount"/></td>-->
-                     <td>W14-42-1</td>
-                     <td>74</td>
-                     <td>70</td>
-                     <td>4</td>
-                     <td>0</td>
-                     <td>0</td>
-                     <td>94.59%</td>
+                     <td><s:property value="version"/></td>
+                     <td><s:property value="total"/></td>
+                     <td><s:property value="pass"/></td>
+                     <td><s:property value="fail"/></td>
+                     <td><s:property value="na"/></td>
+                     <td><s:property value="block"/></td>
+                     <td><s:property value="pass_ratio"/></td>
                      </tr>
                    </table>           
          </div><br><br>
@@ -584,16 +591,19 @@ $(function () {
                                    <th>Results</th>
                                 </tr></thead>
                                 <tbody>
-                                <tr class="parent" id="row_01">
-                                <td>Sanity_001</td><td>system</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td style="background-color:#339933;">pass</td>
+                                <s:iterator value="#request.allCaseList" id="case">
+                                <tr>
+                                	<td><s:property value="#case.caseID"/></td>
+                                	<td><s:property value="#case.module"/></td>
+                                	<td><s:property value="#case.summary"/></td>
+                                	<td><s:property value="#case.preconditions"/></td>
+                                	<td><s:property value="#case.importance"/></td>
+                                	<td><s:property value="#case.actions"/></td>
+                                	<td><s:property value="#case.expectedResults"/></td>
+                                	<td><s:property value="#case.results"/></td>
                                 </tr>
-                                <tr class="child_row_01"><td>Sanity_001</td><td>system</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td style="background-color:#339933;">pass</td>
-                                </tr>
-                                <tr class="child_row_01"><td>Sanity_001</td><td>system</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td style="background-color:#339933;">pass</td>
-                                </tr></tbody>
+                                </s:iterator>
+                                </tbody>
 	                    </table>    
 			        </li>
 			        <li class="taps_con">
@@ -622,11 +632,11 @@ $(function () {
 			        </li>
 		         <li class="taps_con">
                     <div style="font-size:14px;padding-left:29px;">
-                    <span><a href="#">SP7731GEA-UUI-W14-43-2-01</a></span>
+                    <span>SP7731GEA-UUI-W14-43-2-01</span>
                     <br><strong><span><a style="text-align:left;">测试版本路径:</a></span></strong>
-                    <span><a style="text-align:left;color:#0000ff;text-decoration: underline;" target="_blank" href="#">http://10</a></span>
-                    <br><strong><span><a style="text-align:left">PAC:</a></span></strong>
-                    <span><a style="text-align:left;" href="#">scx35_sp7731geacuccspecBplus_UUI_dt-userdebug-native.pac.gz</a></span><br><br>
+                    <span>http://10.5.2.48</span>
+                    <br><strong><span>PAC:</span></strong>
+                    <span>scx35_sp7731geacuccspecBplus_UUI_dt-userdebug-native.pac.gz</span><br><br>
                 </div>              
                 </li>
 			 </ul>
