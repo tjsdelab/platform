@@ -40,7 +40,7 @@ public class SanityHomeManagerAction extends ActionSupport {
 	private String searchProject;
 	private List<String> modulesList = new ArrayList<String>();
 	private List<SanityTestInfo> allCaseList = new ArrayList<SanityTestInfo>();
-	
+	private List<SanityTestInfo> allCaseList_auto = new ArrayList<SanityTestInfo>();
 	//获取SanityTestFormDAO对象
 	private SanityTestFormDAO sanityFormDAO = new SanityTestFormDAOImpl();
 	//获取第一个工程名的最新Form
@@ -57,7 +57,7 @@ public class SanityHomeManagerAction extends ActionSupport {
 			version = sanityFormDAO.getSanityFormByTableName(currentFormName).getVersionForNum();
 			System.out.println("version:" + version);
 			//获取comment
-			//comment = (String)sanityFormDAO.getSanityTestPropByTableName("comments", currentFormName);
+			comment = sanityFormDAO.getSanityFormByTableName(currentFormName).getComments();
 			//获取pac路径：
 			pac = sanityFormDAO.getSanityFormByTableName(currentFormName).getPacPath();
 			System.out.println("pac:" + pac);
@@ -112,12 +112,15 @@ public class SanityHomeManagerAction extends ActionSupport {
 		//结果类，存储各种状态的数目
 		ResultSequence seq = new ResultSequence();
 	if(allCaseList != null){
-		for(int i = 0; i < allCaseList.size(); i++){
-			//System.out.println("Case" + i + ":" + allCaseList.get(i).getId());
-			
+		for(int i = 0; i < allCaseList.size(); i++){			
 			//统计pass。fail等次数
 			String result = allCaseList.get(i).getResults();
 			String module = allCaseList.get(i).getModule();
+			int  manualString = allCaseList.get(i).getManualFlag();
+			if(manualString == 1){
+				allCaseList_auto.add(allCaseList.get(i));
+				allCaseList.remove(i);
+			}
 			seq.addModuleToSequence(module, result);
 		}
 	}
@@ -139,6 +142,8 @@ public class SanityHomeManagerAction extends ActionSupport {
 			blockList = seq.getBlockList();
 
 			  ServletActionContext.getRequest().setAttribute("allCaseList",allCaseList);
+			  ServletActionContext.getRequest().setAttribute("allCaseList_auto",allCaseList_auto);
+
 			  ServletActionContext.getRequest().setAttribute("modulesList",modulesList );
 			  ServletActionContext.getRequest().setAttribute("passList",passList );
 			  ServletActionContext.getRequest().setAttribute("failList",failList );

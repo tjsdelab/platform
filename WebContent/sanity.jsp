@@ -232,8 +232,8 @@ $(function () {
         	var date = $("#searchProject").val();
         	if(!dateValid.test(date)){
         		   alert("日期格式不正确,请写成 yyyy-mm-dd 格式");	
+                   return false;
         	}
-        	return false;
         	}
         });
     });
@@ -400,7 +400,7 @@ $(function () {
                                    <th width="5%">BugID</th>
                                 </tr></thead>
                                  <tbody>
-                                <s:iterator value="#request.allCaseList" id="case">
+                                <s:iterator value="#request.allCaseList_auto" id="case">
                                 <tr>
                                     <td><s:property value="#case.caseID"/></td>
                                     <td id="result"><s:property value="#case.results"/></td>
@@ -430,18 +430,19 @@ $(function () {
                                    <th width="5%">BugID</th>
                                 </tr></thead>
                                 <tbody>
-                                <tr class="parent" id="row_01"><td>Sanity_001</td> <td style="background-color:#339933;">pass</td><td>system</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td></tr>
-                                <tr class="child_row_01"><td>Sanity_001.1</td> <td style="background-color:#339933;">pass</td><td>setting</td><td>log输出</td><td>1、进入文件管理器2、找到SD卡存储公司可根据色结果快速结果空间思考可根据司空见惯快速结果快速的估计司空见惯快速三个健康司机</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td></tr>
-                                <tr class="child_row_01"><td>Sanity_001.2</td> <td style="background-color:#339933;">pass</td><td>setting</td><td>log输出</td><td>aphagamabelta</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td></tr>
-                                <tr class="parent" id="row_02"><td>Sanity_002</td> <td style="background-color:#339933;">pass</td><td>system</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td></tr>
-                                <tr class="child_row_02" id="t1"><td>Sanity_002.1</td> <td style="background-color:#339933;">pass</td><td>setting</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td></tr>
-                                <tr class="child_row_02"><td>Sanity_002.2</td> <td style="background-color:#339933;">pass</td><td>setting</td><td>log输出</td><td>aphagamabelta</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td></tr>
+                               <s:iterator value="#request.allCaseList" id="case">
+                                <tr>
+                                    <td><s:property value="#case.caseID"/></td>
+                                    <td id="result"><s:property value="#case.results"/></td>
+                                    <td><s:property value="#case.module"/></td>
+                                    <td><s:property value="#case.summary"/></td>
+                                    <td><s:property value="#case.preconditions"/></td>
+                                    <td><s:property value="#case.importance"/></td>
+                                    <td><s:property value="#case.actions"/></td>
+                                    <td><s:property value="#case.expectedResults"/></td>
+                                    <td><s:property value="#case.bugID"/></td>
+                                </tr>
+                                </s:iterator>
                                 </tbody>
                         </table>    
                     </li>
