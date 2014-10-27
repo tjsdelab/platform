@@ -45,7 +45,7 @@
      	</result>
      </action>
      
-     <action name="sanityForm">
+     <action name="sanityForm" class="com.spreadtrum.sanity_smoke.action.SanityFormNameAction">
         <result name="success">/SanityFormName.jsp</result>
      </action>
      

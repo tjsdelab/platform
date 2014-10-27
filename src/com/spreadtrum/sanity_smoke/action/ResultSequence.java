@@ -109,8 +109,6 @@ public int getPass() {
 	return pass;
 }
 
-
-
 public int getFail() {
 	return fail;
 }

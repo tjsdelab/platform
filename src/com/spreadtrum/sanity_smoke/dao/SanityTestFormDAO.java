@@ -19,6 +19,11 @@ public interface SanityTestFormDAO  {
 	//通过测试表单名获得SanityTestInfo表中所有信息
 	public List<SanityTestInfo> getSanityTestInfoByTableName(String tableName);
 	
+	//通过工程名和属性名获得SanityTestForm表中某字段
+	public <T> T getSanityFormPropByTableName(String prop,String tableName);
+	//通过工程名和属性名获得SanityTestForm表中某字段
+	public SanityTestForm getSanityFormByTableName(String tableName);	
+	
 	//通过工程搜索测试表名
 	public List<SanityTestForm> searchSanityTableNameByProject(String project);
 	//通过版次搜索测试表名

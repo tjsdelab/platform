@@ -192,4 +192,44 @@ public class SanityTestFormDAOImpl implements SanityTestFormDAO {
 		     
 		return results!=null&&results.size()>0?(List<SanityTestForm>)results:null;
 	}
+
+	@Override
+	public <T> T getSanityFormPropByTableName(String prop, String tableName) {
+		String hql;
+		List<T> results = null;
+		hql = "select stf."+ prop +" from SanityTestForm as stf where stf.testFormName='"+ tableName +"' ";
+	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象
+		org.hibernate.Session session = new HibernateUtilForSS().openSession();
+		Transaction tx = session.beginTransaction();
+		try{
+			results = session.createQuery(hql).list();
+		    tx.commit();
+		} catch (HibernateException e) { //捕捉异常
+		    e.printStackTrace();
+		    tx.rollback();
+		    } finally {
+		        new HibernateUtilForSS().closeSession(session);
+		        } 		     
+		return results!=null&&results.size()>0?(T)results.get(0):null;	
+	}
+
+	@Override
+	public SanityTestForm getSanityFormByTableName(String tableName) {
+		String hql;
+		List<SanityTestForm> results = null;
+		hql = "from SanityTestForm as stf where stf.testFormName='"+ tableName +"' ";
+	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象
+		org.hibernate.Session session = new HibernateUtilForSS().openSession();
+		Transaction tx = session.beginTransaction();
+		try{
+			results = session.createQuery(hql).list();
+		    tx.commit();
+		} catch (HibernateException e) { //捕捉异常
+		    e.printStackTrace();
+		    tx.rollback();
+		    } finally {
+		        new HibernateUtilForSS().closeSession(session);
+		        } 		     
+		return results!=null&&results.size()>0?(SanityTestForm)results.get(0):null;	
+	}
 }
