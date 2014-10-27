@@ -1,13 +1,13 @@
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+    <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>表单号选择</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Sanity表单号选择界面</title>
+</head>
+<link rel="stylesheet" href="css/style.css" type="text/css">
     <script type="text/javascript" src="jqplot/jquery.js"></script>
     
     <style>
@@ -78,30 +78,12 @@ width:150px;height:40px;
 {
 background-color:#A7C942;color:#ffffff;text-align:center;
 }
-#display
-{
-display:none;
-}
-</style>
-<script>
-$(document).ready(function(){
-	$(".link").click(function(){
-		$("#input").val($(this).attr("href"));
-		$("#submit").click();
-		//alert($(this).attr("href"));
-		return false;
-	});
-});
-</script>
-</head>
-<body>
 
-<s:form action="project" theme="simple">
+</style>
+<body>
+<s:form action="sanityForm" theme="simple">
 <div class="page">
-            <div id="display">  
-	            <s:textfield id="input" name="testFormName"></s:textfield>
-	            <s:submit id="submit" value="详情" method="getInfoByForm"></s:submit>
-            </div>
+           
        <div class="table" >
               <h3 style="margin-left:0px;">请在下面选择表单号:</h3>
                 <table width="100%">
@@ -114,17 +96,16 @@ $(document).ready(function(){
                 <s:iterator value="testFormList" id="form">
                     <tr>
                            <td class="td" style="cursor:pointer">
-                           			<a href="<s:property value="#form.formName"/>" class="link">
-                           			<s:property value="#form.formName"/></a></td>
-                           <td class="td"><s:property value="#form.hardwareInfo"/></td>
-                           <td class="td"><s:property value="#form.pacVersion"/></td>
-                           <td class="td"><s:property value="#form.tdate"/></td>      
+                           <a class="link" href="sanity?currentFormName=<s:property value="#form.testFormName"/>"> 
+                           <s:property value="#form.testFormName"/></a></td>
+                           <td class="td"><s:property value="#form.versionForHardware"/></td>
+                           <td class="td"><s:property value="#form.versionForNum"/></td>
+                           <td class="td"><s:property value="#form.testDate"/></td>      
                     </tr>
                 </s:iterator>
                    </table>         
          </div><br><br>
         </div>
         </s:form>
-        </body>
-
+</body>
 </html>
