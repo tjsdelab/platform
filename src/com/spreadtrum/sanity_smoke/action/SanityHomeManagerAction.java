@@ -2,11 +2,8 @@ package com.spreadtrum.sanity_smoke.action;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.sound.midi.Sequence;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -26,6 +23,7 @@ public class SanityHomeManagerAction extends ActionSupport {
 	private List<String> projectList = new ArrayList<String>();
 	private String currentProject;
 	private String currentFormName;
+	private String comment;
 	private String version;
 	private int total = 0;
 	private int pass = 0;
@@ -38,33 +36,62 @@ public class SanityHomeManagerAction extends ActionSupport {
 	private String naList;
 	private String blockList;
 	private List<String> modulesList = new ArrayList<String>();
-	List<SanityTestInfo> allCaseList = new ArrayList<SanityTestInfo>();
+	private List<SanityTestInfo> allCaseList = new ArrayList<SanityTestInfo>();
 	
 	//获取SanityTestFormDAO对象
-	SanityTestFormDAO sanityFormDAO = new SanityTestFormDAOImpl();
+	private SanityTestFormDAO sanityFormDAO = new SanityTestFormDAOImpl();
 	//获取第一个工程名的最新Form
-	SanityTestForm  sanityForm = new SanityTestForm();
+	private SanityTestForm  sanityForm = new SanityTestForm();
+	private SanityProjectDAOImpl sanityProjectList = new SanityProjectDAOImpl();
 	
 	
 	public String execute(){
-		/***************************************************************************************************/
-		/*  获取有效工程名  */
-		/***************************************************************************************************/
-		SanityProjectDAOImpl sanityProjectList = new SanityProjectDAOImpl();
-		//下拉列表中的有效工程名
-		projectList = sanityProjectList.getSanityValidProjectName();
+		//有无有效工程，分开处理
+
+		if(sanityProjectList.getSanityValidProjectName() != null){
+			getValidProject();
+			System.out.println("projectList:" + projectList);
 		currentProject = projectList.get(0);
 		
 		/**************************/
 		/*通过工程名获得最新的表单名***/
 		/**************************/
 		getLastFormNameByProjectName();
+		getAllCaseByFormName();
 		
+		}
+		return SUCCESS;
+	}
+	
+	public String dropDownProject(){
+		getValidProject();
+		/**************************/
+		/*通过工程名获得最新的表单名***/
+		/**************************/
+		getLastFormNameByProjectName();
+		getAllCaseByFormName();
+		return SUCCESS;
+	}
+	public String search(){
+		
+		return SUCCESS;
+	}
+	public void getValidProject(){
 		/***************************************************************************************************/
-		/*  通过表单名获取所有case  */
+		/*  获取有效工程名  */
 		/***************************************************************************************************/
+		
+		//下拉列表中的有效工程名
+		projectList = sanityProjectList.getSanityValidProjectName();
+	}
+	
+	
+	/***************************************************************************************************/
+	/*  通过表单名获取所有case  */
+	/***************************************************************************************************/
+	public void getAllCaseByFormName(){
+		if(sanityFormDAO.getSanityTestInfoByTableName(currentFormName) != null){
 		allCaseList = sanityFormDAO.getSanityTestInfoByTableName(currentFormName);
-		
 		//结果类，存储各种状态的数目
 		ResultSequence seq = new ResultSequence();
 	if(allCaseList != null){
@@ -100,33 +127,24 @@ public class SanityHomeManagerAction extends ActionSupport {
 			  ServletActionContext.getRequest().setAttribute("failList",failList );
 			  ServletActionContext.getRequest().setAttribute("naList",naList );
 			  ServletActionContext.getRequest().setAttribute("blockList",blockList );
-
-
-		return SUCCESS;
-	}
-	
-	public String changeProject(){
+		}
 		
-		return SUCCESS;
 	}
-	public String search(){
-		
-		return SUCCESS;
-	}
-
 	public void getLastFormNameByProjectName(){
 		/***************************************************************************************************/
 		/*  通过工程名获取最新的表单  */
 		/***************************************************************************************************/
 	
-		if(projectList != null){
-			
+			if(sanityFormDAO.getSanityLastInfoByProject(currentProject) != null){
 			sanityForm= sanityFormDAO.getSanityLastInfoByProject(currentProject);
-		}
+			
 		//获取SanityTestForm中的Version等信息
 		version = sanityForm.getVersionForNum();
 		//获取SanityTestForm中的testFormName等信息
 		currentFormName = sanityForm.getTestFormName();
+		//获取comment
+		comment = sanityForm.getComments();
+			}
 	}
 	
 	
@@ -227,6 +245,14 @@ public class SanityHomeManagerAction extends ActionSupport {
 
 	public void setAllCaseList(List<SanityTestInfo> allCaseList) {
 		this.allCaseList = allCaseList;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 	}

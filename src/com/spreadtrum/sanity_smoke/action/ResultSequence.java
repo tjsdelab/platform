@@ -56,7 +56,9 @@ public String getPassList() {
 	for(String key : modulesList){
 		passList += map.get(key).get(0) + ",";
 	}
+	if(passList.length() > 0){
 	passList = passList.substring(0, passList.length() - 1);
+	}
 	return passList;
 }
 
@@ -66,7 +68,9 @@ public String getFailList() {
 	for(String key : modulesList){
 		failList += map.get(key).get(1) + ",";
 	}
+	if(failList.length() > 0){
 	failList = failList.substring(0, failList.length() - 1);
+	}
 	return failList;
 }
 
@@ -76,7 +80,9 @@ public String getNaList() {
 	for(String key : modulesList){
 		naList += map.get(key).get(2) + ",";
 	}
+	if(naList.length() > 0){
 	naList = naList.substring(0, naList.length() - 1);
+	}
 	return naList;
 }
 
@@ -86,7 +92,9 @@ public String getBlockList() {
 	for(String key : modulesList){
 		blockList += map.get(key).get(3) + ",";
 	}
+	if(blockList.length() > 0){
 	blockList = blockList.substring(0, blockList.length() - 1);
+	}
 	return blockList;
 }
 

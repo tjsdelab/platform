@@ -1,0 +1,387 @@
+@CHARSET "UTF-8";
+body {
+   /* background:url(../images/bg-body.jpg);*/
+   /* background:#0099cc;*/
+   background:#ffffff;
+   font-family:"Microsoft YaHei";
+   font-weight: normal;
+   width:1100px;
+   margin:0 auto;
+}
+.page {
+    overflow:hidden;
+    border-radius:10px;
+}
+#form {
+    font-size:13px;
+    color:#B5B5B5;
+    padding:10px 10px 0 10px;
+    text-align:center;
+    margin-top:310px;
+}
+.right {
+     border-radius:10px;
+    float:left;
+    /*width:1000px;*/
+    width:935px;
+    position: relative;
+    height:auto;
+    border-color: #dfdfdf;
+    border-width: 1px;
+    background:#f0ffff;
+   -moz-box-shadow: 0 0 5px 3px #d3d3d3;
+   -webkit-box-shadow: 0 0 5px 3px #d3d3d3;
+    box-shadow: 0 0 5px 3px #d3d3d3;
+    
+}
+.right_whole{
+    /* border-radius:8px;*/
+    /*background:#99ccff;*/
+    
+    /*-moz-box-shadow: 0 0 5px 3px #d3d3d3;*/
+    /*-webkit-box-shadow: 0 0 5px 3px #d3d3d3;*/
+    /*box-shadow: 0 0 5px 3px #d3d3d3;*/
+     overflow:hidden;
+     float:left;
+    /* padding-left:20px;*/
+     width:935px;
+     min-height:1000px;
+     position: relative; 
+}
+.blue {
+        background:#33ddcc;
+       /* background:#33ffcc;*/    
+}
+.white {
+        background:#ffffff;
+       /* background:#33ffcc;*/    
+}
+.salmonpink {
+        background:#115FB6;
+       /* background:#33ffcc;*/    
+}
+
+/*summary table css设计*/
+table {
+    border-collapse: collapse;
+    font-size:14px;
+    background-color:#FDF2EF;
+}
+th{
+    font-size: 13px;
+    text-align:center;
+    padding-top:15px;
+    padding-bottom:16px;
+    background-color:#FDF2EF;
+    color:#000000;
+    border:3px solid #CCCCCC;
+    
+}
+td{
+    text-align:center;
+    font-size:1em;
+    border: 1px solid #CCCCCC;
+    padding:2px;
+}
+}
+.child_row_01{
+    text-align:center;
+    font-size:12px;
+    background:#FFDAB9 ;
+    border: 1px solid #CCCCCC;
+    padding:0px;
+}
+.child_row_02,#child_row_01{}
+.parent{ background-color:#FFA07A;
+        cursor:pointer;
+        text-align:center;
+        font-size:1em;
+        border: 1px solid #CCCCCC;
+        padding:2px;
+} 
+.odd{ background:#FFFFEE;} 
+.selected{  background:#FFDAB9;
+            color:#000000;
+            text-align:center;
+            font-size:1em;
+            border: 1px solid #CCCCCC;
+            padding:2px;
+}
+t1 {
+    border-collapse: collapse;
+    font-size:12px;
+    background-color:#FFA07A;
+    text-align:center;
+    border: 1px solid #CCCCCC;
+    padding:0px;
+}
+.summary {
+    font-family:"Microsoft YaHei";
+    width:880px;
+    padding-left:50px;
+    border-collapse:collapse;
+    text-align:center;
+    margin-top:20px;
+}
+.summary td, #summary th 
+{
+    font-size:1em;
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    text-align:center;
+    height:20px;
+    line-height:20px;
+}
+.summary td a{
+font-family:"Microsoft YaHei";
+display:block;
+text-decoration:none;
+color:#0000ff;
+font-size:15px;
+text-align:left;
+}
+.summary th 
+{
+    font-size:1.1em;
+    text-align:center;
+    padding-top:5px;
+    padding-bottom:6px;
+    background-color:#FDF2EF;
+    color:#000000;
+}
+
+.summary tr.alt td 
+{
+    color:#000000;
+    text-align:center;
+    background-color:#FDF2EF;
+}
+.summary_conmment th 
+{
+    font-size:1.1em;
+    text-align:center;
+    padding-top:5px;
+    padding-bottom:6px;
+    background-color:#FDF2EF;
+    color:#000000;
+}
+
+/*题标css设计*/
+#bar_tabbox
+{ 
+    width:935px; 
+    overflow:hidden;
+    padding-left:10px;  
+    position: relative;
+}
+
+.bar_tabs
+{
+    /*border-radius:5px; 
+    border-left: 5px solid #1E90FF;*/
+    width:760px;
+    margin-left:110px;
+    background-image:url('images/smallbar.png');
+    background-repeat:repeat-x;   
+    background-position:center center;
+    background-size:100% 20%;
+    filter:Alpha(opacity=80); 
+    -moz-opacity:0.8; /*支持 FireFox 浏览器*/
+    -khtml-opacity: 0.8; 
+}
+.bar_tabs li
+{
+    width:140px;
+    margin-left:-136px;
+    outline: none;
+    font-weight: bold;
+    font-size: 20px;
+
+}
+.graybtn {
+    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #d1d1d1) );
+    background:-moz-linear-gradient( center top, #ffffff 5%, #f0ffff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#d1d1d1');
+    background-color:#ffffff;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:3px solid #1E90FF;
+    display:inline-block;
+    color:#873324;
+    font-family:arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 6px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #873324;
+    margin-left:17px;
+    margin-top:5px;
+}
+.graybtn:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d1d1d1), color-stop(1, #ffffff) );
+    background:-moz-linear-gradient( center top, #d1d1d1 5%, #ffffff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d1d1d1', endColorstr='#ffffff');
+    background-color:#d1d1d1;
+}
+.graybtn:active {
+    position:relative;
+    top:1px;
+}
+
+/*.bar_tabs li a:hover 
+{
+    background: #FFFFF0;
+}    
+    
+.bar_tabs .thistab,.tabs .thistab a:hover
+{
+    background: #FFFFF0;
+    border-bottom: 1px solid #fff;
+}*/
+
+/*taps设计*/
+#tapsbox{ 
+    width:925px; 
+    overflow:hidden;
+    border-collapse: collapse;
+    }
+.taps_conbox{
+    width:925px;
+    
+}
+.taps_con{ 
+    width:925px;
+    padding-left:29px;
+    border-collapse:collapse;
+    text-align:center;
+    margin-top:20px;
+    border:1px;
+}
+.taps{
+    height: 20px;
+    border:none;
+    width:925px;
+    padding-left:29px
+    }
+.taps li{
+    height:25px;
+    line-height:25px;
+    float:left;
+    border-top:1px solid #CCCCCC;
+    border-left:1px solid #CCCCCC;
+    border-bottom:1px solid #CCCCCC;
+    margin-bottom: 0px;
+    overflow: hidden;
+    position: relative;
+    padding-left:10px;
+    padding-right:10px;
+        }
+.taps li a {
+    display: block;
+    margin-top:4px;
+    outline: none;
+    font-weight: normal;
+    font-size: 15px;
+            }
+.taps li a:hover {
+    background: #FDF2EF;
+    }    
+.taps .thistap,.taps .thistap a:hover{
+    background: #FDF2EF;
+    border-bottom: 1px solid #fff;
+    }
+/*firstbar设计*/  
+#bar1{
+    width:935;
+    height:35px;
+    overflow:hidden;
+    border-collapse: collapse;
+    /*background: #ADD8E6;*/
+    margin-top:5px;
+    margin-left:-20px;
+    margin-right:15px;
+}
+.bar1_first{
+    width:935px;
+    margin-top:5px;
+   /* background-color:rgba(220, 220, 220, 1)!important;*/
+   /* filter:Alpha(opacity=100); 
+    -moz-opacity:1.0; /*支持 FireFox 浏览器*/
+    background-image:url('images/smallbar.png');
+    background-repeat:repeat-x;   
+    background-position:center center;
+    background-size:100% 20%;
+}
+.bar1_first li{
+    width:400px;
+    border-collapse:collapse;
+    padding-left:42px;
+    position:relative;
+}
+
+
+/*文本框*/
+#multieditbox{
+    width:600px;
+    color: #000000;
+    cursor: text;
+    font-family: "arial";
+    font-size: 10pt;
+}
+.comment { 
+    width:70px;
+    height:20px;
+    text-align:center;
+    line-height:20px;
+    border:1px solid #228B22; 
+    font-size:14px;
+    background-color:#FFCC99; 
+    cursor:pointer;
+    float:left;
+    margin-top:8px;
+    margin-left:130px;
+    margin-right:10px;
+    }
+.comment_text{
+    width:900px;
+    font-size:14px;
+    margin-top:-5px;
+    margin-bottom:5px;
+}
+
+/*柱状图设计*/
+#histogram{
+width:935px; 
+overflow:hidden; ;
+margin:0 auto;}
+}
+.histogram_con{ 
+    margin-top:0px;
+    width:935px;
+
+    }
+.histogram_con li
+{
+    margin-top:0px;
+    width:875px;
+    padding-left:24px;
+
+}
+.figure_project
+{
+    margin-top:10px;
+    height:250px;
+    width:860px;
+    margin-bottom:-10px;
+    
+}
+
+
+ #Sanity_Smoke_hide
+{display:none;}
