@@ -2,9 +2,12 @@ package com.spreadtrum.monkeyForRD.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class MonkeyForRDTestInfo {
@@ -26,6 +29,7 @@ public class MonkeyForRDTestInfo {
 	private Date testDate;
 	private String bugID;
 	private String testModule;
+	private MonkeyForRDSite siteID;
 	
 	@Id
     @GeneratedValue
@@ -130,6 +134,14 @@ public class MonkeyForRDTestInfo {
 	}
 	public void setTestModule(String testModule) {
 		this.testModule = testModule;
+	}
+	@ManyToOne
+	@JoinColumn(nullable=false)
+	public MonkeyForRDSite getSiteID() {
+		return siteID;
+	}
+	public void setSiteID(MonkeyForRDSite siteID) {
+		this.siteID = siteID;
 	}
 
 }

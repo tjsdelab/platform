@@ -19,6 +19,7 @@ public class MonkeyForRDMemberInfo {
 	private String platform;
 	private String deviceName;
 	private MonkeyForRDGroup groupID;
+	private String engName;
 	@Id
     @GeneratedValue
 	public int getId() {
@@ -84,5 +85,12 @@ public class MonkeyForRDMemberInfo {
 	public void setGroupID(MonkeyForRDGroup groupID) {
 		this.groupID = groupID;
 	}
+	public String getEngName() {
+		return engName;
+	}
+	public void setEngName(String engName) {
+		this.engName = engName;
+	}
+	
 	
 }

@@ -1,5 +1,7 @@
 package com.spreadtrum.monkeyForRD.dao.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -11,10 +13,10 @@ import com.spreadtrum.monkeyForRD.util.HibernateUtilForMonkeyRD;
 public class MonkeyForRDGroupDAOImpl implements MonkeyForRDGroupDAO {
 
 	@Override
-	public List<String> getValidGroupName() {
+	public List<String> getAllValidGroupName() {
 		String hql;
 		List<String> results = null;
-		hql = "select groupName from MonkeyForRDGroup as mfrg where mfrg.vaildFlag=1 order by mfrg.id ";
+		hql = "select mfrg.groupName from MonkeyForRDGroup as mfrg where mfrg.validFlag=1 order by mfrg.id ";
 		
 	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象
 		org.hibernate.Session session = new HibernateUtilForMonkeyRD().openSession();
@@ -35,5 +37,6 @@ public class MonkeyForRDGroupDAOImpl implements MonkeyForRDGroupDAO {
 
 		     
 		return results!=null&&results.size()>0?(List<String>)results:null;		
-	}	
+	}
+	
 }

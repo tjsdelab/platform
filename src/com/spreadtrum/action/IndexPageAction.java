@@ -1,5 +1,6 @@
 package com.spreadtrum.action;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,12 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.spreadtrum.model.*;
+import com.spreadtrum.monkeyForRD.dao.MonkeyForRDGroupDAO;
+import com.spreadtrum.monkeyForRD.dao.MonkeyForRDMemberInfoDAO;
+import com.spreadtrum.monkeyForRD.dao.MonkeyForRDTestInfoDAO;
+import com.spreadtrum.monkeyForRD.dao.impl.MonkeyForRDGroupDAOImpl;
+import com.spreadtrum.monkeyForRD.dao.impl.MonkeyForRDMemberInfoDAOImpl;
+import com.spreadtrum.monkeyForRD.dao.impl.MonkeyForRDTestInfoDAOImpl;
 import com.spreadtrum.sanity_smoke.dao.SanityProjectDAO;
 import com.spreadtrum.sanity_smoke.dao.impl.SanityProjectDAOImpl;
 import com.spreadtrum.dao.*;
@@ -19,6 +26,7 @@ public class IndexPageAction extends ActionSupport {
 	private NewsDAO newsDAO = new NewsDAOImpl();
 	private TestInfoDAO testInfoDAO = new TestInfoDAOImpl();
 	
+	private MonkeyForRDTestInfoDAO test = new MonkeyForRDTestInfoDAOImpl();
 
 	//向project.action传递的formname，通过formName方法
 	private String testFormName = null;
@@ -61,10 +69,10 @@ public class IndexPageAction extends ActionSupport {
 		return "formName";
 	}
 	public String execute(){
+  
+	    Date date = Date.valueOf("2014-10-27");
 
-
-
-		
+	System.out.println("action print:" + test.getDoDaysForPeriodByDevice(2,"bjlisiubtpc"));	
 	IndexPage indexPage=new IndexPage();
 	
 	if(null != indexPageDAO.showLastIndexPage()){

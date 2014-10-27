@@ -4,7 +4,7 @@
           "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-    	<property name="connection.url">jdbc:mysql://10.5.42.23:3306/doubleS</property>
+    	<property name="connection.url">jdbc:mysql://localhost:3306/doubleS</property>
     	<property name="connection.username">qilong</property>
     	<property name="connection.password">qilong</property>
     	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>

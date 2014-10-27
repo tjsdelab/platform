@@ -4,7 +4,7 @@
           "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-    	<property name="connection.url">jdbc:mysql://10.5.42.23:3306/monkeyForRD</property>
+    	<property name="connection.url">jdbc:mysql://localhost:3306/monkeyForRD</property>
     	<property name="connection.username">qilong</property>
     	<property name="connection.password">qilong</property>
     	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
@@ -19,7 +19,7 @@
         <property name="current_session_context_class">thread</property>
         
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
     	<!-- 在命令行输出SQL语句 -->
     	<property name="show_sql"></property>
     	<!-- Model属性与数据库字段的映射文件 -->
