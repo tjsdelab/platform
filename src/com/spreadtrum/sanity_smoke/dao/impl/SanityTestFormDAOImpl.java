@@ -114,10 +114,10 @@ public class SanityTestFormDAOImpl implements SanityTestFormDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<String> searchSanityTableNameByProject(String project) {
+	public List<SanityTestForm> searchSanityTableNameByProject(String project) {
 		String hql;
-		List<String> results = null;
-		hql = "select stf.testFormName from SanityTestForm as stf where stf.projectID.projectName like '%"+project+"%' order by stf.testDate desc" ;
+		List<SanityTestForm> results = null;
+		hql = "from SanityTestForm as stf where stf.projectID.projectName like '%"+project+"%' order by stf.testDate desc" ;
 	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象
 		org.hibernate.Session session = new HibernateUtilForSS().openSession();
 		Transaction tx = session.beginTransaction();
@@ -136,15 +136,15 @@ public class SanityTestFormDAOImpl implements SanityTestFormDAO {
 		        } 
 
 		     
-		return results!=null&&results.size()>0?(List<String>)results:null;
+		return results!=null&&results.size()>0?(List<SanityTestForm>)results:null;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<String> searchSanityTableNameByVersion(String version) {
+	public List<SanityTestForm> searchSanityTableNameByVersion(String version) {
 		String hql;
-		List<String> results = null;
-		hql = "select stf.testFormName from SanityTestForm as stf where stf.versionForNum like '%"+version+"%' order by stf.testDate desc" ;
+		List<SanityTestForm> results = null;
+		hql = "from SanityTestForm as stf where stf.versionForNum like '%"+version+"%' order by stf.testDate desc" ;
 	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象
 		org.hibernate.Session session = new HibernateUtilForSS().openSession();
 		Transaction tx = session.beginTransaction();
@@ -163,15 +163,15 @@ public class SanityTestFormDAOImpl implements SanityTestFormDAO {
 		        } 
 
 		     
-		return results!=null&&results.size()>0?(List<String>)results:null;
+		return results!=null&&results.size()>0?(List<SanityTestForm>)results:null;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Date> searchSanityTableNameByDate(Date sdate) {
+	public List<SanityTestForm> searchSanityTableNameByDate(Date sdate) {
 		String hql;
-		List<Date> results = null;
-		hql = "select stf.testFormName from SanityTestForm as stf where stf.testDate = '"+ sdate +"'" ;
+		List<SanityTestForm> results = null;
+		hql = "from SanityTestForm as stf where stf.testDate = '"+ sdate +"'" ;
 	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象
 		org.hibernate.Session session = new HibernateUtilForSS().openSession();
 		Transaction tx = session.beginTransaction();
@@ -190,6 +190,6 @@ public class SanityTestFormDAOImpl implements SanityTestFormDAO {
 		        } 
 
 		     
-		return results!=null&&results.size()>0?(List<Date>)results:null;
+		return results!=null&&results.size()>0?(List<SanityTestForm>)results:null;
 	}
 }

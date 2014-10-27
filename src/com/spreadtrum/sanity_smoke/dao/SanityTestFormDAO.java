@@ -20,10 +20,10 @@ public interface SanityTestFormDAO  {
 	public List<SanityTestInfo> getSanityTestInfoByTableName(String tableName);
 	
 	//通过工程搜索测试表名
-	public List<String> searchSanityTableNameByProject(String project);
+	public List<SanityTestForm> searchSanityTableNameByProject(String project);
 	//通过版次搜索测试表名
-	public List<String> searchSanityTableNameByVersion(String version);
+	public List<SanityTestForm> searchSanityTableNameByVersion(String version);
 	//通过测试时间搜索测试表名
-	public List<Date> searchSanityTableNameByDate(Date sdate);
+	public List<SanityTestForm> searchSanityTableNameByDate(Date sdate);
 	
 }

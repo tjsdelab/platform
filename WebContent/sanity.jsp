@@ -222,6 +222,49 @@ $(function () {
                $("#auto_submit").click();
                     });
     });
+    
+    $(document).ready(function(){
+        $("#search").bind('click', function(){
+        	var value = $("#select").children('option:selected').val();
+        	if(value == 'date'){
+        	//var dateValid = /^\d{1,2}\-\d{1,2}\-\d{4}$/;
+        	   var dateValid = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
+        	var date = $("#searchProject").val();
+        	if(!dateValid.test(date)){
+        		   alert("日期格式不正确,请写成 yyyy-mm-dd 格式");	
+        	}
+        	return false;
+        	}
+        });
+    });
+    
+    $(document).ready(function(){
+        $("#select").change(function(){
+                var value = $(this).children('option:selected').val();
+                if(value == "date"){
+                    var d=new Date(),str='';
+                    str += d.getFullYear()+'-'; //获取当前年份
+                    str +=d.getMonth()+1+'-'; //获取当前月份（0——11）
+                    str +=d.getDate();
+                    $("#searchProject").attr("value",str);//设置默认日期为今天的日期
+                    $("#searchProject").datepicker({
+                        dateFormat:'yy-mm-dd',
+                        changeMonth: true,
+                        changeYear: true,
+                        showWeek: true,
+                        firstDay: 1
+                        });
+                    }
+                    else if(value == "pacVersion"){
+                     $("#searchProject").attr("value","W14_40_1-02");
+                     $("#searchProject").unbind();
+                    }
+                    else if(value == "project"){
+                     $("#searchProject").attr("value","sp7731gga_uui");
+                     $("#searchProject").unbind();
+                    }
+                    });
+    });
 </script>
 </head>
 
@@ -360,7 +403,7 @@ $(function () {
                                 <s:iterator value="#request.allCaseList" id="case">
                                 <tr>
                                     <td><s:property value="#case.caseID"/></td>
-                                    <td><s:property value="#case.results"/></td>
+                                    <td id="result"><s:property value="#case.results"/></td>
                                     <td><s:property value="#case.module"/></td>
                                     <td><s:property value="#case.summary"/></td>
                                     <td><s:property value="#case.preconditions"/></td>

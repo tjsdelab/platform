@@ -38,7 +38,17 @@
      </action>
      <action name="sanity" class="com.spreadtrum.sanity_smoke.action.SanityHomeManagerAction">
      	<result name="success">/sanity.jsp</result>
+     	<result type="redirectAction" name="search">
+     	  <param name="actionName">sanityForm</param>
+     	  <param name="type">${type}</param>
+     	  <param name="searchProject">${searchProject}</param>
+     	</result>
      </action>
+     
+     <action name="sanityForm">
+        <result name="success">/SanityFormName.jsp</result>
+     </action>
+     
      <action name="smoke" class="com.spreadtrum.sanity_smoke.action.SmokeHomeManagerAction">
      	<result name="success">/smoke.jsp</result>
      </action>

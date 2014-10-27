@@ -121,7 +121,7 @@ $(document).ready(function(){
                            <td class="td"><s:property value="#form.tdate"/></td>      
                     </tr>
                 </s:iterator>
-                   </table>           
+                   </table>         
          </div><br><br>
         </div>
         </s:form>

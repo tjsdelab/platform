@@ -35,6 +35,8 @@ public class SanityHomeManagerAction extends ActionSupport {
 	private String failList;
 	private String naList;
 	private String blockList;
+	private String type;
+	private String searchProject;
 	private List<String> modulesList = new ArrayList<String>();
 	private List<SanityTestInfo> allCaseList = new ArrayList<SanityTestInfo>();
 	
@@ -65,16 +67,16 @@ public class SanityHomeManagerAction extends ActionSupport {
 	
 	public String dropDownProject(){
 		getValidProject();
-		/**************************/
+		/*******************************/
 		/*通过工程名获得最新的表单名***/
-		/**************************/
+		/******************************/
 		getLastFormNameByProjectName();
 		getAllCaseByFormName();
 		return SUCCESS;
 	}
 	public String search(){
 		
-		return SUCCESS;
+		return "search";
 	}
 	public void getValidProject(){
 		/***************************************************************************************************/
@@ -253,6 +255,22 @@ public class SanityHomeManagerAction extends ActionSupport {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getSearchProject() {
+		return searchProject;
+	}
+
+	public void setSearchProject(String searchProject) {
+		this.searchProject = searchProject;
 	}
 	
 	}

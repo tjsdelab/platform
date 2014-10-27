@@ -11,7 +11,7 @@ public class HibernateUtilForSS {
     
     static {
         try {
-            sessionFactory = new Configuration().configure("sanity_smoke.cfg.xml").buildSessionFactory();                
+            sessionFactory = new Configuration().configure("santiy_smoke.cfg.xml").buildSessionFactory();                
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex);
         }
