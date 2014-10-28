@@ -22,8 +22,8 @@ String block = (String)request.getAttribute("blockList");
     <script type="text/javascript" src="jqplot/jquery.js"></script>
     <script type="text/javascript" src="jqplot/jquery-ui.js"></script>
      
-     <script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script> 
-     <script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/exporting.js"></script>
+     <script type="text/javascript" src="jqplot/highcharts.js"></script> 
+     <script type="text/javascript" src="jqplot/exporting.js"></script>
    
 
 
@@ -35,7 +35,9 @@ Highcharts.createElement('link', {
             type: 'text/css' 
                     }, null, document.getElementsByTagName('head')[0]); 
 Highcharts.setOptions({
-    credits: { enabled: false }
+    credits: { enabled: false },
+    exporting: { enabled:false},
+
     });
 
 $(function () {
@@ -48,6 +50,8 @@ $(function () {
         chart: {
             type: 'column',
             backgroundColor: null,
+            spacingTop:20,    //图表底部和内容的距离空间
+            spacingLeft:20,
             style: { 
                 fontFamily: "Dosis, sans-serif" 
                 } 
@@ -62,11 +66,10 @@ $(function () {
            // 'camera','browers','map','calculator','recording','radio'
           //  ],
          categories:ticks,
-            
             gridLineWidth: 1, 
             gridLineColor:'#FFDAB9',
             labels: { 
-                //rotation: -30,//倾斜度 
+                rotation: -30,//倾斜度 
                 style: {
                     font: 'bold 12px Microsoft YaHei', 
                     
@@ -75,20 +78,20 @@ $(function () {
             
                },
         yAxis: {
-            min: 0,
-            max:80,
+        	min: 0,
+            max:40,
             title: {
                 text: ''
             },
             gridLineWidth: 1, 
             gridLineColor:'#FFDAB9',
-            minorTickInterval: 'auto',      
-            labels: { 
-                enabled: false,
-                /*style: { 
-                    fontSize: '12px' 
-                    } */
-                 }
+            minorTickInterval: 'auto', 		
+			labels: { 
+				enabled: false,
+				/*style: { 
+					fontSize: '12px' 
+					} */
+				 }
             /*stackLabels: {
                 enabled: true,
                 style: {
@@ -98,27 +101,26 @@ $(function () {
             }*/
         },
         legend: {
-           show: true,     
-           placement:'outsideGrid'
-        },
-        seriesColors: ['#000080','#EE2C2C', '#00FF7F','#8B1C62'],
-        series:[
-                {label:'停止均值'},       
-                {label:'停止中值'},
-                {label:'首错均值'},
-                {label:'首错中值'}
-            ],
-        legend: {
-            enabled: true,
-            placement:'outsideGrid',
-            itemStyle: { 
-                fontWeight: 'normal', 
-                fontSize: '13px'
-                        },
-            align: 'right',
+        	enabled: true,
+        	//layout:'vertical',         //竖直显示，默认是水平显示的
+            align: 'right',            //图例说明在区域的右边，默认在中间
             x: 0,
+            //verticalAlign: 'middle',    //竖直方向居中，默认在底部
             verticalAlign: 'top',
-            y: 0,
+            y: -20,
+        	floating:true,
+        	draggable: true,
+        	reversed:true,
+        	itemWidth:72,  //每个图例项目的宽度
+        	padding:3,   //图例盒子的内边距
+        	//itemMarginTop:-1,
+        	symbolPadding:3,  //图例内标志和文本的距离
+        	//symbolWidth:10,  //图例内标志的宽度
+        	//width:260,  //图例的宽度
+            itemStyle: { 
+				fontWeight: 'normal', 
+				fontSize: '13px'
+                        },
             floating: true,
             backgroundColor:'#E0FFFF' ,
             borderColor: '#AAAAAA',
@@ -176,7 +178,7 @@ $(function () {
                 // $("#orderedlist li:last").hover(function() {
                     $(this).addClass("white");
                 }, function() {
-                    $(this).removeClass("whitr");
+                    $(this).removeClass("white");
                 });
             });
    //taps切换         
@@ -205,23 +207,50 @@ $(function () {
             .toggleClass("selected")   // 添加/删除高亮
             .siblings('.child_'+this.id).toggle();  // 隐藏/显示所谓的子行
          }).click();
-               });   
+       })
+   //passfail changeclor 
    //评论文本框自动下拉
-    function borderColor(){
+    /*function borderColor(){
         if(self['oText'].style.borderColor=='red'){
         self['oText'].style.borderColor = 'yellow';
         }else{
         self['oText'].style.borderColor = 'red';
         }
         oTime = setTimeout('borderColor()',400);
-        }
+        }*/
    
+   //下拉选择框
+	$(function(){
+		$("#c").toggle(function(){
+		$(".chartOptionsFlowTrend").css("display","inline-block");
+		},function(){
+		$(".chartOptionsFlowTrend").css("display","none");
+		});
+		}); 
+    $(".select_checkBox").ready(function(){
+        	    $("a").click(function(){
+        	    $(".chartOptionsFlowTrend").slideToggle();   //确定后触发筛选
+        	  });});
+        	    /*$('div#tapsbox').click(function(){
+        	    	$('.chartOptionsFlowTrend').hide();
+        	    	});
+        	});*/
+		
+        	  
     $(document).ready(function(){
         $("#auto").change(function(){
               // alert($(this).children('option:selected').val());
                $("#auto_submit").click();
                     });
     });
+     /*gundongtiao   	
+    function f1(){
+    	var div_obj=document.getElementById("divObj");
+    	var input_h=document.getElementById("gun").offsetHeight;
+    	div_obj.scrollTop= input_h*9;
+    }
+    f1();*/
+    
 </script>
 </head>
 
@@ -264,8 +293,8 @@ $(function () {
              </s:textfield>
              <s:submit style="font-size:14px;" id="search" value="搜索" method="search"></s:submit>
           </li>
-        <li style="float:center;">
-        <s:select style="width:300px;text-align:center;" id="auto" list="projectList" name="currentProject"></s:select>
+        <li style="float:left;">
+        <s:select style="width:450px;text-align:center;" id="auto" list="projectList" name="currentProject"></s:select>
         <s:submit id="auto_submit" value="搜索" method="dropDownProject" style="display:none"></s:submit>
         </li></ul>        
         </div>
@@ -291,31 +320,17 @@ $(function () {
                      <td><s:property value="block"/></td>
                      <td><s:property value="pass_ratio"/></td>
                      </tr>
-                     </table> </div>
-               <div class="summary" >
-                <table class="orderedlist" width="500px" style="margin-left:150px;background-color:#B0E0E6;border-color:#E0FFFF;border:2px;" >
-                <tr>
-                <td width="30px">Comment</td>
-                <td><s:property value="comment"/></td>
-                </tr></table></div><br>
-           
-<!-- Comment -->
-        <!--<div class="multieditbox">
-         <p><input name="comment" type="submit" class="comment" id="comment" value="Comment" /></p>
-         <div class="comment_text">
-         <textarea name="content" id="content" rows="1.5" cols="80" onchange="if(this.scrollHeight>80) this.style.posHeight=this.scrollHeight+5" 
-         onmouseover="this.style.backgroundColor='#FFE4B5'" onmouseout="this.style.backgroundColor='#ffffff'"
-         style="border:2px solid #FF6600"
-         ></textarea>
-        </div></div><br>-->
+	                <tr>
+	                <td style="font-weight:bold;color:#6A5ACD;height:25px;">Comment</td>
+	                <td colspan="6">测试很棒！</td>
+	                </tr></table></div><br></br>
 <!-- 测试种类汇总 -->
            <div class="bar_tabbox" id="bar_tabbox">
            <ul class="graybtn" style="float:left"></ul>
              <ul class="bar_tabs" style="float:right" id="bar_tabs">
                <li style="circle"></li><li>测试种类汇总</li>
-            </ul>
+             </ul>
            </div>
-          <!--  <label for="comment">Comment：</label>-->
 <!-- 柱状图 -->
          <div class="histogram" >
          <ul class="histogram_con" id="histogram_con">
@@ -339,26 +354,50 @@ $(function () {
             <ul class="taps" id="taps">
                <li><a href="#">自动测试结果</a></li>
                <li><a href="#">手动测试结果</a></li>
-               <li style="border-right:1px solid #87CEFA"><a href="#">测试版本信息</a></li>     
+               <li style="border-right:1px solid #CCCCCC"><a href="#">测试版本信息</a></li>     
             </ul> 
+            
+            <div class="select_checkBox" >
+			<div class="chartQuota">
+			<p><a href="javascript:;" title="请选择指标"><span id="c">选择指标</span><b></b></a></p>
+			</div><br>
+			
+			<div class="chartOptionsFlowTrend">
+			<ul>
+			<li><input type="checkbox" value="1"><span>Pass</span>
+			</li>
+			<li><input type="checkbox" value="1"><span>Fail</span>
+			</li>
+			<li><input type="checkbox" value="1"><span>NA</span>
+			</li>
+			<li><input type="checkbox" value="1"><span>Block</span>
+			</li>
+			</ul>
+			<p>
+			<a href="javascript:;" title="确定" class="a_0">确定</a>
+			<a href="javascript:;" title="取消" class="a_1">取消</a>
+			</p>
+			</div>
+			</div>
 <!--case表格统计-->      
             <ul class="taps_conbox" id="taps_conbox">
                      <li class="taps_con">
-                          <table class="orderedlist" width="860px" >
-                               <thead> <tr>
-                                   <th width="3%">No.</th>
+                          <table class="orderedlist" width="860px"  >
+                               <thead> <tr style="height:20px" id="gun">
+                                   <th width="6%">No.</th>
                                    <th width="3%">结果</th>
                                    <th width="3%">模块</th>
                                    <th width="5%">概要</th>
-                                   <th width="30%">前提条件</th>
-                                   <th width="8%">优先级</th>
-                                   <th width="25%">步骤</th>
-                                   <th width="18%">期望结果</th>
-                                   <th width="5%">BugID</th>
+                                   <th width="22%">前提条件</th>
+                                   <th width="2%">优先级</th>
+                                   <th width="22%">步骤</th>
+                                   <th width="21%">期望结果</th>
+                                   <th width="8%">BugID</th>
+                                   <th width="8%">备注</th>
                                 </tr></thead>
                                  <tbody>
                                 <s:iterator value="#request.allCaseList" id="case">
-                                <tr>
+                                <tr style="font-size:10px;">
                                     <td><s:property value="#case.caseID"/></td>
                                     <td><s:property value="#case.results"/></td>
                                     <td><s:property value="#case.module"/></td>
@@ -368,6 +407,7 @@ $(function () {
                                     <td><s:property value="#case.actions"/></td>
                                     <td><s:property value="#case.expectedResults"/></td>
                                     <td><s:property value="#case.bugID"/></td>
+                                    <td><s:property value="#case.bugID"/></td> <!-- needchange -->
                                 </tr>
                                 </s:iterator>
                                 </tbody>
@@ -375,30 +415,31 @@ $(function () {
                     </li>
                     <li class="taps_con">
                          <table class="orderedlist" width="860px" >
-                               <thead> <tr>
-                                   <th width="3%">No.</th>
+                                  <thead> <tr style="height:20px" id="gun">
+                                   <th width="6%">No.</th>
                                    <th width="3%">结果</th>
                                    <th width="3%">模块</th>
                                    <th width="5%">概要</th>
-                                   <th width="30%">前提条件</th>
-                                   <th width="8%">优先级</th>
-                                   <th width="25%">步骤</th>
-                                   <th width="18%">期望结果</th>
-                                   <th width="5%">BugID</th>
+                                   <th width="22%">前提条件</th>
+                                   <th width="2%">优先级</th>
+                                   <th width="22%">步骤</th>
+                                   <th width="21%">期望结果</th>
+                                   <th width="8%">BugID</th>
+                                   <th width="8%">备注</th>
                                 </tr></thead>
                                 <tbody>
                                 <tr class="parent" id="row_01"><td>Sanity_001</td> <td style="background-color:#339933;">pass</td><td>system</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td></tr>
+                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td><td>good</td></tr>
                                 <tr class="child_row_01"><td>Sanity_001.1</td> <td style="background-color:#339933;">pass</td><td>setting</td><td>log输出</td><td>1、进入文件管理器2、找到SD卡存储公司可根据色结果快速结果空间思考可根据司空见惯快速结果快速的估计司空见惯快速三个健康司机</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td></tr>
+                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td><td>good</td></tr>
                                 <tr class="child_row_01"><td>Sanity_001.2</td> <td style="background-color:#339933;">pass</td><td>setting</td><td>log输出</td><td>aphagamabelta</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td></tr>
+                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td><td>good</td></tr>
                                 <tr class="parent" id="row_02"><td>Sanity_002</td> <td style="background-color:#339933;">pass</td><td>system</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td></tr>
+                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td><td>good</td></tr>
                                 <tr class="child_row_02" id="t1"><td>Sanity_002.1</td> <td style="background-color:#339933;">pass</td><td>setting</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td></tr>
+                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td><td>good</td></tr>
                                 <tr class="child_row_02"><td>Sanity_002.2</td> <td style="background-color:#339933;">pass</td><td>setting</td><td>log输出</td><td>aphagamabelta</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td></tr>
+                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td><td>good</td></tr>
                                 </tbody>
                         </table>    
                     </li>
@@ -407,14 +448,12 @@ $(function () {
                     <span><a href="#">SP7731GEA-UUI-W14-43-2-01</a></span>
                     <br><strong><span><a style="text-align:left;">测试版本路径:</a></span></strong>
                     <span><a style="text-align:left;color:#0000ff;text-decoration: underline;" target="_blank" href="#">http://10</a></span>
-                    <br><strong><span><a style="text-align:left">PAC:</a></span></strong>
-                    <span><a style="text-align:left;" href="#">scx35_sp7731geacuccspecBplus_UUI_dt-userdebug-native.pac.gz</a></span>
                     <br><strong><span><a style="text-align:left">Tester:</a></span></strong>
                     <span><a style="text-align:left;" href="#">李娜</a></span><br><br>
                 </div>              
                 </li>
              </ul>
-        </div> <br>       
+       <br>       
         
  <div>
     <div style="float:left;margin-left:80%;">报告下载 </div>                                      
@@ -433,7 +472,7 @@ $(function () {
 </div>
 </div>
 </div>
-
+</div>
 </s:form>
 </body>
 </html>
