@@ -4,7 +4,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -22,9 +21,11 @@ public class SanityHomeManagerAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private List<String> projectList = new ArrayList<String>();
 	private String currentProject;
-	private String currentFormName;
+	private String currentFormName = null;
 	private String comment;
 	private String version;
+	private String pac;
+	private String tester;
 	private int total = 0;
 	private int pass = 0;
 	private int fail = 0;
@@ -35,9 +36,11 @@ public class SanityHomeManagerAction extends ActionSupport {
 	private String failList;
 	private String naList;
 	private String blockList;
+	private String type;
+	private String searchProject;
 	private List<String> modulesList = new ArrayList<String>();
 	private List<SanityTestInfo> allCaseList = new ArrayList<SanityTestInfo>();
-	
+	private List<SanityTestInfo> allCaseList_auto = new ArrayList<SanityTestInfo>();
 	//获取SanityTestFormDAO对象
 	private SanityTestFormDAO sanityFormDAO = new SanityTestFormDAOImpl();
 	//获取第一个工程名的最新Form
@@ -47,17 +50,32 @@ public class SanityHomeManagerAction extends ActionSupport {
 	
 	public String execute(){
 		//有无有效工程，分开处理
-
-		if(sanityProjectList.getSanityValidProjectName() != null){
+		if(currentFormName != null){
 			getValidProject();
-			System.out.println("projectList:" + projectList);
-		currentProject = projectList.get(0);
+			getAllCaseByFormName();
+			//获取版次
+			version = sanityFormDAO.getSanityFormByTableName(currentFormName).getVersionForNum();
+			System.out.println("version:" + version);
+			//获取comment
+			comment = sanityFormDAO.getSanityFormByTableName(currentFormName).getComments();
+			//获取pac路径：
+			pac = sanityFormDAO.getSanityFormByTableName(currentFormName).getPacPath();
+			System.out.println("pac:" + pac);
+			//获取测试者
+			tester = sanityFormDAO.getSanityFormByTableName(currentFormName).getReporter();
+			System.out.println("tester:" + tester);
+			
+			return SUCCESS;//如果当前有表单名，直接使用表单名初始化该页面即可
+		}
+		else if(sanityProjectList.getSanityValidProjectName() != null){//存在有效的工程
+			getValidProject();
+		currentProject = projectList.get(0);//采用下拉列表的第一个工程名作为要显示的工程
 		
 		/**************************/
 		/*通过工程名获得最新的表单名***/
 		/**************************/
-		getLastFormNameByProjectName();
-		getAllCaseByFormName();
+		getLastFormNameByProjectName();//通过工程名对当前页面的表单名进行设置
+		getAllCaseByFormName();//通过该函数及表单名完成对页面的初始化
 		
 		}
 		return SUCCESS;
@@ -65,16 +83,15 @@ public class SanityHomeManagerAction extends ActionSupport {
 	
 	public String dropDownProject(){
 		getValidProject();
-		/**************************/
+		/*******************************/
 		/*通过工程名获得最新的表单名***/
-		/**************************/
+		/******************************/
 		getLastFormNameByProjectName();
 		getAllCaseByFormName();
 		return SUCCESS;
 	}
 	public String search(){
-		
-		return SUCCESS;
+		return "search";
 	}
 	public void getValidProject(){
 		/***************************************************************************************************/
@@ -95,12 +112,15 @@ public class SanityHomeManagerAction extends ActionSupport {
 		//结果类，存储各种状态的数目
 		ResultSequence seq = new ResultSequence();
 	if(allCaseList != null){
-		for(int i = 0; i < allCaseList.size(); i++){
-			//System.out.println("Case" + i + ":" + allCaseList.get(i).getId());
-			
+		for(int i = 0; i < allCaseList.size(); i++){			
 			//统计pass。fail等次数
 			String result = allCaseList.get(i).getResults();
 			String module = allCaseList.get(i).getModule();
+			int  manualString = allCaseList.get(i).getManualFlag();
+			if(manualString == 1){
+				allCaseList_auto.add(allCaseList.get(i));
+				allCaseList.remove(i);
+			}
 			seq.addModuleToSequence(module, result);
 		}
 	}
@@ -122,6 +142,8 @@ public class SanityHomeManagerAction extends ActionSupport {
 			blockList = seq.getBlockList();
 
 			  ServletActionContext.getRequest().setAttribute("allCaseList",allCaseList);
+			  ServletActionContext.getRequest().setAttribute("allCaseList_auto",allCaseList_auto);
+
 			  ServletActionContext.getRequest().setAttribute("modulesList",modulesList );
 			  ServletActionContext.getRequest().setAttribute("passList",passList );
 			  ServletActionContext.getRequest().setAttribute("failList",failList );
@@ -144,6 +166,10 @@ public class SanityHomeManagerAction extends ActionSupport {
 		currentFormName = sanityForm.getTestFormName();
 		//获取comment
 		comment = sanityForm.getComments();
+		//获取pac路径：
+		pac = sanityForm.getPacPath();
+		//获取测试者
+		tester = sanityForm.getReporter();
 			}
 	}
 	
@@ -253,6 +279,38 @@ public class SanityHomeManagerAction extends ActionSupport {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getSearchProject() {
+		return searchProject;
+	}
+
+	public void setSearchProject(String searchProject) {
+		this.searchProject = searchProject;
+	}
+
+	public String getPac() {
+		return pac;
+	}
+
+	public void setPac(String pac) {
+		this.pac = pac;
+	}
+
+	public String getTester() {
+		return tester;
+	}
+
+	public void setTester(String tester) {
+		this.tester = tester;
 	}
 	
 	}

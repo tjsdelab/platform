@@ -105,6 +105,16 @@ public class SanityTestForm {
 		this.versionForNum = versionForNum;
 	}
 
+	@Override
+	public String toString() {
+		return "SanityTestForm [id=" + id + ", testFormName=" + testFormName
+				+ ", projectID=" + projectID + ", testDate=" + testDate
+				+ ", versionForHardware=" + versionForHardware
+				+ ", versionForAPBP=" + versionForAPBP + ", pacPath=" + pacPath
+				+ ", reporter=" + reporter + ", comments=" + comments
+				+ ", versionForNum=" + versionForNum + "]";
+	}
+
 
 
 }
