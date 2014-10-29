@@ -3,11 +3,11 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import="java.util.ArrayList" %>
 <%
-    String pass = (String)request.getAttribute("passList");
+String pass = (String)request.getAttribute("passList");
 String fail = (String)request.getAttribute("failList");
 String na = (String)request.getAttribute("naList");
 String block = (String)request.getAttribute("blockList");
-
+String moduleCompare = "";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -29,11 +29,11 @@ String block = (String)request.getAttribute("blockList");
 
 <script>
 //Load the fonts 
-Highcharts.createElement('link', { 
+/*Highcharts.createElement('link', { 
     href: 'http://fonts.googleapis.com/css?family=Dosis:400,600', 
             rel: 'stylesheet', 
             type: 'text/css' 
-                    }, null, document.getElementsByTagName('head')[0]); 
+                    }, null, document.getElementsByTagName('head')[0]); */
 Highcharts.setOptions({
     credits: { enabled: false },
     exporting: { enabled:false},
@@ -174,7 +174,7 @@ $(function () {
 
   //添加鼠标点击背景颜色替换
        $(document).ready(function() {
-            $(".orderedlist tr").hover(function() {
+            $(".orderedcaselist tr").hover(function() {
                 // $("#orderedlist li:last").hover(function() {
                     $(this).addClass("white");
                 }, function() {
@@ -197,7 +197,7 @@ $(function () {
             
             };
             /*调用方法如下：*/
-            $.jqtab("#tapsbox","#taps_conbox","mouseenter");
+            $.jqtab("#taps","#taps_conbox","mouseenter");
         });
    
     //表格折叠与展开
@@ -207,7 +207,7 @@ $(function () {
             .toggleClass("selected")   // 添加/删除高亮
             .siblings('.child_'+this.id).toggle();  // 隐藏/显示所谓的子行
          }).click();
-       })
+       });
    //passfail changeclor 
    //评论文本框自动下拉
     /*function borderColor(){
@@ -227,16 +227,33 @@ $(function () {
 		$(".chartOptionsFlowTrend").css("display","none");
 		});
 		}); 
-    $(".select_checkBox").ready(function(){
+        
+        /*$(".select_checkBox").ready(function(){
         	    $("a").click(function(){
         	    $(".chartOptionsFlowTrend").slideToggle();   //确定后触发筛选
         	  });});
-        	    /*$('div#tapsbox').click(function(){
+        $('div#tapsbox').click(function(){
         	    	$('.chartOptionsFlowTrend').hide();
         	    	});
         	});*/
+
 		
-        	  
+        $(function(){
+        	$("#d").toggle(function(){
+        	$(".chartOptionsFlowTrend").css("display","inline-block");
+        	},function(){
+        	$(".chartOptionsFlowTrend").css("display","none");
+        	});
+        	}); 
+               
+        	/*$(".select_checkBox").ready(function(){
+               	    $("a").click(function(){
+               	    $(".chartOptionsFlowTrend").slideToggle();   //确定后触发筛选
+               	  });});
+                $('div#tapsbox').click(function(){
+                	    	$('.chartOptionsFlowTrend').hide();
+                	    	});
+                	});*/        	  
     $(document).ready(function(){
         $("#auto").change(function(){
               // alert($(this).children('option:selected').val());
@@ -286,6 +303,50 @@ $(function () {
                     }
                     });
     });
+    
+    $(document).ready(function() {
+        $(".orderedcaselist tr").each(function()
+       {
+       if( $(this).find("td").eq(1).text() == "Pass"){
+           $(this).find("td").eq(1).css("background-color","#71C671");
+       }
+       if( $(this).find("td").eq(1).text() == "Fail"){
+           $(this).find("td").eq(1).css("background-color","#CD5555");
+       }
+       if( $(this).find("td").eq(1).text() == "NA"){
+           $(this).find("td").eq(1).css("background-color","#87CEEB");
+       }
+       if( $(this).find("td").eq(1).text() == "Block"){
+           $(this).find("td").eq(1).css("background-color","#666666");
+       }
+       });
+   });
+   
+    $(document).ready(function(){ 
+    	if ($.browser.msie) {
+    	  $('input:checkbox').click(function () { 
+    	   this.blur();   
+    	   this.focus(); 
+    	  });   
+    	 };
+
+    	$(".check").change(function() { 
+    	   $(".orderedcaselist tr").each(function(){
+    	        var value = $(this).find("td").eq(1).text();
+    	 
+    	        if(value.length > 0){
+    	        if($("#"+value).attr("checked") != "checked"){
+    	            $(this).hide();
+    	        }
+    	        else{
+    	                $(this).show(); 
+    	        }
+    	        }
+    	    });
+    	}); 
+    	}); 
+    
+    
 </script>
 </head>
 
@@ -357,7 +418,7 @@ $(function () {
                      </tr>
 	                <tr>
 	                <td style="font-weight:bold;color:#6A5ACD;height:25px;">Comment</td>
-	                <td colspan="6">测试很棒！</td>
+	                <td colspan="6"><s:property value="comment"/></td>
 	                </tr></table></div><br></br>
 <!-- 测试种类汇总 -->
            <div class="bar_tabbox" id="bar_tabbox">
@@ -384,40 +445,32 @@ $(function () {
            </div>
           
 <!-- taps -->   
-        <div id="tapsbox">
+        <div class="tapsbox">
        
             <ul class="taps" id="taps">
                <li><a href="#">自动测试结果</a></li>
                <li><a href="#">手动测试结果</a></li>
-               <li style="border-right:1px solid #CCCCCC"><a href="#">测试版本信息</a></li>     
-            </ul> 
-            
-            <div class="select_checkBox" >
-			<div class="chartQuota">
-			<p><a href="javascript:;" title="请选择指标"><span id="c">选择指标</span><b></b></a></p>
-			</div><br>
-			
-			<div class="chartOptionsFlowTrend">
-			<ul>
-			<li><input type="checkbox" value="1"><span>Pass</span>
-			</li>
-			<li><input type="checkbox" value="1"><span>Fail</span>
-			</li>
-			<li><input type="checkbox" value="1"><span>NA</span>
-			</li>
-			<li><input type="checkbox" value="1"><span>Block</span>
-			</li>
-			</ul>
-			<p>
-			<a href="javascript:;" title="确定" class="a_0">确定</a>
-			<a href="javascript:;" title="取消" class="a_1">取消</a>
-			</p>
-			</div>
-			</div>
-<!--case表格统计-->      
+               <li style="border-right:1px solid #CCCCCC"><a href="#">测试版本信息</a></li></ul> 
+               
             <ul class="taps_conbox" id="taps_conbox">
-                     <li class="taps_con">
-                          <table class="orderedlist" width="860px"  >
+                <li class="taps_con">
+	            <div class="select_checkBox" >
+				<div class="chartQuota">
+				<p><a href="javascript:;" title="请选择指标"><span id="c">选择指标</span><b></b></a></p>
+			    </div><br>
+			
+			    <div class="chartOptionsFlowTrend">
+				<input type="checkbox" name="checkbox" value="Pass" class="check" id="Pass"><span>Pass</span>
+				<input type="checkbox" name="checkbox" value="Fail" class="check" id="Fail" ><span>Fail</span>
+				<input type="checkbox" name="checkbox" value="NA" class="check" id="NA" ><span>NA</span>
+				<input type="checkbox" name="checkbox" value="Block" class="check"  id="Block"><span>Block</span>
+				<!--<a href="javascript:;" title="确定" class="a_0">确定</a>
+				<a href="javascript:;" title="取消" class="a_1">取消</a>-->
+				</div>
+				</div>
+			
+<!--case表格统计-->  
+                          <table class="orderedcaselist" width="860px" style="margin-left:50px"  >
                                <thead> <tr style="height:20px" id="gun">
                                    <th width="6%">No.</th>
                                    <th width="3%">结果</th>
@@ -431,9 +484,21 @@ $(function () {
                                    <th width="8%">备注</th>
                                 </tr></thead>
                                  <tbody>
+                                 <%
+                                     moduleCompare ="";
+                                 %>
                                 <s:iterator value="#request.allCaseList_auto" id="case">
-                                <tr>
-                                    <td><s:property value="#case.caseID"/></td>
+                                   <%                                       
+                                       String str_auto="";                                       
+                                       String str2_auto=(String)request.getAttribute("module");
+                                       if(moduleCompare.equals(str2_auto)){
+                                    	   str_auto = "class=\"child_"+str2_auto+"\"";
+                                       } else {
+                                    	   str_auto = "class=\"parent\" id=\""+str2_auto+"\"";
+                                    	   moduleCompare = str2_auto;
+                                       }
+                                   %>
+                                <tr <%=str_auto%>><td><s:property value="#case.caseID"/></td>
                                     <td id="result"><s:property value="#case.results"/></td>
                                     <td><s:property value="#case.module"/></td>
                                     <td><s:property value="#case.summary"/></td>
@@ -442,15 +507,31 @@ $(function () {
                                     <td><s:property value="#case.actions"/></td>
                                     <td><s:property value="#case.expectedResults"/></td>
                                     <td><s:property value="#case.bugID"/></td>
-                                    <td><s:property value="#case.bugID"/></td> <!-- needchange -->
+                                    <td><s:property value="#case.comments"/></td>
                                 </tr>
                                 </s:iterator>
                                 </tbody>
                         </table>    
                     </li>
-                    <li class="taps_con">
-                         <table class="orderedlist" width="860px" >
-                                  <thead> <tr style="height:20px" id="gun">
+            
+                <li class="taps_con">
+	            <div class="select_checkBox" >
+				<div class="chartQuota">
+				<p><a href="javascript:;" title="请选择指标"><span id="d">选择指标</span><b></b></a></p>
+			    </div><br>
+			
+			    <div class="chartOptionsFlowTrend">
+				<input type="checkbox" name="checkbox" value="Pass" class="check" id="Pass"><span>Pass</span>
+				<input type="checkbox" name="checkbox" value="Fail" class="check" id="Fail" ><span>Fail</span>
+				<input type="checkbox" name="checkbox" value="NA" class="check" id="NA" ><span>NA</span>
+				<input type="checkbox" name="checkbox" value="Block" class="check"  id="Block"><span>Block</span>
+				<!--<a href="javascript:;" title="确定" class="a_0">确定</a>
+				<a href="javascript:;" title="取消" class="a_1">取消</a>-->
+				</div>
+				</div>
+			                      
+                         <table class="orderedcaselist" width="860px" style="margin-left:50px">
+                                  <thead> <tr style="height:20px;margin-left:50px" id="gun">
                                    <th width="6%">No.</th>
                                    <th width="3%">结果</th>
                                    <th width="3%">模块</th>
@@ -463,21 +544,21 @@ $(function () {
                                    <th width="8%">备注</th>
                                 </tr></thead>
                                 <tbody>
-                                <!--  <tr class="parent" id="row_01"><td>Sanity_001</td> <td style="background-color:#339933;">pass</td><td>system</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td><td>good</td></tr>
-                                <tr class="child_row_01"><td>Sanity_001.1</td> <td style="background-color:#339933;">pass</td><td>setting</td><td>log输出</td><td>1、进入文件管理器2、找到SD卡存储公司可根据色结果快速结果空间思考可根据司空见惯快速结果快速的估计司空见惯快速三个健康司机</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td><td>good</td></tr>
-                                <tr class="child_row_01"><td>Sanity_001.2</td> <td style="background-color:#339933;">pass</td><td>setting</td><td>log输出</td><td>aphagamabelta</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td><td>good</td></tr>
-                                <tr class="parent" id="row_02"><td>Sanity_002</td> <td style="background-color:#339933;">pass</td><td>system</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td><td>good</td></tr>
-                                <tr class="child_row_02" id="t1"><td>Sanity_002.1</td> <td style="background-color:#339933;">pass</td><td>setting</td><td>log输出</td><td>1、进入文件管理器<br>2、找到SD卡存储</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td><td>good</td></tr>
-                                <tr class="child_row_02"><td>Sanity_002.2</td> <td style="background-color:#339933;">pass</td><td>setting</td><td>log输出</td><td>aphagamabelta</td>
-                                <td>A</td><td>输出adb log</td><td>正常输出adb log</td><td>333333</td><td>good</td></tr>-->
+                                 <%
+                                     moduleCompare ="";
+                                 %>
                                <s:iterator value="#request.allCaseList" id="case">
-                                <tr>
-                                    <td><s:property value="#case.caseID"/></td>
+                                   <%
+                                       String str="";                                       
+                                       String str2=(String)request.getAttribute("module");
+                                       if(moduleCompare.equals(str2)){
+                                    	   str = "class=\"child_"+str2+"\"";
+                                       } else {
+                                    	   str = "class=\"parent\" id=\""+str2+"\"";
+                                    	   moduleCompare = str2;
+                                       }                                       
+                                   %>
+                                <tr <%=str%>><td><s:property value="#case.caseID"/></td>
                                     <td id="result"><s:property value="#case.results"/></td>
                                     <td><s:property value="#case.module"/></td>
                                     <td><s:property value="#case.summary"/></td>
@@ -486,13 +567,14 @@ $(function () {
                                     <td><s:property value="#case.actions"/></td>
                                     <td><s:property value="#case.expectedResults"/></td>
                                     <td><s:property value="#case.bugID"/></td>
+                                    <td><s:property value="#case.comments"/></td>
                                 </tr>
                                 </s:iterator>
                                 </tbody>
                         </table>    
                     </li>
                  <li class="taps_con">
-                    <div style="font-size:14px;padding-left:29px;">
+                    <div style="font-size:14px;padding-left:50px;padding-top:50px;">
                     <span><a href="#">SP7731GEA-UUI-W14-43-2-01</a></span>
                     <br><strong><span><a style="text-align:left;">测试版本路径:</a></span></strong>
                     <span><a style="text-align:left;color:#0000ff;text-decoration: underline;" target="_blank" href="#">http://10</a></span>
@@ -506,16 +588,8 @@ $(function () {
  <div>
     <div style="float:left;margin-left:80%;">报告下载 </div>                                      
          <div style="float:left;margin-left:10px;">
-         <a style="color:#0000ff;font-size: 15px;"target="_blank" href="download?testFormName=<s:property value="#request.testFormName"/>"> <img src="images/download.png" alt="download" height="25" width="30" ></a> </div><br>
-                                                            
+         <a style="color:#0000ff;font-size: 15px;"target="_blank" href="download?testFormName=<s:property value="#request.testFormName"/>"> <img src="images/download.png" alt="download" height="25" width="30" ></a> </div><br>                                                           
 </div> 
-
-          
-
-
-    
-         
-
   
 </div>
 </div>
