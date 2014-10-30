@@ -108,7 +108,7 @@ public class SanityTestFormDAOImpl implements SanityTestFormDAO {
 		    tx.rollback();
 		    } finally {
 		        new HibernateUtilForSS().closeSession(session);
-		        } 		     
+		        }
 		return results!=null&&results.size()>0?results:null;
 	}
 

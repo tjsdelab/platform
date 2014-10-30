@@ -32,13 +32,13 @@ void addModuleToSequence(String module,String result){
 		map.get(module).set(1, map.get(module).get(1) + 1);
 		fail++;
 	}
-	else if (result.equalsIgnoreCase("Block")) {
-		map.get(module).set(2, map.get(module).get(2) + 1);
-		block++;
-	}
 	else if (result.equalsIgnoreCase("NA")) {
-		map.get(module).set(3, map.get(module).get(3) + 1);
+		map.get(module).set(2, map.get(module).get(2) + 1);
 		na++;
+	}
+	else if (result.equalsIgnoreCase("Block")) {
+		map.get(module).set(3, map.get(module).get(3) + 1);
+		block++;
 	}
 }
 
@@ -62,8 +62,6 @@ public String getPassList() {
 	return passList;
 }
 
-
-
 public String getFailList() {
 	for(String key : modulesList){
 		failList += map.get(key).get(1) + ",";
@@ -73,8 +71,6 @@ public String getFailList() {
 	}
 	return failList;
 }
-
-
 
 public String getNaList() {
 	for(String key : modulesList){

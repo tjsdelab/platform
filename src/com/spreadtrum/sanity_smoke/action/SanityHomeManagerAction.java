@@ -108,8 +108,8 @@ public class SanityHomeManagerAction extends ActionSupport {
 		allCaseList = sanityFormDAO.getSanityTestInfoByTableName(currentFormName);
 		//结果类，存储各种状态的数目
 		ResultSequence seq = new ResultSequence();
-	if(allCaseList != null){
-		for(int i = 0; i < allCaseList.size(); i++){			
+	if(allCaseList != null){		
+		for(int i = 0; i < allCaseList.size(); i++){
 			//统计pass。fail等次数
 			String result = allCaseList.get(i).getResults();
 			String module = allCaseList.get(i).getModule();
@@ -117,6 +117,7 @@ public class SanityHomeManagerAction extends ActionSupport {
 			if(manualString == 1){
 				allCaseList_auto.add(allCaseList.get(i));
 				allCaseList.remove(i);
+				i = i-1;
 			}
 			seq.addModuleToSequence(module, result);
 		}

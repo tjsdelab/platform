@@ -110,6 +110,7 @@ public class SmokeHomeManagerAction extends ActionSupport {
 			if(manualString == 1){
 				allCaseList_auto.add(allCaseList.get(i));
 				allCaseList.remove(i);
+				i = i-1;
 			}
 			seq.addModuleToSequence(result);
 

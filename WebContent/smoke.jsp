@@ -16,7 +16,7 @@
     <script type="text/javascript" src="jqplot/jquery.js"></script>
     <script type="text/javascript" src="jqplot/jquery-ui.js"></script>
    
-<script>
+<script>type="text/javascript">
 //添加鼠标点击背景颜色替换
 $(document).ready(function() {
      $(".orderedcaselist tr").hover(function() {
@@ -121,41 +121,37 @@ $(document).ready(function(){
 });
 
 $(document).ready(function() {
+
  $(".orderedcaselist tr").each(function()
 {
-if( $(this).find("td").eq(1).text() == "Pass"){
+if( $(this).find("td").eq(1).text().toUpperCase() == "PASS"){
     $(this).find("td").eq(1).css("background-color","#71C671");
 }
-if( $(this).find("td").eq(1).text() == "Fail"){
+if( $(this).find("td").eq(1).text().toUpperCase() == "FAIL"){
     $(this).find("td").eq(1).css("background-color","#CD5555");
 }
-if( $(this).find("td").eq(1).text() == "NA"){
+if( $(this).find("td").eq(1).text().toUpperCase() == "NA"){
     $(this).find("td").eq(1).css("background-color","#87CEEB");
 }
-if( $(this).find("td").eq(1).text() == "Block"){
-    $(this).find("td").eq(1).css("background-color","#666666");
-}
+if( $(this).find("td").eq(1).text().toUpperCase() == "BLOCK"){
+    $(this).find("td").eq(1).css("background-color","#666666");}
+
 });
 });
 
-$(document).ready(function(){ 
-	if ($.browser.msie) {
-	  $('input:checkbox').click(function () { 
-	   this.blur();   
-	   this.focus(); 
-	  });   
-	 };
 
+
+$(document).ready(function(){
+	$("[name = checkbox]:checkbox").prop("checked", 'checked');
 	$(".check1").change(function() { 
 	   $("#caselist1 tr").each(function(){
-	        var value = $(this).find("td").eq(1).text().toUpperCase();
-	 
+	        var value = $(this).find("td").eq(1).text().toUpperCase();	 
 	        if(value.length > 0){
-	        if($("#"+value+"1").attr("checked") != "checked"){
-	            $(this).hide();
+	        if($("#"+value+"1").attr("checked") == "checked"){
+	            $(this).show();
 	        }
 	        else{
-	                $(this).show(); 
+	            $(this).hide(); 
 	        }
 	        }
 	    });
@@ -163,14 +159,7 @@ $(document).ready(function(){
 	}); 
 
 $(document).ready(function(){ 
-	if ($.browser.msie) {
-	  $('input:checkbox').click(function () { 
-	   this.blur();   
-	   this.focus(); 
-	  });   
-	 };
-
-	$(".check2").change(function() { 
+	$(".check2").change(function() {
 	   $("#caselist2 tr").each(function(){
 	        var value = $(this).find("td").eq(1).text().toUpperCase();
 	 
