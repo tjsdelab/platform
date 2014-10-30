@@ -24,19 +24,19 @@ void addModuleToSequence(String module,String result){
 	map.put(module, new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
 	}
 
-	if(result.equals("Pass")){
+	if(result.equalsIgnoreCase("Pass")){
 		map.get(module).set(0, map.get(module).get(0) + 1);
 		pass++;
 	}
-	else if (result.equals("Fail")) {
+	else if (result.equalsIgnoreCase("Fail")) {
 		map.get(module).set(1, map.get(module).get(1) + 1);
 		fail++;
 	}
-	else if (result.equals("Block")) {
+	else if (result.equalsIgnoreCase("Block")) {
 		map.get(module).set(2, map.get(module).get(2) + 1);
 		block++;
 	}
-	else if (result.equals("N/A")) {
+	else if (result.equalsIgnoreCase("NA")) {
 		map.get(module).set(3, map.get(module).get(3) + 1);
 		na++;
 	}
@@ -124,12 +124,4 @@ public int getNa() {
 public int getBlock() {
 	return block;
 }
-
-
-
-
-
-
-
-
 }

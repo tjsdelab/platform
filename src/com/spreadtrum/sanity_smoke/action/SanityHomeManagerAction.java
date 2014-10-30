@@ -55,15 +55,12 @@ public class SanityHomeManagerAction extends ActionSupport {
 			getAllCaseByFormName();
 			//获取版次
 			version = sanityFormDAO.getSanityFormByTableName(currentFormName).getVersionForNum();
-			System.out.println("version:" + version);
 			//获取comment
 			comment = sanityFormDAO.getSanityFormByTableName(currentFormName).getComments();
 			//获取pac路径：
 			pac = sanityFormDAO.getSanityFormByTableName(currentFormName).getPacPath();
-			System.out.println("pac:" + pac);
 			//获取测试者
 			tester = sanityFormDAO.getSanityFormByTableName(currentFormName).getReporter();
-			System.out.println("tester:" + tester);
 			
 			return SUCCESS;//如果当前有表单名，直接使用表单名初始化该页面即可
 		}

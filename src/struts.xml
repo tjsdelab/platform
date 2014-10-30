@@ -51,6 +51,15 @@
      
      <action name="smoke" class="com.spreadtrum.sanity_smoke.action.SmokeHomeManagerAction">
      	<result name="success">/smoke.jsp</result>
+        <result type="redirectAction" name="search">
+     	  <param name="actionName">smokeForm</param>
+     	  <param name="type">${type}</param>
+     	  <param name="searchProject">${searchProject}</param>
+     	</result>
+     </action>
+     
+     <action name="smokeForm" class="com.spreadtrum.sanity_smoke.action.SmokeFormNameAction">
+        <result name="success">/SmokeFormName.jsp</result>
      </action>
      
       <action name="project"  class="com.spreadtrum.monkeytest.action.MonkeyDetailAction" method="monkeyDetail">

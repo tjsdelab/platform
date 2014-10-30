@@ -236,8 +236,7 @@ $(function () {
         	    	$('.chartOptionsFlowTrend').hide();
         	    	});
         	});*/
-
-		
+        	
         $(function(){
         	$("#d").toggle(function(){
         	$(".chartOptionsFlowTrend").css("display","inline-block");
@@ -245,15 +244,7 @@ $(function () {
         	$(".chartOptionsFlowTrend").css("display","none");
         	});
         	}); 
-               
-        	/*$(".select_checkBox").ready(function(){
-               	    $("a").click(function(){
-               	    $(".chartOptionsFlowTrend").slideToggle();   //确定后触发筛选
-               	  });});
-                $('div#tapsbox').click(function(){
-                	    	$('.chartOptionsFlowTrend').hide();
-                	    	});
-                	});*/        	  
+      	  
     $(document).ready(function(){
         $("#auto").change(function(){
               // alert($(this).children('option:selected').val());
@@ -330,12 +321,36 @@ $(function () {
     	  });   
     	 };
 
-    	$(".check").change(function() { 
-    	   $(".orderedcaselist tr").each(function(){
-    	        var value = $(this).find("td").eq(1).text();
+    	$(".check1").change(function() { 
+    	   $("#caselist1 tr").each(function(){
+    	        var value = $(this).find("td").eq(1).text().toUpperCase();
     	 
     	        if(value.length > 0){
-    	        if($("#"+value).attr("checked") != "checked"){
+    	        if($("#"+value+"1").attr("checked") != "checked"){
+    	            $(this).hide();
+    	        }
+    	        else{
+    	                $(this).show(); 
+    	        }
+    	        }
+    	    });
+    	}); 
+    	}); 
+    
+    $(document).ready(function(){ 
+    	if ($.browser.msie) {
+    	  $('input:checkbox').click(function () { 
+    	   this.blur();   
+    	   this.focus(); 
+    	  });   
+    	 };
+
+    	$(".check2").change(function() { 
+    	   $("#caselist2 tr").each(function(){
+    	        var value = $(this).find("td").eq(1).text().toUpperCase();
+    	 
+    	        if(value.length > 0){
+    	        if($("#"+value+"2").attr("checked") != "checked"){
     	            $(this).hide();
     	        }
     	        else{
@@ -460,17 +475,17 @@ $(function () {
 			    </div><br>
 			
 			    <div class="chartOptionsFlowTrend">
-				<input type="checkbox" name="checkbox" value="Pass" class="check" id="Pass"><span>Pass</span>
-				<input type="checkbox" name="checkbox" value="Fail" class="check" id="Fail" ><span>Fail</span>
-				<input type="checkbox" name="checkbox" value="NA" class="check" id="NA" ><span>NA</span>
-				<input type="checkbox" name="checkbox" value="Block" class="check"  id="Block"><span>Block</span>
+				<input type="checkbox" name="checkbox" value="PASS" class="check1" id="PASS1"><span>Pass</span>
+				<input type="checkbox" name="checkbox" value="FAIL" class="check1" id="FAIL1" ><span>Fail</span>
+				<input type="checkbox" name="checkbox" value="NA" class="check1" id="NA1" ><span>NA</span>
+				<input type="checkbox" name="checkbox" value="BLOCK" class="check1"  id="BLOCK1"><span>Block</span>
 				<!--<a href="javascript:;" title="确定" class="a_0">确定</a>
 				<a href="javascript:;" title="取消" class="a_1">取消</a>-->
 				</div>
 				</div>
 			
 <!--case表格统计-->  
-                          <table class="orderedcaselist" width="860px" style="margin-left:50px"  >
+                          <table class="orderedcaselist" width="860px" style="margin-left:50px" id="caselist1">
                                <thead> <tr style="height:20px" id="gun">
                                    <th width="6%">No.</th>
                                    <th width="3%">结果</th>
@@ -521,16 +536,16 @@ $(function () {
 			    </div><br>
 			
 			    <div class="chartOptionsFlowTrend">
-				<input type="checkbox" name="checkbox" value="Pass" class="check" id="Pass"><span>Pass</span>
-				<input type="checkbox" name="checkbox" value="Fail" class="check" id="Fail" ><span>Fail</span>
-				<input type="checkbox" name="checkbox" value="NA" class="check" id="NA" ><span>NA</span>
-				<input type="checkbox" name="checkbox" value="Block" class="check"  id="Block"><span>Block</span>
+				<input type="checkbox" name="checkbox" value="PASS" class="check2" id="PASS2"><span>Pass</span>
+				<input type="checkbox" name="checkbox" value="FAIL" class="check2" id="FAIL2" ><span>Fail</span>
+				<input type="checkbox" name="checkbox" value="NA" class="check2" id="NA2" ><span>NA</span>
+				<input type="checkbox" name="checkbox" value="BLOCK" class="check2"  id="BLOCK2"><span>Block</span>
 				<!--<a href="javascript:;" title="确定" class="a_0">确定</a>
 				<a href="javascript:;" title="取消" class="a_1">取消</a>-->
 				</div>
 				</div>
 			                      
-                         <table class="orderedcaselist" width="860px" style="margin-left:50px">
+                         <table class="orderedcaselist" width="860px" style="margin-left:50px" id="caselist2">
                                   <thead> <tr style="height:20px;margin-left:50px" id="gun">
                                    <th width="6%">No.</th>
                                    <th width="3%">结果</th>
@@ -575,11 +590,11 @@ $(function () {
                     </li>
                  <li class="taps_con">
                     <div style="font-size:14px;padding-left:50px;padding-top:50px;">
-                    <span><a href="#">SP7731GEA-UUI-W14-43-2-01</a></span>
+                    <span><a><s:property value="currentFormName"/></a></span>
                     <br><strong><span><a style="text-align:left;">测试版本路径:</a></span></strong>
-                    <span><a style="text-align:left;color:#0000ff;text-decoration: underline;" target="_blank" href="#">http://10</a></span>
+                    <span><a style="text-align:left;color:#0000ff;text-decoration: underline;" target="_blank" href="<s:property value="pac"/>"><s:property value="pac"/></a></span>
                     <br><strong><span><a style="text-align:left">Tester:</a></span></strong>
-                    <span><a style="text-align:left;" href="#">李娜</a></span><br><br>
+                    <span><a style="text-align:left;"><s:property value="tester"/></a></span><br><br>
                 </div>              
                 </li>
              </ul>

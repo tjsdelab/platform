@@ -19,11 +19,16 @@ public interface SmokeTestFormDAO  {
 	//通过测试表单名获得SmokeTestInfo表中所有信息
 	public List<SmokeTestInfo> getSmokeTestInfoByTableName(String tableName);
 	
+	//通过工程名和属性名获得SmokeTestForm表中某字段
+	public <T> T getSmokeFormPropByTableName(String prop,String tableName);
+	//通过工程名和属性名获得SmokeTestForm表中某字段
+	public SmokeTestForm getSmokeFormByTableName(String tableName);
+	
 	//通过工程搜索测试表名
-	public List<String> searchSmokeTableNameByProject(String project);
+	public List<SmokeTestForm> searchSmokeTableNameByProject(String project);
 	//通过版次搜索测试表名
-	public List<String> searchSmokeTableNameByVersion(String version);
+	public List<SmokeTestForm> searchSmokeTableNameByVersion(String version);
 	//通过测试时间搜索测试表名
-	public List<Date> searchSmokeTableNameByDate(Date sdate);
+	public List<SmokeTestForm> searchSmokeTableNameByDate(Date sdate);
 	
 }

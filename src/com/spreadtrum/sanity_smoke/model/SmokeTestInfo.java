@@ -13,6 +13,10 @@ public class SmokeTestInfo {
 	private String initCondition;
 	private String steps;
 	private String expectedResults;
+	private String results;
+	private String bugID;
+	private String comments;
+	private int manualFlag;
 
 	@Id
     @GeneratedValue
@@ -72,10 +76,6 @@ public class SmokeTestInfo {
 	public void setManualFlag(int manualFlag) {
 		this.manualFlag = manualFlag;
 	}
-	private String results;
-	private String bugID;
-	private String comments;
-	private int manualFlag;
 	
 	@Column(nullable=false)
 	public String getCaseID() {
