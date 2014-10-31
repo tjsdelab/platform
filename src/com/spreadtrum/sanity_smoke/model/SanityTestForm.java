@@ -19,8 +19,17 @@ public class SanityTestForm {
 	private String pacPath;
 	private String reporter;
 	private String comments;
-	private String versionForNum;	
+	private String versionForNum;
+	private String completeFlag;
 	
+	public String getCompleteFlag() {
+		return completeFlag;
+	}
+
+	public void setCompleteFlag(String completeFlag) {
+		this.completeFlag = completeFlag;
+	}
+
 	@Id
 	@GeneratedValue
 	public int getId() {
@@ -104,17 +113,5 @@ public class SanityTestForm {
 	public void setVersionForNum(String versionForNum) {
 		this.versionForNum = versionForNum;
 	}
-
-	@Override
-	public String toString() {
-		return "SanityTestForm [id=" + id + ", testFormName=" + testFormName
-				+ ", projectID=" + projectID + ", testDate=" + testDate
-				+ ", versionForHardware=" + versionForHardware
-				+ ", versionForAPBP=" + versionForAPBP + ", pacPath=" + pacPath
-				+ ", reporter=" + reporter + ", comments=" + comments
-				+ ", versionForNum=" + versionForNum + "]";
-	}
-
-
 
 }

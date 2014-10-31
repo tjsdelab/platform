@@ -38,6 +38,7 @@ public class SanityHomeManagerAction extends ActionSupport {
 	private String blockList;
 	private String type;
 	private String searchProject;
+	private String completeStatus;
 	private List<String> modulesList = new ArrayList<String>();
 	private List<SanityTestInfo> allCaseList = new ArrayList<SanityTestInfo>();
 	private List<SanityTestInfo> allCaseList_auto = new ArrayList<SanityTestInfo>();
@@ -61,7 +62,18 @@ public class SanityHomeManagerAction extends ActionSupport {
 			pac = sanityFormDAO.getSanityFormByTableName(currentFormName).getPacPath();
 			//获取测试者
 			tester = sanityFormDAO.getSanityFormByTableName(currentFormName).getReporter();
-			
+			//获取测试完成状态
+			completeStatus = sanityFormDAO.getSanityFormByTableName(currentFormName).getCompleteFlag();
+			if (completeStatus.equalsIgnoreCase("manual")){				
+				completeStatus = "目前为手动测试结果，自动测试结果请稍后...";
+			} else if(completeStatus.equalsIgnoreCase("auto")){
+				completeStatus = "目前为自动测试结果，手动测试结果请稍后...";
+			} else if (completeStatus.equalsIgnoreCase("done")){
+				completeStatus = "测试已经完成，请关注...";
+			} else {
+				completeStatus = "请tester关注...";
+			}
+			System.out.println(completeStatus);
 			return SUCCESS;//如果当前有表单名，直接使用表单名初始化该页面即可
 		}
 		else if(sanityProjectList.getSanityValidProjectName() != null){//存在有效的工程
@@ -168,6 +180,17 @@ public class SanityHomeManagerAction extends ActionSupport {
 		pac = sanityForm.getPacPath();
 		//获取测试者
 		tester = sanityForm.getReporter();
+		//获取测试完成状态
+		completeStatus = sanityFormDAO.getSanityFormByTableName(currentFormName).getCompleteFlag();
+		if (completeStatus.equalsIgnoreCase("manual")){				
+			completeStatus = "目前为手动测试结果，自动测试结果请稍后...";
+		} else if(completeStatus.equalsIgnoreCase("auto")){
+			completeStatus = "目前为自动测试结果，手动测试结果请稍后...";
+		} else if (completeStatus.equalsIgnoreCase("done")){
+			completeStatus = "测试已经完成，请关注...";
+		} else {
+			completeStatus = "请tester关注...";
+		}
 			}
 	}
 	
@@ -178,6 +201,15 @@ public class SanityHomeManagerAction extends ActionSupport {
 	public void setCurrentProject(String currentProject) {
 		this.currentProject = currentProject;
 	}
+	
+	public String getCompleteStatus() {
+		return completeStatus;
+	}
+
+	public void setCompleteStatus(String completeWarning) {
+		this.completeStatus = completeWarning;
+	}
+
 	public List<String> getProjectList() {
 		return projectList;
 	}

@@ -123,6 +123,19 @@ td{
 			border: 1px solid #CCCCCC;
 			padding:2px;
 }
+.jia{
+     list-style-image:url(../images/plus.png);
+            }
+.jian{
+     list-style-image:url(../images/minus.png);
+            }
+.none{
+                /*没有图片样式，即为默认样式*/
+     list-style-image:none;
+            }
+
+
+
 t1 {
     border-collapse: collapse;
     font-size:12px;
@@ -316,11 +329,13 @@ text-align:left;
 .select_checkBox{
 position: relative;
 display:inline-block;
-margin-left:-330px;
+margin-left:-310px;
 margin-top:32px;
 width:100px;
-margin-bottom:5px;
+margin-bottom:7px;
+
 }
+
 
 .chartQuota{
 height:23px;
@@ -328,70 +343,63 @@ float:left;
 display:inline-block;
 border:0px solid black;
 position: relative;
+
+background-color: #FFFFFF;
 }
  
 .chartOptionsFlowTrend{
 z-index:300;
-background-color:#FDF2EF;
+background-color:#fefefe;
 border:1px solid gray;
 display:none;
 position: absolute;
 left:0px;
 top:23px;
-width:300px;
+width:250px;
 float:left;
+height:50px;
+line-height:50px;
+border-radius:2px;
 text-align:center;
-border-radius:5px;
 }
-.chartOptionsFlowTrend ul{
-float:left;
-padding: 0px;
-margin: 5px;
 
-}
-.chartOptionsFlowTrend li{
-/* float:left; */
-display:block;
-position: relative;
-left:0px;
-margin: 0px;
-float:left;
-margin-left:20px;
-}
-.chartOptionsFlowTrend li *{
-float:left;
-
-}
-a:-webkit-any-link {
-color: -webkit-link;
-text-decoration: underline;
-cursor: auto;
-}
-.chartQuota p a {
-float: left;
-height: 21px;
+.chartQuota p{
 outline: 0 none;
 border: 1px solid #ccc;
 line-height: 22px;
 padding: 0 5px;
 overflow: hidden;
-background: #FDF2EF;
 color: #313131;
 text-decoration: none;
-width:70px;
-text-align:center;
-border-radius:20px;
-}
- 
-.chartQuota p {
+width:65px;
+text-align:left;
 margin:0px;
 folat:left;
-overflow: hidden;
 height: 23px;
 line-height:24px;
 display: inline-block;
 
+
 }
+.down_chartQuota{
+
+background:url(../images/arrow_triangle-down.png) no-repeat #FFFFFF;
+
+background-position:61px 4px;
+background-size:20% 80%;	
+}
+
+.up_chartQuota{
+
+	background:url(../images/arrow_triangle-up.png) no-repeat #FFFFFF;
+/*filter:Alpha(opacity=20); 
+-moz-opacity:0.2; /*支持 FireFox 浏览器
+-khtml-opacity: 0.2; */
+background-position:61px 4px;
+background-size:20% 80%;	
+}
+
+    
 .chartOptionsFlowTrend p {
 
 line-height: 23px;
@@ -404,7 +412,6 @@ display: inline-block;
 }
 .chartOptionsFlowTrend p a {
 border: 1px solid #fff;
-margin-left: 15px;
 color: #2e91da;
 } 
 /*firstbar设计*/	

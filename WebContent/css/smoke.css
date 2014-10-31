@@ -123,6 +123,19 @@ td{
 			border: 1px solid #CCCCCC;
 			padding:2px;
 }
+.jia{
+     list-style-image:url(../images/plus.png);
+            }
+.jian{
+     list-style-image:url(../images/minus.png);
+            }
+.none{
+                /*没有图片样式，即为默认样式*/
+     list-style-image:none;
+            }
+
+
+
 t1 {
     border-collapse: collapse;
     font-size:12px;
@@ -262,118 +275,131 @@ text-align:left;
 }*/
 
 /*taps设计*/
-#tapsbox{ 
-	width:935px; 
-	overflow:hidden;
-	border-collapse: collapse;
-	margin-left:-20px;
-	overflow:hidden;
-	}
+#tapsbox{
+    width:935px;
+    overflow:hidden;
+    border-collapse: collapse;
+    margin-left:-20px;
+    overflow:hidden;
+    }
 .taps_conbox{
-	width:905px;
+    width:905px;
 
 }
-.taps_con{ 
-	width:905px;
-
-	margin-top:5px;
+.taps_con{
+    width:905px;
+    margin-top:5px;
 
 }
 
 .taps{
-	border:none;
-	width:885px;
-	padding-left:50px;
+    border:none;
+    width:885px;
+    padding-left:50px;
 
-	}
+    }
 .taps li{
-	height:25px;
-	line-height:25px;
-	float:left;
-	border-top:1px solid #CCCCCC;
-	border-left:1px solid #CCCCCC;
-	border-bottom:1px solid #CCCCCC;
-	margin-bottom: 0px;
-	overflow: hidden;
-	position: relative;
-	padding-left:10px;
-	padding-right:10px;
+    height:25px;
+    line-height:25px;
+    float:left;
+    border-top:1px solid #CCCCCC;
+    border-left:1px solid #CCCCCC;
+    border-bottom:1px solid #CCCCCC;
+    margin-bottom: 0px;
+    overflow: hidden;
+    position: relative;
+    padding-left:10px;
+    padding-right:10px;
     border-radius:5px;
-		}
+        }
 .taps li a {
-	display: block;
+    display: block;
     margin-top:3px;
     outline: none;
     font-weight: normal;
     font-size: 15px;
-    		}
+            }
 .taps li a:hover {
-	background: #FDF2EF;
-	}    
+    background: #FDF2EF;
+    }    
 .taps .thistap,.taps .thistap a:hover{
-	background: #FDF2EF;
-	border-bottom: 1px solid #fff;}
+    background: #FDF2EF;
+    border-bottom: 1px solid #fff;}
 /*fuxuankuang*/
 .select_checkBox{
 position: relative;
 display:inline-block;
 margin-left:-330px;
 margin-top:32px;
-width:100px; 
-margin-bottom:5px;
+width:100px;
+margin-bottom:7px;
+
 }
+
+
 .chartQuota{
 height:23px;
 float:left;
 display:inline-block;
 border:0px solid black;
 position: relative;
-}
-.chartQuota p a {
-float: left;
-height: 21px;
-outline: 0 none;
-border: 1px solid #ccc;
-line-height: 22px;
-padding: 0 5px;
-overflow: hidden;
-background: #FDF2EF;
-color: #313131;
-text-decoration: none;
-width:70px;
-text-align:center;
-border-radius:20px;
+
+background-color: #FFFFFF;
 }
  
-.chartQuota p {
-margin:0px;
-folat:left;
-overflow: hidden;
-height: 23px;
-line-height:24px;
-display: inline-block;
-
-} 
 .chartOptionsFlowTrend{
 z-index:300;
-background-color:#FDF2EF;
+background-color:#fefefe;
 border:1px solid gray;
 display:none;
 position: absolute;
 left:0px;
 top:23px;
-width:300px;
+width:250px;
 float:left;
-border-radius:5px;
-margin-left:20px;
+height:50px;
+line-height:50px;
+border-radius:2px;
+text-align:center;
 }
 
-a:-webkit-any-link {
-color: -webkit-link;
-text-decoration: underline;
-cursor: auto;
+.chartQuota p{
+outline: 0 none;
+border: 1px solid #ccc;
+line-height: 22px;
+padding: 0 5px;
+overflow: hidden;
+color: #313131;
+text-decoration: none;
+width:65px;
+text-align:left;
+margin:0px;
+folat:left;
+height: 23px;
+line-height:24px;
+display: inline-block;
+
+
+}
+.down_chartQuota{
+
+background:url(../images/arrow_triangle-down.png) no-repeat #FFFFFF;
+
+background-position:61px 4px;
+background-size:20% 80%;	
 }
 
+.up_chartQuota{
+
+	background:url(../images/arrow_triangle-up.png) no-repeat #FFFFFF;
+/*filter:Alpha(opacity=20); 
+-moz-opacity:0.2; /*支持 FireFox 浏览器
+-khtml-opacity: 0.2; */
+background-position:61px 4px;
+background-size:20% 80%;	
+}
+
+    
 .chartOptionsFlowTrend p {
 
 line-height: 23px;
@@ -386,9 +412,8 @@ display: inline-block;
 }
 .chartOptionsFlowTrend p a {
 border: 1px solid #fff;
-padding-left: 15px;
 color: #2e91da;
-}  
+} 
 /*firstbar设计*/	
 #bar1{
     width:935;
@@ -476,5 +501,5 @@ margin:0 auto;}
 }
 
 
- #Smoke_hide
+ #Sanity_Smoke_hide
 {display:none;}

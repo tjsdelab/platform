@@ -12,7 +12,7 @@ String moduleCompare = "";
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Sanity and Smoke测试信息</title>
+    <title>Sanity测试信息</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/tab.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="css/buttons.css" />
@@ -221,21 +221,27 @@ $(function () {
    
    //下拉选择框
 	$(function(){
+		$("#c").addClass('down_chartQuota');
 		$("#c").toggle(function(){
-		$(".chartOptionsFlowTrend").css("display","inline-block");
+			var el = $(this);
+			el.removeClass("#p1").addClass('up_chartQuota');
+			$(".chartOptionsFlowTrend").css("display","inline-block");
 		},function(){
-		$(".chartOptionsFlowTrend").css("display","none");
-		});
-		}); 
+		$(".chartOptionsFlowTrend").css("display","none");	
+		$("#c").removeClass('up_chartQuota').addClass('down_chartQuota');});
+				}); 
         
-        /*$(".select_checkBox").ready(function(){
-        	    $("a").click(function(){
-        	    $(".chartOptionsFlowTrend").slideToggle();   //确定后触发筛选
-        	  });});
-        $('div#tapsbox').click(function(){
-        	    	$('.chartOptionsFlowTrend').hide();
-        	    	});
-        	});*/
+       $(function(){
+    		$("#d").addClass('down_chartQuota');
+    		$("#d").toggle(function(){
+    			var el = $(this);
+    			el.removeClass("#p2").addClass('up_chartQuota');
+    			$(".chartOptionsFlowTrend").css("display","inline-block");
+    		},function(){
+    		$(".chartOptionsFlowTrend").css("display","none");	
+    		$("#d").removeClass('up_chartQuota').addClass('down_chartQuota');});
+    				}); 
+       
         	
         $(function(){
         	$("#d").toggle(function(){
@@ -396,6 +402,8 @@ $(document).ready(function(){
         <s:submit id="auto_submit" value="搜索" method="dropDownProject" style="display:none"></s:submit>
         </li></ul>        
         </div>
+<!-- 完整性提示信息 -->
+        <div style="text-align:left;margin-bottom:10px;"><strong> <s:property value="completeStatus"/> </strong></div> 
 <!-- table 1 -->
          <div class="summary" >
                       <!--  <div style="text-align:left;margin-bottom:10px;"><strong>总体数据汇总</strong> </div> -->
@@ -450,15 +458,15 @@ $(document).ready(function(){
         <div class="tapsbox">
        
             <ul class="taps" id="taps">
-               <li><a href="#">自动测试结果</a></li>
-               <li><a href="#">手动测试结果</a></li>
-               <li style="border-right:1px solid #CCCCCC"><a href="#">测试版本信息</a></li></ul> 
+               <li>自动测试结果</li>
+               <li>手动测试结果</li>
+               <li style="border-right:1px solid #CCCCCC">测试版本信息</li></ul> 
                
             <ul class="taps_conbox" id="taps_conbox">
                 <li class="taps_con">
 	            <div class="select_checkBox" >
-				<div class="chartQuota">
-				<p><a href="javascript:;" title="请选择指标"><span id="c">选择指标</span><b></b></a></p>
+				<div class="chartQuota" id="c">
+				<p id="p1">选择指标</p>
 			    </div><br>
 			
 			    <div class="chartOptionsFlowTrend">
@@ -472,18 +480,18 @@ $(document).ready(function(){
 				</div>
 			
 <!--case表格统计-->  
-                          <table class="orderedcaselist" width="860px" style="margin-left:50px" id="caselist1">
+                          <table class="orderedcaselist" width="850px" style="margin-left:50px" id="caselist1">
                                <thead> <tr style="height:20px" id="gun">
                                    <th width="6%">No.</th>
-                                   <th width="3%">结果</th>
-                                   <th width="3%">模块</th>
-                                   <th width="5%">概要</th>
-                                   <th width="22%">前提条件</th>
+                                   <th width="4%">结果</th>
+                                   <th width="6%">模块</th>
+                                   <th width="7%">概要</th>
+                                   <th width="16%">前提条件</th>
                                    <th width="2%">优先级</th>
-                                   <th width="22%">步骤</th>
-                                   <th width="21%">期望结果</th>
+                                   <th width="23%">步骤</th>
+                                   <th width="23%">期望结果</th>
                                    <th width="8%">BugID</th>
-                                   <th width="8%">备注</th>
+                                   <th width="5%">备注</th>
                                 </tr></thead>
                                  <tbody>
                                  <%
@@ -494,9 +502,9 @@ $(document).ready(function(){
                                        String str_auto="";                                       
                                        String str2_auto=(String)request.getAttribute("module");
                                        if(moduleCompare.equals(str2_auto)){
-                                    	   str_auto = "class=\"child_"+str2_auto+"\"";
+                                    	   str_auto = "class=\"child_"+str2_auto.replace(" ", "_")+"\"";
                                        } else {
-                                    	   str_auto = "class=\"parent\" id=\""+str2_auto+"\"";
+                                    	   str_auto = "class=\"parent\" id=\""+str2_auto.replace(" ", "_")+"\"";
                                     	   moduleCompare = str2_auto;
                                        }
                                    %>
@@ -518,8 +526,8 @@ $(document).ready(function(){
             
                 <li class="taps_con">
 	            <div class="select_checkBox" >
-				<div class="chartQuota">
-				<p><a href="javascript:;" title="请选择指标"><span id="d">选择指标</span><b></b></a></p>
+				<div class="chartQuota"  id="d">
+				<p id="p2">选择指标</p>
 			    </div><br>
 			
 			    <div class="chartOptionsFlowTrend">
@@ -527,25 +535,23 @@ $(document).ready(function(){
 				<input type="checkbox" name="checkbox" value="FAIL" class="check2" id="FAIL2" ><span>Fail</span>
 				<input type="checkbox" name="checkbox" value="NA" class="check2" id="NA2" ><span>NA</span>
 				<input type="checkbox" name="checkbox" value="BLOCK" class="check2"  id="BLOCK2"><span>Block</span>
-				<!--<a href="javascript:;" title="确定" class="a_0">确定</a>
-				<a href="javascript:;" title="取消" class="a_1">取消</a>-->
 				</div>
 				</div>
 			                      
-                         <table class="orderedcaselist" width="860px" style="margin-left:50px" id="caselist2">
-                                  <thead> <tr style="height:20px;margin-left:50px" id="gun">
+                         <table class="orderedcaselist" width="850px" style="margin-left:50px" id="caselist2">
+                                  <thead> <tr style="height:20px" id="gun">
                                    <th width="6%">No.</th>
-                                   <th width="3%">结果</th>
-                                   <th width="3%">模块</th>
-                                   <th width="5%">概要</th>
-                                   <th width="22%">前提条件</th>
+                                   <th width="4%">结果</th>
+                                   <th width="6%">模块</th>
+                                   <th width="7%">概要</th>
+                                   <th width="16%">前提条件</th>
                                    <th width="2%">优先级</th>
-                                   <th width="22%">步骤</th>
-                                   <th width="21%">期望结果</th>
+                                   <th width="23%">步骤</th>
+                                   <th width="23%">期望结果</th>
                                    <th width="8%">BugID</th>
-                                   <th width="8%">备注</th>
+                                   <th width="5%">备注</th>
                                 </tr></thead>
-                                <tbody>
+                                 <tbody>
                                  <%
                                      moduleCompare ="";
                                  %>
@@ -554,9 +560,9 @@ $(document).ready(function(){
                                        String str="";                                       
                                        String str2=(String)request.getAttribute("module");
                                        if(moduleCompare.equals(str2)){
-                                    	   str = "class=\"child_"+str2+"\"";
+                                    	   str = "class=\"child_"+str2.replace(" ", "_")+"\"";
                                        } else {
-                                    	   str = "class=\"parent\" id=\""+str2+"\"";
+                                    	   str = "class=\"parent\" id=\""+str2.replace(" ", "_")+"\"";
                                     	   moduleCompare = str2;
                                        }                                       
                                    %>
