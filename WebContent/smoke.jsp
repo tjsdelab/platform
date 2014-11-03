@@ -203,7 +203,7 @@
 			</div>
 			<div id="project_hide">
 				<div id="Smoke_hide">
-					<s:submit id="jump" method="Smoke_jump"></s:submit>
+					<s:submit id="jump" method="search"></s:submit>
 				</div>
 			</div>
 

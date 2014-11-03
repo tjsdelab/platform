@@ -5,8 +5,8 @@
 <hibernate-configuration>
     <session-factory>
     	<property name="connection.url">jdbc:mysql://10.5.2.48:3306/doubleS</property>
-    	<property name="connection.username">admin</property>
-    	<property name="connection.password">adminUse</property>
+    	<property name="connection.username">doubleS</property>
+    	<property name="connection.password">doubleS</property>
     	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     	<!-- 设置dialect属性可以使用该类型数据库特性 -->
     	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>

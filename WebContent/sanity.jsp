@@ -8,6 +8,14 @@ String fail = (String)request.getAttribute("failList");
 String na = (String)request.getAttribute("naList");
 String block = (String)request.getAttribute("blockList");
 String moduleCompare = "";
+
+String bug_url="";
+String common_url="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?quicksearch=";
+String bugNums=(String)request.getAttribute("bugList");
+if(null != bugNums){
+    bug_url = common_url+bugNums;
+}
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -305,17 +313,17 @@ $(function () {
     	
         $(".orderedcaselist tr").each(function()
        {
-       if( $(this).find("td").eq(1).text().toUpperCase() == "PASS"){
-           $(this).find("td").eq(1).css("background-color","#71C671");
+       if( $(this).find("td").eq(2).text().toUpperCase() == "PASS"){
+           $(this).find("td").eq(2).css("background-color","#71C671");
        }
-       if( $(this).find("td").eq(1).text().toUpperCase() == "FAIL"){
-           $(this).find("td").eq(1).css("background-color","#CD5555");
+       if( $(this).find("td").eq(2).text().toUpperCase() == "FAIL"){
+           $(this).find("td").eq(2).css("background-color","#CD5555");
        }
-       if( $(this).find("td").eq(1).text().toUpperCase() == "NA"){
-           $(this).find("td").eq(1).css("background-color","#87CEEB");
+       if( $(this).find("td").eq(2).text().toUpperCase() == "NA"){
+           $(this).find("td").eq(2).css("background-color","#87CEEB");
        }
-       if( $(this).find("td").eq(1).text().toUpperCase() == "BLOCK"){
-           $(this).find("td").eq(1).css("background-color","#666666");
+       if( $(this).find("td").eq(2).text().toUpperCase() == "BLOCK"){
+           $(this).find("td").eq(2).css("background-color","#666666");
        }
        });
    });
@@ -324,7 +332,7 @@ $(document).ready(function(){
     	$("[name = checkbox]:checkbox").prop("checked", 'checked');
     	$(".check1").change(function() { 
     	   $("#caselist1 tr").each(function(){
-    	        var value = $(this).find("td").eq(1).text().toUpperCase();
+    	        var value = $(this).find("td").eq(2).text().toUpperCase();
     	 
     	        if(value.length > 0){
     	        if($("#"+value+"1").attr("checked") != "checked"){
@@ -341,7 +349,7 @@ $(document).ready(function(){
 $(document).ready(function(){ 
     	$(".check2").change(function() { 
     	$("#caselist2 tr").each(function(){
-    	     var value = $(this).find("td").eq(1).text().toUpperCase();    	 
+    	     var value = $(this).find("td").eq(2).text().toUpperCase();    	 
     	     if(value.length > 0){
     	     if($("#"+value+"2").attr("checked") != "checked"){
     	         $(this).hide();
@@ -353,9 +361,30 @@ $(document).ready(function(){
     	    });
     	}); 
     	}); 
-    
+ 
+$(function(){
+	$('tr.parent').toggle(function(){
+		//$(this).find("td:first").html("-");
+		$(this).find("td:first").css("background-image", "url(images/minus.png)");
+		//alert($(this).find("td:first").height()+ "" +$(this).find("td:first").width());"background-size": "100%"
+		$(this).find("td:first").css("background-size", "100%");	
+		$(this).find("td:first").css("background-repeat", "no-repeat");	  
+	},function(){
+			$(this).find("td:first").css("background-image", "url(images/plus.png)");
+			$(this).find("td:first").css("background-size", "100%");	
+			$(this).find("td:first").css("background-repeat", "no-repeat");	
+		});
+});
     
 </script>
+<style>
+.child
+{
+background-image:url(images/plus.png);
+background-size:100%;
+background-repeat:no-repeat
+}
+</style>
 </head>
 
 <body>
@@ -378,7 +407,7 @@ $(document).ready(function(){
          </div>
            <div id="project_hide">   
               <div id="Sanity_Smoke_hide">
-              <s:submit id="jump" method="Sanity_Smoke_jump"></s:submit>
+              <s:submit id="jump" method="search"></s:submit>
               </div></div>  
 
          <div class="right">
@@ -404,6 +433,8 @@ $(document).ready(function(){
         </div>
 <!-- 完整性提示信息 -->
         <div style="text-align:left;margin-bottom:10px;"><strong> <s:property value="completeStatus"/> </strong></div> 
+<!-- 表标题 -->
+        <div style="text-align:center;margin-bottom:10px;"><strong> <s:property value="currentProject"/> </strong></div> 
 <!-- table 1 -->
          <div class="summary" >
                       <!--  <div style="text-align:left;margin-bottom:10px;"><strong>总体数据汇总</strong> </div> -->
@@ -421,7 +452,8 @@ $(document).ready(function(){
                      <td><s:property value="version"/></td>
                      <td><s:property value="total"/></td>
                      <td><s:property value="pass"/></td>
-                     <td><s:property value="fail"/></td>
+                     <td><a style="text-align:center;color:#0000ff;
+                         text-decoration: underline;" target="_blank" href='<%=bug_url%>'><s:property value="fail"/></a></td>
                      <td><s:property value="na"/></td>
                      <td><s:property value="block"/></td>
                      <td><s:property value="pass_ratio"/></td>
@@ -482,7 +514,8 @@ $(document).ready(function(){
 <!--case表格统计-->  
                           <table class="orderedcaselist" width="850px" style="margin-left:50px" id="caselist1">
                                <thead> <tr style="height:20px" id="gun">
-                                   <th width="6%">No.</th>
+                                   <th width="2%"></th>
+                                   <th width="4%">No.</th>
                                    <th width="4%">结果</th>
                                    <th width="6%">模块</th>
                                    <th width="7%">概要</th>
@@ -498,17 +531,26 @@ $(document).ready(function(){
                                      moduleCompare ="";
                                  %>
                                 <s:iterator value="#request.allCaseList_auto" id="case">
-                                   <%                                       
+                                   <%  
+                                       String bug_auto="";
+                                       String url="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?quicksearch=";
+                                       String bugNum=(String)request.getAttribute("bugID");
+                                       if(null != bugNum){
+                                           bug_auto = url+bugNum;
+                                       }
                                        String str_auto="";                                       
                                        String str2_auto=(String)request.getAttribute("module");
                                        if(moduleCompare.equals(str2_auto)){
-                                    	   str_auto = "class=\"child_"+str2_auto.replace(" ", "_")+"\"";
+                                    	   str_auto = "class=\"child_"+str2_auto.replace(" ", "_")+
+                                    			   "\"><td>&nbsp;&nbsp;</td";
                                        } else {
-                                    	   str_auto = "class=\"parent\" id=\""+str2_auto.replace(" ", "_")+"\"";
+                                    	   str_auto = "class=\"parent\" id=\""+str2_auto.replace(" ", "_")+
+                                    			   "\"><td class=\"child\"></td";
                                     	   moduleCompare = str2_auto;
                                        }
                                    %>
-                                <tr <%=str_auto%>><td><s:property value="#case.caseID"/></td>
+                                <tr <%=str_auto%>>
+                                    <td><s:property value="#case.caseID"/></td>
                                     <td id="result"><s:property value="#case.results"/></td>
                                     <td><s:property value="#case.module"/></td>
                                     <td><s:property value="#case.summary"/></td>
@@ -516,7 +558,8 @@ $(document).ready(function(){
                                     <td><s:property value="#case.importance"/></td>
                                     <td><s:property value="#case.actions"/></td>
                                     <td><s:property value="#case.expectedResults"/></td>
-                                    <td><s:property value="#case.bugID"/></td>
+                                    <td><a style="text-align:left;color:#0000ff;
+                                    text-decoration: underline;" target="_blank" href='<%=bug_auto%>'><s:property value="#case.bugID"/></a></td>
                                     <td><s:property value="#case.comments"/></td>
                                 </tr>
                                 </s:iterator>
@@ -540,7 +583,8 @@ $(document).ready(function(){
 			                      
                          <table class="orderedcaselist" width="850px" style="margin-left:50px" id="caselist2">
                                   <thead> <tr style="height:20px" id="gun">
-                                   <th width="6%">No.</th>
+                                   <th width="2%"></th>
+                                   <th width="4%">No.</th>
                                    <th width="4%">结果</th>
                                    <th width="6%">模块</th>
                                    <th width="7%">概要</th>
@@ -557,16 +601,25 @@ $(document).ready(function(){
                                  %>
                                <s:iterator value="#request.allCaseList" id="case">
                                    <%
+                                       String bug="";
+                                       String url="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?quicksearch=";
+                                       String bugNum=(String)request.getAttribute("bugID");
+                                       if(null != bugNum){
+                                           bug = url+bugNum;
+                                       }
                                        String str="";                                       
                                        String str2=(String)request.getAttribute("module");
                                        if(moduleCompare.equals(str2)){
-                                    	   str = "class=\"child_"+str2.replace(" ", "_")+"\"";
+                                    	   str = "class=\"child_"+str2.replace(" ", "_")+
+                                    			   "\"><td>&nbsp;&nbsp;</td";
                                        } else {
-                                    	   str = "class=\"parent\" id=\""+str2.replace(" ", "_")+"\"";
+                                    	   str = "class=\"parent\" id=\""+str2.replace(" ", "_")+
+                                    			   "\"><td class=\"child\"></td";
                                     	   moduleCompare = str2;
                                        }                                       
                                    %>
-                                <tr <%=str%>><td><s:property value="#case.caseID"/></td>
+                                <tr <%=str%>>
+                                    <td><s:property value="#case.caseID"/></td>
                                     <td id="result"><s:property value="#case.results"/></td>
                                     <td><s:property value="#case.module"/></td>
                                     <td><s:property value="#case.summary"/></td>
@@ -574,7 +627,8 @@ $(document).ready(function(){
                                     <td><s:property value="#case.importance"/></td>
                                     <td><s:property value="#case.actions"/></td>
                                     <td><s:property value="#case.expectedResults"/></td>
-                                    <td><s:property value="#case.bugID"/></td>
+                                    <td><a style="text-align:left;color:#0000ff;
+                                    text-decoration: underline;" target="_blank" href='<%=bug%>'><s:property value="#case.bugID"/></a></td>
                                     <td><s:property value="#case.comments"/></td>
                                 </tr>
                                 </s:iterator>
