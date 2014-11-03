@@ -503,8 +503,7 @@ background-repeat:no-repeat
 				</div>
 			
 <!--case表格统计-->  
-                          <table class="orderedcaselist" width="850px" style="float:left;position:relative;
-									zoom:1;margin-left:50px;margin-top:37px;" id="caselist1">
+                          <table class="orderedcaselist" width="850px" style="margin-left:50px;" id="caselist1">
                                <thead> <tr style="height:20px" id="gun">
                                    <!-- <th width="2%"></th> -->
                                    <th width="5%">No.</th>
@@ -573,7 +572,7 @@ background-repeat:no-repeat
 				</div>
 				</div>
 			                      
-                         <table class="orderedcaselist" width="850px" style="margin-left:50px;margin-top:37px;float:left;" id="caselist2">
+                         <table class="orderedcaselist" width="850px" style="margin-left:50px;" id="caselist2">
                                   <thead> <tr style="height:20px" id="gun">
                                    <!--  <th width="2%"></th>-->
                                    <th width="5%">No.</th>
