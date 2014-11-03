@@ -103,7 +103,7 @@ public class ProjectDownloadAction extends ActionSupport{
 					.receiveOverallTimeInfo_List(testFormName);
 
 			OutputStream out = new FileOutputStream(
-					"/home7/qilongyin/code/platform/WebContent/exportFiles/"
+					"/home7/qilongyin/files/monkeyDaily/"
 							+ testFormName + ".xls");
 
 			SaveExcel<LowerTestInfo> sel = new SaveExcel<LowerTestInfo>();
@@ -168,7 +168,7 @@ public class ProjectDownloadAction extends ActionSupport{
 
 		// ServletContext servletContext =
 		// ServletActionContext.getServletContext();
-		String filename = "/home7/qilongyin/code/platform/WebContent/exportFiles/"
+		String filename = "/home7/qilongyin/files/monkeyDaily/"
 				+ testFormName + ".xls";
 
 		inputStream = new FileInputStream(filename);

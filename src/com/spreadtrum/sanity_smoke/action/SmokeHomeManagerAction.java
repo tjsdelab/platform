@@ -31,6 +31,7 @@ public class SmokeHomeManagerAction extends ActionSupport {
 	private int fail = 0;
 	private int na = 0;
 	private int block = 0;
+	private String bugList="";
 	private String pass_ratio;
 	private String type;
 	private String searchProject;
@@ -107,6 +108,9 @@ public class SmokeHomeManagerAction extends ActionSupport {
 			//统计pass。fail等次数
 			String result = allCaseList.get(i).getResults();
 			int  manualString = allCaseList.get(i).getManualFlag();
+			if (null != allCaseList.get(i).getBugID()){
+			    bugList = bugList + allCaseList.get(i).getBugID() + " ";
+			}
 			if(manualString == 1){
 				allCaseList_auto.add(allCaseList.get(i));
 				allCaseList.remove(i);
@@ -127,6 +131,7 @@ public class SmokeHomeManagerAction extends ActionSupport {
 
 			 ServletActionContext.getRequest().setAttribute("allCaseList",allCaseList);
 			 ServletActionContext.getRequest().setAttribute("allCaseList_auto",allCaseList_auto);
+			 ServletActionContext.getRequest().setAttribute("bugList",bugList);
 		}
 		
 	}
@@ -181,6 +186,13 @@ public class SmokeHomeManagerAction extends ActionSupport {
 	}
 	public void setPass(int pass) {
 		this.pass = pass;
+	}
+	public String getBugList() {
+		return bugList;
+	}
+
+	public void setBugList(String bugList) {
+		this.bugList = bugList;
 	}
 	public int getFail() {
 		return fail;

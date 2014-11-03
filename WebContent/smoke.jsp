@@ -315,8 +315,8 @@ if(null != bugNums){
 									</div>
 								</div> 
 				<!--case表格统计-->
-								<table class="orderedcaselist" width="850px"
-									style="margin-left: 50px" id="caselist1">
+				                <table  class="orderedcaselist" width="850px" style="float:left;position:relative;
+                                    zoom:1;margin-left:50px;margin-top:10px;" id="caselist1">
 									<thead>
 										<tr style="height: 30px" id="gun">
 											<th width="3%">No.</th>
@@ -388,8 +388,8 @@ if(null != bugNums){
 									</div>
 								</div>
 
-								<table class="orderedcaselist" width="850px"
-									style="margin-left: 50px" id="caselist2">
+								    <table  class="orderedcaselist" width="850px" style="float:left;position:relative;
+                                    zoom:1;margin-left:50px;margin-top:10px;" id="caselist2">
 									<thead>
 										<tr style="height: 30px" id="gun">
 											<th width="3%">No.</th>
