@@ -17,31 +17,32 @@ if(null != bugNums){
 }
 
 %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ <meta name="renderer" content="webkit">
+ 
 <head>
     <title>Sanity测试信息</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/tab.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="css/buttons.css" />
-    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/sanity.css" type="text/css">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" media="screen" />
+    <link rel="Bookmark" href="images/favicon.ico">
+    
+    <link rel="stylesheet" type="text/css" href="css/buttons.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.jqplot.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
     
     <script type="text/javascript" src="jqplot/jquery.js"></script>
     <script type="text/javascript" src="jqplot/jquery-ui.js"></script>
      
      <script type="text/javascript" src="jqplot/highcharts.js"></script> 
      <script type="text/javascript" src="jqplot/exporting.js"></script>
-   
-
-
+     
 <script>
-//Load the fonts 
-/*Highcharts.createElement('link', { 
-    href: 'http://fonts.googleapis.com/css?family=Dosis:400,600', 
-            rel: 'stylesheet', 
-            type: 'text/css' 
-                    }, null, document.getElementsByTagName('head')[0]); */
 Highcharts.setOptions({
     credits: { enabled: false },
     exporting: { enabled:false},
@@ -58,13 +59,13 @@ $(function () {
         chart: {
             type: 'column',
             backgroundColor: null,
-            spacingTop:20,    //图表底部和内容的距离空间
-            spacingLeft:20,
+            spacingTop:25,    //图表底部和内容的距离空间
+            spacingLeft:50,
             style: { 
-                fontFamily: "Dosis, sans-serif" 
+                fontFamily: "Microsoft YaHei" 
                 } 
         },
-        colors: ["#666666","#87CEEB","#CD5555","#71C671"], 
+        colors: ["#1E1E1E","#848484","#CD5555","#71C671"], 
         title: {
             text: ''
                },
@@ -79,8 +80,7 @@ $(function () {
             labels: { 
                 rotation: -30,//倾斜度 
                 style: {
-                    font: 'bold 12px Microsoft YaHei', 
-                    
+                	font: '12px Verdana, sans-serif',
                     } 
                  }
             
@@ -115,12 +115,12 @@ $(function () {
             x: 0,
             //verticalAlign: 'middle',    //竖直方向居中，默认在底部
             verticalAlign: 'top',
-            y: -20,
+            y: -25,
         	floating:true,
         	draggable: true,
         	reversed:true,
         	itemWidth:72,  //每个图例项目的宽度
-        	padding:3,   //图例盒子的内边距
+        	padding:5,   //图例盒子的内边距
         	//itemMarginTop:-1,
         	symbolPadding:3,  //图例内标志和文本的距离
         	//symbolWidth:10,  //图例内标志的宽度
@@ -209,13 +209,13 @@ $(function () {
         });
    
     //表格折叠与展开
-    $(function(){
+    /*$(function(){
          $('tr.parent').click(function(){   // 获取所谓的父行
            $(this)
             .toggleClass("selected")   // 添加/删除高亮
             .siblings('.child_'+this.id).toggle();  // 隐藏/显示所谓的子行
          }).click();
-       });
+       });*/
    //passfail changeclor 
    //评论文本框自动下拉
     /*function borderColor(){
@@ -248,16 +248,7 @@ $(function () {
     		},function(){
     		$(".chartOptionsFlowTrend").css("display","none");	
     		$("#d").removeClass('up_chartQuota').addClass('down_chartQuota');});
-    				}); 
-       
-        	
-        $(function(){
-        	$("#d").toggle(function(){
-        	$(".chartOptionsFlowTrend").css("display","inline-block");
-        	},function(){
-        	$(".chartOptionsFlowTrend").css("display","none");
-        	});
-        	}); 
+    				});        
       	  
     $(document).ready(function(){
         $("#auto").change(function(){
@@ -313,17 +304,17 @@ $(function () {
     	
         $(".orderedcaselist tr").each(function()
        {
-       if( $(this).find("td").eq(2).text().toUpperCase() == "PASS"){
-           $(this).find("td").eq(2).css("background-color","#71C671");
+       if( $(this).find("td").eq(1).text().toUpperCase() == "PASS"){
+           $(this).find("td").eq(1).css("background-color","#71C671");
        }
-       if( $(this).find("td").eq(2).text().toUpperCase() == "FAIL"){
-           $(this).find("td").eq(2).css("background-color","#CD5555");
+       if( $(this).find("td").eq(1).text().toUpperCase() == "FAIL"){
+           $(this).find("td").eq(1).css("background-color","#CD5555");
        }
-       if( $(this).find("td").eq(2).text().toUpperCase() == "NA"){
-           $(this).find("td").eq(2).css("background-color","#87CEEB");
+       if( $(this).find("td").eq(1).text().toUpperCase() == "NA"){
+           $(this).find("td").eq(1).css("background-color","#848484");
        }
-       if( $(this).find("td").eq(2).text().toUpperCase() == "BLOCK"){
-           $(this).find("td").eq(2).css("background-color","#666666");
+       if( $(this).find("td").eq(1).text().toUpperCase() == "BLOCK"){
+           $(this).find("td").eq(1).css("background-color","#1E1E1E");
        }
        });
    });
@@ -332,7 +323,7 @@ $(document).ready(function(){
     	$("[name = checkbox]:checkbox").prop("checked", 'checked');
     	$(".check1").change(function() { 
     	   $("#caselist1 tr").each(function(){
-    	        var value = $(this).find("td").eq(2).text().toUpperCase();
+    	        var value = $(this).find("td").eq(1).text().toUpperCase();
     	 
     	        if(value.length > 0){
     	        if($("#"+value+"1").attr("checked") != "checked"){
@@ -349,7 +340,7 @@ $(document).ready(function(){
 $(document).ready(function(){ 
     	$(".check2").change(function() { 
     	$("#caselist2 tr").each(function(){
-    	     var value = $(this).find("td").eq(2).text().toUpperCase();    	 
+    	     var value = $(this).find("td").eq(1).text().toUpperCase();    	 
     	     if(value.length > 0){
     	     if($("#"+value+"2").attr("checked") != "checked"){
     	         $(this).hide();
@@ -362,7 +353,7 @@ $(document).ready(function(){
     	}); 
     	}); 
  
-$(function(){
+/*$(function(){
 	$('tr.parent').toggle(function(){
 		//$(this).find("td:first").html("-");
 		$(this).find("td:first").css("background-image", "url(images/minus.png)");
@@ -374,29 +365,27 @@ $(function(){
 			$(this).find("td:first").css("background-size", "100%");	
 			$(this).find("td:first").css("background-repeat", "no-repeat");	
 		});
-});
+});*/
     
 </script>
-<style>
+<!--<style>
 .child
 {
 background-image:url(images/plus.png);
 background-size:100%;
 background-repeat:no-repeat
 }
-</style>
+</style>-->
 </head>
 
 <body>
+
 <s:form action="sanity.action" theme="simple">   
      <div class="page">
          <div class="sidebar"><br>
             <img src="images/logo.png" alt="logo">
              <br><br><br><ul>
                 <!-- 默认显示Sanity信息 -->
-                 <li>
-                     <a href="#" class="button blue medium">Sanity</a>
-                 </li>
                  <li>
                      <a href="smoke.action" class="button blue medium">Smoke</a>
                  </li>
@@ -411,8 +400,12 @@ background-repeat:no-repeat
               </div></div>  
 
          <div class="right">
-         <div class="right_whole">
-         
+         <div class="right_whole"> 
+<!-- 完整性提示信息-->
+         <marquee onMouseOut="this.start()" onMouseOver="this.stop()" direction="left" scrollamount="6" 
+		    style="margin-left:350px; width:250px;margin-top:5px;margin-bottom:5px;"  id="">
+		    <div style="text-align:center;color:#FF3300;font-size:16px;margin-top:5px;margin-bottom:5px;"><strong > <s:property value="completeStatus"/> </strong></div> 
+		 </marquee> 
 <!-- search module & select module -->
          <div class="bar1" id="bar1">
          <ul class="bar1_first" id="bar1_first">
@@ -426,15 +419,13 @@ background-repeat:no-repeat
              </s:textfield>
              <s:submit style="font-size:14px;" id="search" value="搜索" method="search"></s:submit>
           </li>
-        <li style="float:left;">
+        <li style="float:left;padding-left:50px">
         <s:select style="width:450px;text-align:center;" id="auto" list="projectList" name="currentProject"></s:select>
         <s:submit id="auto_submit" value="搜索" method="dropDownProject" style="display:none"></s:submit>
         </li></ul>        
         </div>
-<!-- 完整性提示信息 -->
-        <div style="text-align:left;margin-bottom:10px;"><strong> <s:property value="completeStatus"/> </strong></div> 
 <!-- 表标题 -->
-        <div style="text-align:center;margin-bottom:10px;"><strong> <s:property value="currentProject"/> </strong></div> 
+        <div style="text-align:center;font-size:17px;margin-top:10px;margin-bottom:-10px;"><strong> <s:property value="currentProject"/> </strong></div> 
 <!-- table 1 -->
          <div class="summary" >
                       <!--  <div style="text-align:left;margin-bottom:10px;"><strong>总体数据汇总</strong> </div> -->
@@ -465,7 +456,7 @@ background-repeat:no-repeat
 <!-- 测试种类汇总 -->
            <div class="bar_tabbox" id="bar_tabbox">
            <ul class="graybtn" style="float:left"></ul>
-             <ul class="bar_tabs" style="float:right" id="bar_tabs">
+             <ul class="bar_tabs" id="bar_tabs">
                <li style="circle"></li><li>测试种类汇总</li>
              </ul>
            </div>
@@ -481,7 +472,7 @@ background-repeat:no-repeat
 <!-- 详细测试信息 --> 
          <div class="bar_tabbox" id="bar_tabbox">
            <ul class="graybtn" style="float:left"></ul>
-             <ul class="bar_tabs" style="float:right" id="bar_tabs">
+             <ul class="bar_tabs" id="bar_tabs">
                <li style="circle"></li><li>详细测试信息</li>
             </ul>
            </div>
@@ -512,13 +503,14 @@ background-repeat:no-repeat
 				</div>
 			
 <!--case表格统计-->  
-                          <table class="orderedcaselist" width="850px" style="margin-left:50px" id="caselist1">
+                          <table class="orderedcaselist" width="850px" style="float:left;position:relative;
+									zoom:1;margin-left:50px;margin-top:37px;" id="caselist1">
                                <thead> <tr style="height:20px" id="gun">
-                                   <th width="2%"></th>
-                                   <th width="4%">No.</th>
+                                   <!-- <th width="2%"></th> -->
+                                   <th width="5%">No.</th>
                                    <th width="4%">结果</th>
                                    <th width="6%">模块</th>
-                                   <th width="7%">概要</th>
+                                   <th width="8%">概要</th>
                                    <th width="16%">前提条件</th>
                                    <th width="2%">优先级</th>
                                    <th width="23%">步骤</th>
@@ -538,7 +530,7 @@ background-repeat:no-repeat
                                        if(null != bugNum){
                                            bug_auto = url+bugNum;
                                        }
-                                       String str_auto="";                                       
+                                     /*  String str_auto="";                                       
                                        String str2_auto=(String)request.getAttribute("module");
                                        if(moduleCompare.equals(str2_auto)){
                                     	   str_auto = "class=\"child_"+str2_auto.replace(" ", "_")+
@@ -547,9 +539,9 @@ background-repeat:no-repeat
                                     	   str_auto = "class=\"parent\" id=\""+str2_auto.replace(" ", "_")+
                                     			   "\"><td class=\"child\"></td";
                                     	   moduleCompare = str2_auto;
-                                       }
+                                       }*/
                                    %>
-                                <tr <%=str_auto%>>
+                                <tr>
                                     <td><s:property value="#case.caseID"/></td>
                                     <td id="result"><s:property value="#case.results"/></td>
                                     <td><s:property value="#case.module"/></td>
@@ -581,13 +573,13 @@ background-repeat:no-repeat
 				</div>
 				</div>
 			                      
-                         <table class="orderedcaselist" width="850px" style="margin-left:50px" id="caselist2">
+                         <table class="orderedcaselist" width="850px" style="margin-left:50px;margin-top:37px;float:left;" id="caselist2">
                                   <thead> <tr style="height:20px" id="gun">
-                                   <th width="2%"></th>
-                                   <th width="4%">No.</th>
+                                   <!--  <th width="2%"></th>-->
+                                   <th width="5%">No.</th>
                                    <th width="4%">结果</th>
                                    <th width="6%">模块</th>
-                                   <th width="7%">概要</th>
+                                   <th width="8%">概要</th>
                                    <th width="16%">前提条件</th>
                                    <th width="2%">优先级</th>
                                    <th width="23%">步骤</th>
@@ -607,7 +599,7 @@ background-repeat:no-repeat
                                        if(null != bugNum){
                                            bug = url+bugNum;
                                        }
-                                       String str="";                                       
+                                       /*String str="";                                       
                                        String str2=(String)request.getAttribute("module");
                                        if(moduleCompare.equals(str2)){
                                     	   str = "class=\"child_"+str2.replace(" ", "_")+
@@ -616,9 +608,9 @@ background-repeat:no-repeat
                                     	   str = "class=\"parent\" id=\""+str2.replace(" ", "_")+
                                     			   "\"><td class=\"child\"></td";
                                     	   moduleCompare = str2;
-                                       }                                       
+                                       }  */                                   
                                    %>
-                                <tr <%=str%>>
+                                <tr>
                                     <td><s:property value="#case.caseID"/></td>
                                     <td id="result"><s:property value="#case.results"/></td>
                                     <td><s:property value="#case.module"/></td>
@@ -650,9 +642,9 @@ background-repeat:no-repeat
  <div>
     <div style="float:left;margin-left:80%;">报告下载 </div>                                      
          <div style="float:left;margin-left:10px;">
-         <a style="color:#0000ff;font-size: 15px;"target="_blank" href="download?testFormName=<s:property value="#request.testFormName"/>"> <img src="images/download.png" alt="download" height="25" width="30" ></a> </div><br>                                                           
+         <a style="color:#0000ff;font-size: 15px;"target="_blank" href="sanity_download?currentFormName=<s:property value="#request.currentFormName"/>"> <img src="images/download.png" alt="download" height="25" width="30" ></a> </div><br>                                                           
 </div> 
-  
+
 </div>
 </div>
 </div>
