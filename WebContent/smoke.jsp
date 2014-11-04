@@ -306,7 +306,7 @@ if(null != bugNums){
 				    <ul class="taps_conbox" id="taps_conbox">
 		                <li class="taps_con">
 			            <div class="select_checkBox" >
-						<div class="chartQuota" id="c">
+						<div class="chartQuota" id="c" style="cursor:pointer">
 						<p id="p1">选择指标</p>
 					    </div><br>
 
@@ -376,7 +376,7 @@ if(null != bugNums){
 
 							<li class="taps_con">
 								<div class="select_checkBox">
-									<div class="chartQuota" id="d">
+									<div class="chartQuota" id="d" style="cursor:pointer">
 										<p id="p2">选择指标</p>
 									</div>
 									<br>
