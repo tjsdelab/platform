@@ -278,7 +278,7 @@ $(function () {
                 if(value == "date"){
                     var d=new Date(),str='';
                     str += d.getFullYear()+'-'; //获取当前年份
-                    if (d.getDate() < 9) {
+                    if (d.getMonth() < 9) {
                     	str += "0";
                     }
                     str +=d.getMonth()+1+'-'; //获取当前月份（0——11）

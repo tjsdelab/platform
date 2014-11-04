@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.spreadtrum.sanity_smoke.dao.SmokeTestFormDAO;
 import com.spreadtrum.sanity_smoke.dao.impl.SmokeTestFormDAOImpl;
@@ -18,8 +20,12 @@ public String execute() {
 	//通过SmokeTestFormDAO调用查找相关的三个方法
 	SmokeTestFormDAO testForm = new SmokeTestFormDAOImpl();
 	if(type.equals("date")){
-		 
-		testFormList = testForm.searchSmokeTableNameByDate(Date.valueOf(searchProject));		
+		try {
+			testFormList = testForm.searchSmokeTableNameByDate(Date.valueOf(searchProject));
+		} catch(Exception e) {
+			JOptionPane.showConfirmDialog(null, "日期格式不正确,请写成:yyyy-mm-dd 格式", "错误！", JOptionPane.CLOSED_OPTION);
+			return "smoke_fail";
+		}		
 	}
 	else if (type.equals("project")) {
 		testFormList = testForm.searchSmokeTableNameByProject(searchProject);
