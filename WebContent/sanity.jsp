@@ -262,7 +262,7 @@ $(function () {
         	var value = $("#select").children('option:selected').val();
         	if(value == 'date'){
         	//var dateValid = /^\d{1,2}\-\d{1,2}\-\d{4}$/;
-        	   var dateValid = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
+        	   var dateValid = /^\d{4}\-\d{2}\-\d{2}$/;
         	var date = $("#searchProject").val();
         	if(!dateValid.test(date)){
         		   alert("日期格式不正确,请写成 yyyy-mm-dd 格式");	
@@ -278,7 +278,13 @@ $(function () {
                 if(value == "date"){
                     var d=new Date(),str='';
                     str += d.getFullYear()+'-'; //获取当前年份
+                    if (d.getDate() < 9) {
+                    	str += "0";
+                    }
                     str +=d.getMonth()+1+'-'; //获取当前月份（0——11）
+                    if (d.getDate() < 10) {
+                    	str += "0";
+                    }
                     str +=d.getDate();
                     $("#searchProject").attr("value",str);//设置默认日期为今天的日期
                     $("#searchProject").datepicker({

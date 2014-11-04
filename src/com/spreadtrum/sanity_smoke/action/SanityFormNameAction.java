@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.spreadtrum.sanity_smoke.dao.SanityTestFormDAO;
 import com.spreadtrum.sanity_smoke.dao.impl.SanityTestFormDAOImpl;
@@ -17,9 +19,12 @@ private List<SanityTestForm> testFormList ;
 public String execute() {
 	//通过SanityTestFormDAO调用查找相关的三个方法
 	SanityTestFormDAO testForm = new SanityTestFormDAOImpl();
-	if(type.equals("date")){
-		 
-		testFormList = testForm.searchSanityTableNameByDate(Date.valueOf(searchProject)); 
+	if(type.equals("date")){		
+		try {
+			testFormList = testForm.searchSanityTableNameByDate(Date.valueOf(searchProject));
+		} catch(Exception e) {
+			JOptionPane.showConfirmDialog(null, "日期格式不正确,请写成:yyyy-mm-dd 格式", "错误！", JOptionPane.CLOSED_OPTION);			
+		}		 
 	}
 	else if (type.equals("project")) {
 		testFormList = testForm.searchSanityTableNameByProject(searchProject);

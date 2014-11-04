@@ -111,7 +111,7 @@ public class SmokeHomeManagerAction extends ActionSupport {
 			if (null != allCaseList.get(i).getBugID()){
 			    bugList = bugList + allCaseList.get(i).getBugID() + " ";
 			}
-			if(manualString == 1){
+			if(manualString == 0){
 				allCaseList_auto.add(allCaseList.get(i));
 				allCaseList.remove(i);
 				i = i-1;

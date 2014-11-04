@@ -146,7 +146,7 @@ public class SanityHomeManagerAction extends ActionSupport {
 			    bugList = bugList + allCaseList.get(i).getBugID() + " ";
 			}
 			int  manualString = allCaseList.get(i).getManualFlag();
-			if(manualString == 1){
+			if(manualString == 0){
 				allCaseList_auto.add(allCaseList.get(i));
 				allCaseList.remove(i);
 				i = i-1;
