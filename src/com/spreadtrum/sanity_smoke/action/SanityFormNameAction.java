@@ -4,8 +4,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import com.opensymphony.xwork2.ActionSupport;
 import com.spreadtrum.sanity_smoke.dao.SanityTestFormDAO;
 import com.spreadtrum.sanity_smoke.dao.impl.SanityTestFormDAOImpl;
@@ -23,8 +21,8 @@ public String execute() {
 		try {
 			testFormList = testForm.searchSanityTableNameByDate(Date.valueOf(searchProject));
 		} catch(Exception e) {
-			JOptionPane.showConfirmDialog(null, "日期格式不正确,请写成:yyyy-mm-dd 格式", "错误！", JOptionPane.CLOSED_OPTION);
-			return "sanity_fail";
+			//日期输入错误处理
+			testFormList = testForm.searchSanityTableNameByDate(Date.valueOf("1970-01-01"));
 		}		 
 	}
 	else if (type.equals("project")) {

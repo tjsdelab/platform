@@ -47,9 +47,6 @@
      
      <action name="sanityForm" class="com.spreadtrum.sanity_smoke.action.SanityFormNameAction">
         <result name="success">/SanityFormName.jsp</result>
-        <result type="redirectAction" name="sanity_fail">
-     	  <param name="actionName">sanity</param>
-     	</result>
      </action>
      
      <action name="smoke" class="com.spreadtrum.sanity_smoke.action.SmokeHomeManagerAction">
@@ -63,9 +60,6 @@
      
      <action name="smokeForm" class="com.spreadtrum.sanity_smoke.action.SmokeFormNameAction">
         <result name="success">/SmokeFormName.jsp</result>
-        <result type="redirectAction" name="smoke_fail">
-     	  <param name="actionName">sanity</param>
-     	</result>
      </action>
      
       <action name="project"  class="com.spreadtrum.monkeytest.action.MonkeyDetailAction" method="monkeyDetail">
