@@ -142,7 +142,7 @@ $(function () {
             formatter: function() {
                 return '<b>' +this.x+'-num:'+ this.point.stackTotal+'</b><br/>'
                 +this.series.name+'-num:' + this.y+'<br/>'+
-                this.series.name+'-ratio:' +': '+ this.percentage.toFixed(2)+'%';
+                this.series.name+'-ratio:' + this.percentage.toFixed(2)+'%';
             }
         },
         plotOptions: {

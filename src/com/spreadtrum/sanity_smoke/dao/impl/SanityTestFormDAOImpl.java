@@ -47,7 +47,7 @@ public class SanityTestFormDAOImpl implements SanityTestFormDAO {
 	public SanityTestForm getSanityLastInfoByProject(String project) {
 		String hql;
 		List<SanityTestForm> results = null;
-		hql = "from SanityTestForm as stf where stf.projectID.projectName = '"+ project +"'" ;
+		hql = "from SanityTestForm as stf where stf.projectID.projectName = '"+ project +"' order by stf.testDate desc";
 	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象
 		org.hibernate.Session session = new HibernateUtilForSS().openSession();
 		Transaction tx = session.beginTransaction();

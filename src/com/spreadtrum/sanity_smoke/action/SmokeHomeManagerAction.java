@@ -108,7 +108,7 @@ public class SmokeHomeManagerAction extends ActionSupport {
 			//统计pass。fail等次数
 			String result = allCaseList.get(i).getResults();
 			int  manualString = allCaseList.get(i).getManualFlag();
-			if (null != allCaseList.get(i).getBugID()){
+			if (!allCaseList.get(i).getBugID().equals("")){
 			    bugList = bugList + allCaseList.get(i).getBugID() + " ";
 			}
 			if(manualString == 0){

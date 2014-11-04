@@ -142,7 +142,7 @@ public class SanityHomeManagerAction extends ActionSupport {
 			//统计pass。fail等次数
 			String result = allCaseList.get(i).getResults();
 			String module = allCaseList.get(i).getModule();
-			if (null != allCaseList.get(i).getBugID()){
+			if (!allCaseList.get(i).getBugID().equals("")){
 			    bugList = bugList + allCaseList.get(i).getBugID() + " ";
 			}
 			int  manualString = allCaseList.get(i).getManualFlag();

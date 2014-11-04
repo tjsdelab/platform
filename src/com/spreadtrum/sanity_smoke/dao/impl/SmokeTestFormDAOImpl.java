@@ -47,7 +47,7 @@ public class SmokeTestFormDAOImpl implements SmokeTestFormDAO {
 	public SmokeTestForm getSmokeLastInfoByProject(String project) {
 		String hql;
 		List<SmokeTestForm> results = null;
-		hql = "from SmokeTestForm as stf where stf.projectID.projectName = '"+ project +"'" ;
+		hql = "from SmokeTestForm as stf where stf.projectID.projectName = '"+ project +"'order by stf.testDate desc" ;
 	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象
 		org.hibernate.Session session = new HibernateUtilForSS().openSession();
 		Transaction tx = session.beginTransaction();
