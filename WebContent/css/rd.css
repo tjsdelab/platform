@@ -1,0 +1,232 @@
+@CHARSET "UTF-8";
+.menu{width:100%;height:50px;padding-top:20px;margin-top:30px auto;}
+.menu ul{ width:95%;float:left; display:inline;margin-top:15px;}
+.menu ul li{ width:96px;float:left;font-size:18px;margin-right:40px;}
+table {border-collapse:collapse;text-align:center;font-size:12px;}
+table, td{border: 1px solid #98bf21;}
+table th{border: 1px solid black;background-color:#A7C942;color:#ffffff;}
+
+.radio{width:100%;height:30px;margin:5px 40px 30px 0px;float:left;font-size:18px;}
+
+body {
+   /* background:url(../images/bg-body.jpg);*/
+   /* background:#0099cc;*/
+   background:#ffffff;
+   font-family:"Microsoft YaHei";
+   font-weight: normal;
+   width:1100px;
+   margin:0 auto;
+}
+.page {
+    overflow:hidden;
+    border-radius:10px;
+}
+#form {
+	font-size:13px;
+	color:#B5B5B5;
+	padding:10px 10px 0 10px;
+    text-align:center;
+    margin-top:310px;
+}
+.right {
+	 border-radius:10px;
+    float:left;
+    /*width:1000px;*/
+    width:935px;
+    position: relative;
+    height:auto;
+    border-color: #dfdfdf;
+    border-width: 1px;
+    background:#F0FFFF;
+   -moz-box-shadow: 0 0 5px 3px #d3d3d3;
+   -webkit-box-shadow: 0 0 5px 3px #d3d3d3;
+    box-shadow: 0 0 5px 3px #d3d3d3;
+    
+}
+.right_whole{
+	/* border-radius:8px;*/
+    /*background:#99ccff;*/
+    
+    /*-moz-box-shadow: 0 0 5px 3px #d3d3d3;*/
+    /*-webkit-box-shadow: 0 0 5px 3px #d3d3d3;*/
+    /*box-shadow: 0 0 5px 3px #d3d3d3;*/
+     overflow:hidden;
+     float:left;
+    /* padding-left:20px;*/
+     width:935px;
+     min-height:1000px;
+     position: relative; 
+}
+/*summary table css设计*/
+table {
+   border-collapse: collapse;
+    table-layout:fixed;
+    word-wrap:break-word;
+    word-break:normal;
+    overflow:hidden;
+    border:none;
+	background:	#ffffff;
+	-moz-border-radius:5px; /* FF1+ */
+	-webkit-border-radius:5px; /* Saf3-4 */
+	 border-radius:5px;
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+	font:12px/15px Microsoft YaHei;
+}
+th{
+    font-size: 13px;
+	text-align:center;
+	padding-top:1px;
+	padding-bottom:1px;
+	/*background-color:#FDF2EF;
+	border:3px solid #CCCCCC;
+	text-shadow: 1px 1px 1px #fff; */
+	/*background:#e8eaeb;*/
+	background:#e8eaeb;
+    border:1px solid #CCCCCC;
+    color:#141414;
+}
+td{
+    text-align:center;
+    font-size:1em;
+    border:1px solid #DBDBDB;
+	/*border: 1px solid #CCCCCC;*/
+	padding:1px;
+}
+}
+t1 {
+    border-collapse: collapse;
+    font-size:12px;
+    background-color:#FFA07A;
+    text-align:center;
+	border: 1px solid #CCCCCC;
+	padding:0px;
+}
+
+/*taps设计*/
+#tapsbox{
+    width:935px;
+    overflow:hidden;
+    border-collapse: collapse;
+    margin-left:-20px;
+    overflow:hidden;
+    }
+.taps_conbox{
+   width:100%;
+}
+.taps_con{
+    width:905px;
+    margin-top:5px;
+}
+.taps{
+height:30px;width:99.5%; margin-top:5px;margin-left:0;background:#F0FFFF;
+}
+.taps li{ 
+border-collapse: collapse;
+border:1px solid #000;
+list-style:none;float:left;background:#63C7FE;line-height:30px;width:150px;
+}
+.taps li a {
+    display:block;
+    text-align:center;
+    height:30px;
+    maggin:0px,10px;
+    color:#000000;
+    font-size:16px;
+    margin-top:0px;
+    outline:none;
+            }
+.taps li a:hover {
+    background: none;
+    }    
+.taps .thistap,.taps .thistap a:hover{
+    background: #F0ffff;
+    }
+    
+/*fuxuankuang*/
+.select_checkBox{
+position: relative;
+display:inline-block;
+width:100px;
+margin:10px 0px;
+}
+
+.chartQuota{
+height:23px;
+float:left;
+display:inline-block;
+border:0px solid black;
+position: relative;
+background-color: #FFFFFF;
+}
+ 
+.chartOptionsFlowTrend{
+z-index:300;
+background-color:#fefefe;
+border:1px solid gray;
+display:none;
+position: absolute;
+left:0px;
+top:23px;
+width:250px;
+float:left;
+height:50px;
+line-height:50px;
+border-radius:2px;
+text-align:center;
+}
+
+.chartQuota p{
+outline: 0 none;
+border: 1px solid #ccc;
+line-height: 22px;
+padding: 0 5px;
+overflow: hidden;
+color: #1C86EE;
+text-decoration: none;
+width:65px;
+text-align:left;
+margin:0px;
+folat:left;
+height: 23px;
+line-height:24px;
+display: inline-block;
+
+
+}
+.down_chartQuota{
+
+background:url(../images/arrow_triangle-down.png) no-repeat #FFFFFF;
+
+background-position:61px 4px;
+background-size:20% 80%;	
+}
+
+.up_chartQuota{
+
+	background:url(../images/arrow_triangle-up.png) no-repeat #FFFFFF;
+/*filter:Alpha(opacity=20); 
+-moz-opacity:0.2; /*支持 FireFox 浏览器
+-khtml-opacity: 0.2; */
+background-position:61px 4px;
+background-size:20% 80%;	
+}
+
+    
+.chartOptionsFlowTrend p {
+
+line-height: 23px;
+overflow: hidden;
+position: relative;
+z-index: 2;
+background: #fefbf7;
+padding-top: 0px;
+display: inline-block;
+}
+.chartOptionsFlowTrend p a {
+border: 1px solid #fff;
+color: #2e91da;
+} 
+
+
+
