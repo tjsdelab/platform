@@ -168,12 +168,9 @@ display:none;
 position: absolute;
 left:0px;
 top:23px;
-width:250px;
+width:850px;
 float:left;
-height:50px;
-line-height:50px;
 border-radius:2px;
-text-align:center;
 }
 
 .chartQuota p{
