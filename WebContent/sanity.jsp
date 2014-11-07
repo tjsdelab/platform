@@ -140,8 +140,8 @@ $(function () {
             backgroundColor: 'rgba(219,219,216,0.8)',
             shadow: false,
             formatter: function() {
-                return '<b>' +this.x+'-num:'+ this.point.stackTotal+'</b><br/>'
-                +this.series.name+'-num:' + this.y+'<br/>'+
+                return '<b>' +this.x+':'+ this.point.stackTotal+'</b><br/>'
+                +this.series.name+':' + this.y+'<br/>'+
                 this.series.name+'-ratio:' + this.percentage.toFixed(2)+'%';
             }
         },
