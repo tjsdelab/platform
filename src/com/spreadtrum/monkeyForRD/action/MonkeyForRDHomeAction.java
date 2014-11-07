@@ -19,6 +19,7 @@ import com.spreadtrum.monkeyForRD.model.MonkeyForRDTestInfo;
 public class MonkeyForRDHomeAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private String site;
+	private String tongji_select="unselect";
 	private Date date;
 	private MonkeyForRDTestInfoDAO rdTestInfoDAO = new MonkeyForRDTestInfoDAOImpl();
 	private MonkeyForRDMemberInfoDAO rdMemberDAO = new MonkeyForRDMemberInfoDAOImpl();
@@ -64,7 +65,7 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 		.setAttribute("PieData2", PieData2);
 		ServletActionContext.getRequest()
 		.setAttribute("PieData3", PieData3);
-
+System.out.println(tongji_select);
 		return SUCCESS;
 	}
 
@@ -148,8 +149,8 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 						doCountAll += doCount;
 					}
 				}
-				performanceRatio = doCountAll / (personNum * piedays);				
-				performanceRatio = new BigDecimal(performanceRatio).setScale(3, BigDecimal.ROUND_HALF_UP).floatValue(); 
+				performanceRatio = doCountAll / (personNum * piedays);
+				performanceRatio = new BigDecimal(performanceRatio).setScale(3, BigDecimal.ROUND_HALF_UP).floatValue();
 				results.add(new PieData(group,performanceRatio));
 				System.out.println(group + ":"+"performanceRatio:"+performanceRatio + "doCountAll:" + doCountAll);
 			}
@@ -231,6 +232,14 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 		this.group = group;
 	}
 
+
+	public String getTongji_select() {
+		return tongji_select;
+	}
+
+	public void setTongji_select(String tongji_select) {
+		this.tongji_select = tongji_select;
+	}
 
 	public int getQueryDays() {
 		return queryDays;

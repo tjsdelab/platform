@@ -22,13 +22,14 @@
 
 
 <script>
+
 //taps切换         
 $(document).ready(function() {
     jQuery.jqtab = function(tabtit,taps_conbox,shijian) {
-        $(taps_conbox).find("li").hide();
+    	  $(taps_conbox).find("li").hide();	
         $(tabtit).find("li:first").addClass("thistap").show(); 
         $(taps_conbox).find("li:first").show();
-    
+
         $(tabtit).find("li").bind(shijian,function(){
           $(this).addClass("thistap").siblings("li").removeClass("thistap"); 
             var activeindex = $(tabtit).find("li").index(this);
@@ -314,13 +315,32 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $(".radio-time").change(function(){
-        var value =$("input[name='time']:checked").val();        
-        location.href = "rdtest?queryDays=" + value +"&site=" + getRadioValue() ;        
-});    });
+        var value =$("input[name='queryDays']:checked").val();        
+        location.href = "rdtest?queryDays=" + value +"&site=" + getRadioValue() + "&tongji_select=" + "select" ;        
+        });    
+   });
 
 /*$(document).ready(function(){
 	$("input[name=site]:eq[0]").attr("checked", 'checked');
 });*/
+//加载到执行人员统计上去
+$(document).ready(function(){
+	var select = "<s:property value="tongji_select" />";
+	var time = "<s:property value="queryDays" />";
+	  if("unselect" != select){
+		// $("#tongji").click();
+          $("#taps_conbox").find("li").hide();
+          $("#taps").find("li:last").addClass("thistap").show(); 
+          $("#taps_conbox").find("li:last").show();
+          $("#taps").find("li:first").removeClass("thistap");
+	  }
+	  if(time == "1")
+		  $("#1").prop("checked","checked");
+	  if(time == "7")
+          $("#7").prop("checked","checked");
+	  if(time == "30")
+          $("#30").prop("checked","checked");
+  });
 
 </script>
 
@@ -337,7 +357,7 @@ $(document).ready(function(){
                           class="button blue medium">工程详细数据</a>
                     </li>
                       <li>
-                       <a href="monkey.jsp" 
+                       <a href="monkey.action" 
                           class="button blue medium">Monkey测试</a>
                     </li>
                     <li>
@@ -384,7 +404,7 @@ $(document).ready(function(){
             <ul class="taps" id="taps">
                <li><a href="#">测试详细信息</a></li>
        		<li><a href="#">执行人员名单</a></li>
-       		<li><a href="#">执行人员统计</a></li></ul>          
+       		<li><a href="#" id="tongji">执行人员统计</a></li></ul>          
             <ul class="taps_conbox" id="taps_conbox">
                 <li class="taps_con">
                 <%
@@ -487,9 +507,9 @@ $(document).ready(function(){
         </li> 
                     <li class="tab_con"> 
        	<div class="radio">
-                              <input type="radio" name="time" class="radio-time" value="1" name="queryDays" /><s:property value="#request.yesterday"/>
-                              <input type="radio" name="time" class="radio-time" value="7" name="queryDays"  />一周
-                             <input type="radio" name="time" class="radio-time" value="30" name="queryDays"  />一个月                         
+                              <input id="1" type="radio"  class="radio-time" value="1" name="queryDays" checked="checked"/><s:property value="#request.yesterday"/>
+                              <input id="7" type="radio"  class="radio-time" value="7" name="queryDays"  />一周
+                              <input id="30" type="radio"  class="radio-time" value="30" name="queryDays"  />一个月                         
                     </div>
 				    	<p><font size=4px ><%=currSitePie %></font></p>
 				        <div class="container" id="pie1" style="height:300px; width: 450px;float:left;"></div> 
