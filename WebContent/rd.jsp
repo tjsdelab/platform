@@ -292,10 +292,9 @@ $(function () { var chart; $(document).ready(function ()
 			series: [{ type: 'pie', name: 'Browser share', data: PieNotDoData3 }] }); }); });
 
 $(document).ready(function(){
-	var siteValue;
     $(".radio-site").change(function(){
-    	siteValue =$("input[name='site']:checked").val();
-        location.href = "rdtest?site=" + siteValue;
+        var value =$("input[name='site']:checked").val();
+        location.href = "rdtest?site=" + value;
           //alert(value);
    
 });    });
@@ -304,7 +303,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     $(".radio-time").change(function(){
         var value =$("input[name='time']:checked").val();        
-        location.href = "rdtest?queryDays=" + value  ;        
+        location.href = "rdtest?queryDays=" + value;        
 });    });
 
 /*$(document).ready(function(){
