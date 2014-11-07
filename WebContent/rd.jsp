@@ -4,6 +4,32 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import="java.util.ArrayList" %>
 
+<%
+	String siteName = (String) request.getAttribute("site");
+	String radionCheckedTJ = "";
+	String radionCheckedBJ = "";
+	String radionCheckedSH = "";
+	String currSitePie = "";
+	String SitePie2 = "";
+	String SitePie3 = "";
+	if (siteName.equals("SH")) {
+		radionCheckedSH = "checked=" + "\"checked\"";
+		currSitePie = "上海";
+		SitePie2 = "天津";
+		SitePie3 = "北京";
+	} else if (siteName.equals("BJ")) {
+		radionCheckedBJ = "checked=" + "\"checked\"";
+		currSitePie = "北京";
+		SitePie2 = "上海";
+		SitePie3 = "天津";
+	} else {
+		radionCheckedTJ = "checked=" + "\"checked\"";
+		currSitePie = "天津";
+		SitePie2 = "北京";
+		SitePie3 = "上海";
+	}
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -125,13 +151,13 @@ $( "#datepicker" ).datepicker({
                        }, 
                     colors:color,
                    title: { 
-                       text: '执行率', align: 'center'}, 
+                       text: '<%=currSitePie%>'+':执行率', align: 'center'}, 
                        tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
                        legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
                            labelFormatter: function() {
                                // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-                                   return  '<table width=190px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;"><tr border-width:0px;><td width=100px>'
-                                     +this.name +'</b></td><td width=30px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
+                        	   return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
+                               +this.name +'</b></td></tr><tr><td width=40px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
                            }, useHTML:true},
                    plotOptions: { 
                    pie: { size:'90%', 
@@ -172,14 +198,14 @@ $( "#datepicker" ).datepicker({
                $('#pie2').highcharts({ 
                        chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
                    title: { 
-                       text: '未执行率', align: 'center'}, 
+                       text: '<%=currSitePie%>'+':未执行率', align: 'center'}, 
                         colors:color,
                    tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
                        legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
                            labelFormatter: function() {
                                // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-                                return  '<table width=190px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;"><tr border-width:0px;><td width=100px>'
-                                +this.name +'</b></td><td width=30px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
+                        	   return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
+                               +this.name +'</b></td></tr><tr><td width=40px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
                            }, useHTML:true},
                    plotOptions: { 
                        pie: { size:'90%', 
@@ -219,14 +245,14 @@ $( "#datepicker" ).datepicker({
                $('#pie3').highcharts({ 
                        chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
                    title: { 
-                       text: '执行率', align: 'center'}, 
+                       text: '<%=SitePie2%>'+':执行率', align: 'center'}, 
                    tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
                     colors:color,
                        legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
                            labelFormatter: function() {
                                // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-                               return  '<table width=190px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;"><tr border-width:0px;><td width=100px>'
-                                +this.name +'</b></td><td width=30px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
+                        	   return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
+                               +this.name +'</b></td></tr><tr><td width=40px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
                            }, useHTML:true},
                    plotOptions: { 
                    pie: {size:'95%',  
@@ -265,14 +291,14 @@ $( "#datepicker" ).datepicker({
                $('#pie4').highcharts({ 
                        chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
                    title: { 
-                       text: '未执行率', align: 'center'}, 
+                       text: '<%=SitePie2%>'+':未执行率', align: 'center'}, 
                    colors:color,
                    tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
                        legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
                            labelFormatter: function() {
                                // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-                               return  '<table width=190px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;"><tr border-width:0px;><td width=100px>'
-                                +this.name +'</b></td><td width=30px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
+                        	   return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
+                               +this.name +'</b></td></tr><tr><td width=40px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
                             }, useHTML:true},
                    plotOptions: { 
                    pie: { size:'95%', 
@@ -312,14 +338,14 @@ $( "#datepicker" ).datepicker({
                        chart: { 
                            plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
                    title: { 
-                       text: '执行率', align: 'center'}, 
+                       text: '<%=SitePie3%>'+':执行率', align: 'center'}, 
                    colors:color,
                    tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
                        legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
                            labelFormatter: function() {
                               // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+'%';
-                               return  '<table width=190px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;"><tr border-width:0px;><td width=100px>'
-                                +this.name +'</b></td><td width=30px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
+                        	   return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
+                               +this.name +'</b></td></tr><tr><td width=40px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
                             }, useHTML:true},
                    plotOptions: { 
                    pie: { size:'90%', 
@@ -358,14 +384,14 @@ $( "#datepicker" ).datepicker({
                $('#pie6').highcharts({ 
                        chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
                    title: { 
-                       text: '未执行率', align: 'center'}, 
+                       text: '<%=SitePie3%>'+':未执行率', align: 'center'}, 
                    colors:color,
                    tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
                        legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
                            labelFormatter: function() {
                                // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-                               return  '<table width=190px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;"><tr border-width:0px;><td width=100px>'
-                                +this.name +'</b></td><td width=30px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
+                        	   return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
+                               +this.name +'</b></td></tr><tr><td width=40px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
                             }, useHTML:true},
                    plotOptions: { 
                    pie: { size:'90%', 
@@ -458,32 +484,7 @@ $(document).ready(function(){
             <div class="right">
                 <div class="right_whole"> 
                 <div class="menu">
-                <%
-                    String siteName= (String)request.getAttribute("site");
-                    String radionCheckedTJ ="";
-                    String radionCheckedBJ ="";
-                    String radionCheckedSH ="";
-                    String currSitePie = "";
-                    String SitePie2 = "";
-                    String SitePie3 = "";
-                    if (siteName.equals("SH")) {
-                    	radionCheckedSH = "checked=" + "\"checked\"" ;
-                    	currSitePie = "上海";
-                    	SitePie2 = "天津";
-                    	SitePie3 = "北京";
-                    } else if (siteName.equals("BJ")) {
-                    	radionCheckedBJ = "checked=" + "\"checked\"" ; 
-                    	currSitePie = "北京";
-                    	SitePie2 = "上海";
-                    	SitePie3 = "天津";
-                    } else {
-                    	radionCheckedTJ = "checked=" + "\"checked\"" ;  
-                    	currSitePie = "天津";
-                    	SitePie2 = "北京";
-                    	SitePie3 = "上海";
-                    } 
-                   
-                %>
+
                           <ul><li><input type="radio" name="site" class="radio-site" value="TJ" <%=radionCheckedTJ%> />天津<li>
                           <li><input type="radio" name="site" class="radio-site" value="BJ" <%=radionCheckedBJ%>/>北京</li>
                          <li><input type="radio" name="site" class="radio-site" value="SH" <%=radionCheckedSH%>/>上海</li></ul>
@@ -565,7 +566,7 @@ $(document).ready(function(){
 			     <div class="chartOptionsFlowTrend">
 			     <s:iterator value="#request.group" id="everyGroup">
 			     
-                <input type="checkbox" name="checkbox" value=<s:property value="#everyGroup"/> class="check" id=<s:property value="#everyGroup"/> ><span>${everyGroup}</span>
+                <input type="checkbox"  name="checkbox" style="margin:10px 0 10px 20px;" value=<s:property value="#everyGroup"/> class="check" id=<s:property value="#everyGroup"/> ><span>${everyGroup}</span>
                 </s:iterator>
                 </div>
                 </div>       
@@ -600,18 +601,22 @@ $(document).ready(function(){
                     <li class="tab_con"> 
        	<div class="radio">
                               <input id="1" type="radio"  class="radio-time" value="1" name="queryDays" checked="checked"/><s:property value="#request.yesterday"/>
-                              <input id="7" type="radio"  class="radio-time" value="7" name="queryDays"  />一周
-                              <input id="30" type="radio"  class="radio-time" value="30" name="queryDays"  />一个月                         
+                              <input id="7" style="margin-left:55px;" type="radio"  class="radio-time" value="7" name="queryDays"  />一周
+                              <input id="30" style="margin-left:80px;" type="radio"  class="radio-time" value="30" name="queryDays"  />一个月                         
                     </div>
-				    	<p><font size=4px ><%=currSitePie %></font></p>
-				        <div class="container" id="pie1" style="height:300px; width: 450px;float:left;"></div> 
-				        <div class="container" id="pie2" style="height:300px; width: 450px;"></div> 
-				        <p><font size=4px ><%=SitePie2 %></font></p>
-				        <div class="container" id="pie3" style="height:300px; width: 450px;float:left;"></div> 
-				        <div class="container" id="pie4" style="height:300px; width: 450px;"></div> 
-				        <p><font size=4px ><%=SitePie3 %></font></p>
-				        <div class="container" id="pie5" style="height:300px; width: 450px;float:left;"></div> 
-				        <div class="container" id="pie6" style="height:300px; width: 450px;"></div>
+				            <div class="container" id="pie1" style="height:300px; width: 450px;float:left;position:relative;
+                                    zoom:1;"></div> 
+				         <div class="container" id="pie2" style="height:300px; width: 450px;position:relative;
+                                    zoom:1;float:right;"></div> 
+				        <div class="container" id="pie3" style="height:300px; width: 450px;float:left;position:relative;
+                                    zoom:1;"></div> 
+				        <div class="container" id="pie4" style="height:300px; width: 450px;position:relative;
+                                    zoom:1;float:right;"></div> 
+				        <div class="container" id="pie5" style="height:300px; width: 450px;position:relative;
+                                    zoom:1;float:left;"></div> 
+				        <div class="container" id="pie6" style="height:300px; width: 450px;position:relative;
+                                    zoom:1;float:right;"></div>
+                                    
 		</li> 
              </ul>
        <br>       

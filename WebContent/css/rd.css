@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 .menu{width:100%;height:50px;padding-top:20px;margin-top:30px auto;}
 .menu ul{ width:95%;float:left; display:inline;margin-top:15px;}
-.menu ul li{ width:96px;float:left;font-size:18px;margin-right:40px;}
+.menu ul li{ width:150px;float:left;font-size:18px;margin-right:40px;}
 table {border-collapse:collapse;font-size:12px;}
 table th{border: 1px solid black;background-color:#A7C942;color:#ffffff;}
 
@@ -21,14 +21,14 @@ body {
     border-radius:10px;
 }
 #form {
-	font-size:13px;
-	color:#B5B5B5;
-	padding:10px 10px 0 10px;
+    font-size:13px;
+    color:#B5B5B5;
+    padding:10px 10px 0 10px;
     text-align:center;
     margin-top:310px;
 }
 .right {
-	 border-radius:10px;
+     border-radius:10px;
     float:left;
     /*width:1000px;*/
     width:935px;
@@ -43,7 +43,7 @@ body {
     
 }
 .right_whole{
-	/* border-radius:8px;*/
+    /* border-radius:8px;*/
     /*background:#99ccff;*/
     
     /*-moz-box-shadow: 0 0 5px 3px #d3d3d3;*/
@@ -64,23 +64,23 @@ table {
     word-break:normal;
     overflow:hidden;
     border:none;
-	background:	#ffffff;
-	-moz-border-radius:5px; /* FF1+ */
-	-webkit-border-radius:5px; /* Saf3-4 */
-	 border-radius:5px;
-	/*font:12px/15px Microsoft YaHei;*/
-	font:Microsoft YaHei;
+    background: #ffffff;
+    -moz-border-radius:5px; /* FF1+ */
+    -webkit-border-radius:5px; /* Saf3-4 */
+     border-radius:5px;
+    /*font:12px/15px Microsoft YaHei;*/
+    font:Microsoft YaHei;
 }
 th{
     font-size: 13px;
-	text-align:center;
-	padding-top:1px;
-	padding-bottom:1px;
-	/*background-color:#FDF2EF;
-	border:3px solid #CCCCCC;
-	text-shadow: 1px 1px 1px #fff; */
-	/*background:#e8eaeb;*/
-	background:#e8eaeb;
+    text-align:center;
+    padding-top:1px;
+    padding-bottom:1px;
+    /*background-color:#FDF2EF;
+    border:3px solid #CCCCCC;
+    text-shadow: 1px 1px 1px #fff; */
+    /*background:#e8eaeb;*/
+    background:#e8eaeb;
     border:1px solid #CCCCCC;
     color:#141414;
 }
@@ -88,15 +88,15 @@ th{
     text-align:center;
     font-size:1em;
     border:1px solid #DBDBDB;
-	padding:1px;
+    padding:1px;
 }
 t1 {
     border-collapse: collapse;
     font-size:12px;
     background-color:#FFA07A;
     text-align:center;
-	border: 1px solid #CCCCCC;
-	padding:0px;
+    border: 1px solid #CCCCCC;
+    padding:0px;
 }
 
 /*taps设计*/
@@ -165,7 +165,7 @@ position: absolute;
 top:23px;
 width:630px;
 float:left;
-height:40px;
+left:0px;
 border-radius:2px;
 }
 .check{
@@ -195,17 +195,17 @@ display: inline-block;
 background:url(../images/arrow_triangle-down.png) no-repeat #FFFFFF;
 
 background-position:61px 4px;
-background-size:20% 80%;	
+background-size:20% 80%;    
 }
 
 .up_chartQuota{
 
-	background:url(../images/arrow_triangle-up.png) no-repeat #FFFFFF;
+    background:url(../images/arrow_triangle-up.png) no-repeat #FFFFFF;
 /*filter:Alpha(opacity=20); 
 -moz-opacity:0.2; /*支持 FireFox 浏览器
 -khtml-opacity: 0.2; */
 background-position:61px 4px;
-background-size:20% 80%;	
+background-size:20% 80%;    
 }
 
     
@@ -223,6 +223,5 @@ display: inline-block;
 border: 1px solid #fff;
 color: #2e91da;
 } 
-
 
 
