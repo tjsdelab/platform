@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -91,7 +92,7 @@ $( "#datepicker" ).datepicker({
            }); 
  
 	     
-$(function () {var chart; $(document).ready(function () 
+$(function () { $(document).ready(function () 
 		{ // Build the chart 
 	    var currPieDoData = [];
 	    <s:iterator  value="#request.currPieData" id="pieData">
@@ -127,7 +128,7 @@ $(function () {var chart; $(document).ready(function ()
 		
 		}); });
 
-$(function () { var chart; $(document).ready(function () 
+$(function () {  $(document).ready(function () 
 		{ // Build the chart 
     var currPieNoDoData = [];
     <s:iterator  value="#request.currPieData" id="pieData">
@@ -160,7 +161,7 @@ $(function () { var chart; $(document).ready(function ()
 						                    this.show();},}}}},
 			series: [{ type: 'pie', name: 'Browser share',    data: currPieNoDoData }] }); }); });
 
-$(function () { var chart; $(document).ready(function () 
+$(function () {  $(document).ready(function () 
 		{ // Build the chart 
     var PieDoData2 = [];
     <s:iterator  value="#request.PieData2" id="pieData">
@@ -193,7 +194,7 @@ $(function () { var chart; $(document).ready(function ()
 						                    this.show();},}}}},
 			series: [{ type: 'pie', name: 'Browser share',    data: PieDoData2 }] }); }); });
 
-$(function () { var chart; $(document).ready(function () 
+$(function () {  $(document).ready(function () 
 		{ // Build the chart 
     var PieNotDoData2 = [];
     <s:iterator  value="#request.PieData2" id="pieData">
@@ -226,7 +227,7 @@ $(function () { var chart; $(document).ready(function ()
 						                    this.show();},}}}},
 			series: [{ type: 'pie', name: 'Browser share',    data: PieNotDoData2 }] }); }); });	 
 
-$(function () { var chart; $(document).ready(function () 
+$(function () {  $(document).ready(function () 
 		{ // Build the chart 
     var PieDoData3 = [];
     <s:iterator  value="#request.PieData3" id="pieData">
@@ -259,7 +260,7 @@ $(function () { var chart; $(document).ready(function ()
 						                    this.show();},}}}},
 			series: [{ type: 'pie', data: PieDoData3 }] }); }); });
 
-$(function () { var chart; $(document).ready(function () 
+$(function () {  $(document).ready(function () 
 		{ // Build the chart 
     var PieNotDoData3 = [];
     <s:iterator  value="#request.PieData3" id="pieData">
@@ -415,8 +416,11 @@ $(document).ready(function(){
                 <s:submit style="font-size:14px;" id="rd" value="搜索" ></s:submit></p>
     			
 <!-- warning -->
-         <div> <s:property value="#request.warning"/></div>
-			
+          
+         <marquee onMouseOut="this.start()" onMouseOver="this.stop()" direction="left" scrollamount="6" 
+            style="margin-left:350px; width:250px;margin-top:5px;margin-bottom:5px;"  id="">
+            <div style="text-align:center;color:#FF3300;font-size:16px;margin-top:5px;margin-bottom:5px;"><strong > <s:property value="#request.warning"/> </strong></div> 
+         </marquee> 
 <!--case表格统计-->  
                           <table class="orderedcaselist" width="900px" id="caselist1">
                                <thead> <tr>
