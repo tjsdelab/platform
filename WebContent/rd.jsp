@@ -88,11 +88,21 @@ $( "#datepicker" ).datepicker({
                });
            });
            }); 
-    
-
-$(function () { var chart; $(document).ready(function () 
+ 
+	     
+$(function () {var chart; $(document).ready(function () 
 		{ // Build the chart 
+	    var currPieDoData = [];
+	    <s:iterator  value="#request.currPieData" id="pieData">
+	    <%
+	    String group = (String)request.getAttribute("groupName");
+	    Object ratio =  request.getAttribute("performanceRatio");
+	    %>
+	       var currPieTmpData = ['<%=group%>',<%=ratio%>];
+	       currPieDoData.push(currPieTmpData);		       
+	    </s:iterator>       
 		$('#pie1').highcharts({ 
+					
 				chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
 			title: { 
 				text: '执行', align: 'center'}, 
@@ -111,13 +121,22 @@ $(function () { var chart; $(document).ready(function ()
 						            events:{
 						                legendItemClick:function(){
 						                    this.select();
-						                    this.show();},}}}},
-			series: [{ type: 'pie', name: 'Browser share',    data: [ ['Firefox', 100.0], ['IE', 26.8], 
-				            { name: 'Chrome', y: 12.8,  selected: true }, 
-				            ['Safari', 8.5], ['Opera', 6.9], ['Others', 0.0] ] }] }); }); });
+						                    this.show();},}}}},						                    
+			series: [{ type: 'pie', name: 'Browser share',    data:currPieDoData }] }); 
+		
+		}); });
 
 $(function () { var chart; $(document).ready(function () 
 		{ // Build the chart 
+    var currPieNoDoData = [];
+    <s:iterator  value="#request.currPieData" id="pieData">
+    <%
+    String group = (String)request.getAttribute("groupName");
+    Object ratio =  request.getAttribute("performanceRatio");
+    %>
+       var currPieTmpData = ['<%=group%>',1 - <%=ratio%>];
+       currPieNoDoData.push(currPieTmpData);		       
+    </s:iterator>  
 		$('#pie2').highcharts({ 
 				chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
 			title: { 
@@ -138,12 +157,19 @@ $(function () { var chart; $(document).ready(function ()
 						                legendItemClick:function(){
 						                    this.select();
 						                    this.show();},}}}},
-			series: [{ type: 'pie', name: 'Browser share',    data: [ ['Firefox', 45.0], ['IE', 26.8], 
-				            { name: 'Chrome', y: 12.8,  selected: true }, 
-				            ['Safari', 8.5], ['Opera', 6.2], ['Others', 0.7] ] }] }); }); });
+			series: [{ type: 'pie', name: 'Browser share',    data: currPieNoDoData }] }); }); });
 
 $(function () { var chart; $(document).ready(function () 
 		{ // Build the chart 
+    var PieDoData2 = [];
+    <s:iterator  value="#request.PieData2" id="pieData">
+    <%
+    String group = (String)request.getAttribute("groupName");
+    Object ratio =  request.getAttribute("performanceRatio");
+    %>
+       var currPieTmpData = ['<%=group%>',<%=ratio%>];
+       PieDoData2.push(currPieTmpData);		       
+    </s:iterator>  
 		$('#pie3').highcharts({ 
 				chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
 			title: { 
@@ -164,12 +190,19 @@ $(function () { var chart; $(document).ready(function ()
 						                legendItemClick:function(){
 						                    this.select();
 						                    this.show();},}}}},
-			series: [{ type: 'pie', name: 'Browser share',    data: [ ['Firefox', 45.0], ['IE', 26.8], 
-				            { name: 'Chrome', y: 12.8,  selected: true }, 
-				            ['Safari', 8.5], ['Opera', 6.2], ['Others', 0.7] ] }] }); }); });
+			series: [{ type: 'pie', name: 'Browser share',    data: PieDoData2 }] }); }); });
 
 $(function () { var chart; $(document).ready(function () 
 		{ // Build the chart 
+    var PieNotDoData2 = [];
+    <s:iterator  value="#request.PieData2" id="pieData">
+    <%
+    String group = (String)request.getAttribute("groupName");
+    Object ratio =  request.getAttribute("performanceRatio");
+    %>
+       var currPieTmpData = ['<%=group%>',1 - <%=ratio%>];
+       PieNotDoData2.push(currPieTmpData);		       
+    </s:iterator>  
 		$('#pie4').highcharts({ 
 				chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
 			title: { 
@@ -190,12 +223,19 @@ $(function () { var chart; $(document).ready(function ()
 						                legendItemClick:function(){
 						                    this.select();
 						                    this.show();},}}}},
-			series: [{ type: 'pie', name: 'Browser share',    data: [ ['Firefox', 45.0], ['IE', 26.8], 
-				            { name: 'Chrome', y: 12.8,  selected: true }, 
-				            ['Safari', 8.5], ['Opera', 6.2], ['Others', 0.7] ] }] }); }); });	 
+			series: [{ type: 'pie', name: 'Browser share',    data: PieNotDoData2 }] }); }); });	 
 
 $(function () { var chart; $(document).ready(function () 
 		{ // Build the chart 
+    var PieDoData3 = [];
+    <s:iterator  value="#request.PieData3" id="pieData">
+    <%
+    String group = (String)request.getAttribute("groupName");
+    Object ratio =  request.getAttribute("performanceRatio");
+    %>
+       var currPieTmpData = ['<%=group%>',<%=ratio%>];
+       PieDoData3.push(currPieTmpData);		       
+    </s:iterator>
 		$('#pie5').highcharts({ 
 				chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
 			title: { 
@@ -216,10 +256,19 @@ $(function () { var chart; $(document).ready(function ()
 						                legendItemClick:function(){
 						                    this.select();
 						                    this.show();},}}}},
-			series: [{ type: 'pie', data: [test1,test2][20,30]  }] }); }); });
+			series: [{ type: 'pie', data: PieDoData3 }] }); }); });
 
 $(function () { var chart; $(document).ready(function () 
 		{ // Build the chart 
+    var PieNotDoData3 = [];
+    <s:iterator  value="#request.PieData3" id="pieData">
+    <%
+    String group = (String)request.getAttribute("groupName");
+    Object ratio =  request.getAttribute("performanceRatio");
+    %>
+       var currPieTmpData = ['<%=group%>',1-<%=ratio%>];
+       PieNotDoData3.push(currPieTmpData);		       
+    </s:iterator>
 		$('#pie6').highcharts({ 
 				chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
 			title: { 
@@ -240,15 +289,14 @@ $(function () { var chart; $(document).ready(function ()
 						                legendItemClick:function(){
 						                    this.select();
 						                    this.show();},}}}},
-			series: [{ type: 'pie', name: 'Browser share', data: [ ['Firefox', 45.0], ['IE', 26.8], 
-				            { name: 'Chrome', y: 12.8,  selected: true }, 
-				            ['Safari', 8.5], ['Opera', 6.2], ['Others', 0.7] ] }] }); }); });
+			series: [{ type: 'pie', name: 'Browser share', data: PieNotDoData3 }] }); }); });
 
 $(document).ready(function(){
+	var siteValue;
     $(".radio-site").change(function(){
-        var value =$("input[name='site']:checked").val();
-        location.href = "rdtest?site=" + value;
-        //alert(value);
+    	siteValue =$("input[name='site']:checked").val();
+        location.href = "rdtest?site=" + siteValue;
+          //alert(value);
    
 });    });
 
@@ -256,8 +304,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     $(".radio-time").change(function(){
         var value =$("input[name='time']:checked").val();        
-        //alert(value);
-   
+        location.href = "rdtest?queryDays=" + value  ;        
 });    });
 
 /*$(document).ready(function(){
@@ -296,12 +343,24 @@ $(document).ready(function(){
                     String radionCheckedTJ ="";
                     String radionCheckedBJ ="";
                     String radionCheckedSH ="";
+                    String currSitePie = "";
+                    String SitePie2 = "";
+                    String SitePie3 = "";
                     if (siteName.equals("SH")) {
-                    	radionCheckedSH = "checked=" + "\"checked\"" ;                   	
+                    	radionCheckedSH = "checked=" + "\"checked\"" ;
+                    	currSitePie = "上海";
+                    	SitePie2 = "天津";
+                    	SitePie3 = "北京";
                     } else if (siteName.equals("BJ")) {
-                    	radionCheckedBJ = "checked=" + "\"checked\"" ;                   	
+                    	radionCheckedBJ = "checked=" + "\"checked\"" ; 
+                    	currSitePie = "北京";
+                    	SitePie2 = "上海";
+                    	SitePie3 = "天津";
                     } else {
-                    	radionCheckedTJ = "checked=" + "\"checked\"" ;                   	
+                    	radionCheckedTJ = "checked=" + "\"checked\"" ;  
+                    	currSitePie = "天津";
+                    	SitePie2 = "北京";
+                    	SitePie3 = "上海";
                     } 
                    
                 %>
@@ -399,6 +458,10 @@ $(document).ready(function(){
   							
   							    <% 
   							    int i = 0;
+  							    java.text.SimpleDateFormat dateFormate=new java.text.SimpleDateFormat("yyyy-MM-dd"); 
+  							    java.sql.Date date=new java.sql.Date(new java.util.Date().getTime()); 
+  							    String yesterday = dateFormate.format(new java.util.Date(date.getTime() - 24 * 60 * 60 * 1000));
+  							    
   							    %> 							
                              <s:iterator value="#request.rdPerformanceList" id="rdPerformance">
                                  <%
@@ -417,18 +480,17 @@ $(document).ready(function(){
         </li> 
                     <li class="tab_con"> 
        	<div class="radio">
-                              <input type="radio" name="time" class="radio-time" value="TJ" />今日
-                              <input type="radio" name="time" class="radio-time" value="昨天" />昨日
-                              <input type="radio" name="time" class="radio-time" value="一周" />一周
-                             <input type="radio" name="time" class="radio-time" value="1" />一个月                         
+                              <input type="radio" name="time" class="radio-time" value="1" name="queryDays" /><%=yesterday %>
+                              <input type="radio" name="time" class="radio-time" value="7" name="queryDays"  />一周
+                             <input type="radio" name="time" class="radio-time" value="30" name="queryDays"  />一个月                         
                     </div>
-				    	<p><font size=4px >天津</font></p>
+				    	<p><font size=4px ><%=currSitePie %></font></p>
 				        <div class="container" id="pie1" style="height:300px; width: 450px;float:left;"></div> 
 				        <div class="container" id="pie2" style="height:300px; width: 450px;"></div> 
-				        <p><font size=4px >北京</font></p>
+				        <p><font size=4px ><%=SitePie2 %></font></p>
 				        <div class="container" id="pie3" style="height:300px; width: 450px;float:left;"></div> 
 				        <div class="container" id="pie4" style="height:300px; width: 450px;"></div> 
-				        <p><font size=4px >上海</font></p>
+				        <p><font size=4px ><%=SitePie3 %></font></p>
 				        <div class="container" id="pie5" style="height:300px; width: 450px;float:left;"></div> 
 				        <div class="container" id="pie6" style="height:300px; width: 450px;"></div>
 		</li> 

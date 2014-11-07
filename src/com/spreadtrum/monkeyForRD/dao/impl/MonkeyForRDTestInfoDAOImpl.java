@@ -125,8 +125,10 @@ public class MonkeyForRDTestInfoDAOImpl implements MonkeyForRDTestInfoDAO {
 		Date date=new Date(new java.util.Date().getTime()); 
 	    SimpleDateFormat dateFormate=new SimpleDateFormat("yyyy-MM-dd"); 
 		List<Date> queryResults = null;
+		long periodTime = 0l;
+		periodTime = days * 24 * 60 * 60 * 1000l;
 		List<Date> results = new ArrayList<Date>();
-	    String sinceDate = dateFormate.format(new java.util.Date(date.getTime() - days * 24 * 60 * 60 * 1000));
+	    String sinceDate = dateFormate.format(new java.util.Date(date.getTime() - periodTime));
 		String hql;
 		hql = "select ti.testDate from MonkeyForRDTestInfo as ti where ti.deviceName='"+deviceName +"' and ti.testDate >'"+sinceDate +"' ";		
 	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象

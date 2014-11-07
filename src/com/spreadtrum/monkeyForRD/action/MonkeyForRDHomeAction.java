@@ -24,11 +24,12 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 	private List<MonkeyForRDTestInfo> rdTestInfo;
 	private List<String> deviceList;
 	private String testInfoDate;
-	private Date pieDate;
+	private int queryDays = 1;
+
 	private List<String> group;
-	private List<PieData> tjPieData = new ArrayList<PieData>();
-	private List<PieData> bjPieData = new ArrayList<PieData>();
-	private List<PieData> shPieData = new ArrayList<PieData>();
+	private List<PieData> currPieData = new ArrayList<PieData>();
+	private List<PieData> PieData2 = new ArrayList<PieData>();
+	private List<PieData> PieData3 = new ArrayList<PieData>();
 	private List<MonkeyForRDPerformance> rdPerformanceList = new ArrayList<MonkeyForRDPerformance>();
 
 	public String execute() {
@@ -45,6 +46,24 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 		}
 		getRDTestInfo();
 		getPerformanceList();
+		currPieData = getPieData(queryDays,site);
+		if (site.equals("TJ")) {
+			PieData2 = getPieData(queryDays,"BJ");
+			PieData3 = getPieData(queryDays,"SH");
+		} else if (site.equals("BJ")){
+			PieData2 = getPieData(queryDays,"SH");
+			PieData3 = getPieData(queryDays,"TJ");
+		} else {
+			PieData2 = getPieData(queryDays,"TJ");
+			PieData3 = getPieData(queryDays,"BJ");			
+		}
+		ServletActionContext.getRequest()
+		.setAttribute("currPieData", currPieData);
+		ServletActionContext.getRequest()
+		.setAttribute("PieData2", PieData2);
+		ServletActionContext.getRequest()
+		.setAttribute("PieData3", PieData3);
+
 		return SUCCESS;
 	}
 
@@ -114,9 +133,9 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 		List<String> groupNames = rdMemberDAO.getGroupNameBySite(pieSite);		
 		if (null != groupNames) {
 			for (int i = 0; i < groupNames.size(); i++) {
-				List<String> deviceNames = rdMemberDAO.getGroupDeviceName(pieSite, groupNames.get(i));
-				int personNum = 0;
-				int doCountAll = 0;
+				List<String> deviceNames = rdMemberDAO.getGroupDeviceName(pieSite, groupNames.get(i));				
+				float personNum = 0;
+				float doCountAll = 0;
 				String group = groupNames.get(i);
 				float performanceRatio;
 				if (null != deviceNames){
@@ -126,8 +145,13 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 						doCountAll += doCount;
 					}
 				}
+				performanceRatio = doCountAll / (personNum * piedays);
+				results.add(new PieData(group,performanceRatio));
+				System.out.println(group + ":"+"performanceRatio:"+performanceRatio + "doCountAll:" + doCountAll);
 			}
 		}
+		ServletActionContext.getRequest()
+		.setAttribute("queryDays", queryDays);
 		return results;
 	}
 
@@ -203,36 +227,38 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 		this.group = group;
 	}
 
-	public List<PieData> getTjPieData() {
-		return tjPieData;
+
+	public int getQueryDays() {
+		return queryDays;
 	}
 
-	public void setTjPieData(List<PieData> tjPieData) {
-		this.tjPieData = tjPieData;
+	public void setQueryDays(int queryDays) {
+		this.queryDays = queryDays;
 	}
 
-	public List<PieData> getBjPieData() {
-		return bjPieData;
+	public List<PieData> getCurrPieData() {
+		return currPieData;
 	}
 
-	public void setBjPieData(List<PieData> bjPieData) {
-		this.bjPieData = bjPieData;
+	public void setCurrPieData(List<PieData> currPieData) {
+		this.currPieData = currPieData;
 	}
 
-	public List<PieData> getShPieData() {
-		return shPieData;
+	public List<PieData> getPieData2() {
+		return PieData2;
 	}
 
-	public void setShPieData(List<PieData> shPieData) {
-		this.shPieData = shPieData;
+	public void setPieData2(List<PieData> pieData2) {
+		PieData2 = pieData2;
 	}
 
-	public Date getPieDate() {
-		return pieDate;
+	public List<PieData> getPieData3() {
+		return PieData3;
 	}
 
-	public void setPieDate(Date pieDate) {
-		this.pieDate = pieDate;
+	public void setPieData3(List<PieData> pieData3) {
+		PieData3 = pieData3;
 	}
+	
 
 }
