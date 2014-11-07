@@ -1,5 +1,6 @@
 package com.spreadtrum.monkeyForRD.action;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -147,7 +148,8 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 						doCountAll += doCount;
 					}
 				}
-				performanceRatio = doCountAll / (personNum * piedays);
+				performanceRatio = doCountAll / (personNum * piedays);				
+				performanceRatio = new BigDecimal(performanceRatio).setScale(3, BigDecimal.ROUND_HALF_UP).floatValue(); 
 				results.add(new PieData(group,performanceRatio));
 				System.out.println(group + ":"+"performanceRatio:"+performanceRatio + "doCountAll:" + doCountAll);
 			}
