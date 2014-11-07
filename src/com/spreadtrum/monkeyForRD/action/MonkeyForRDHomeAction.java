@@ -25,7 +25,7 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 	private List<String> deviceList;
 	private String testInfoDate;
 	private int queryDays = 1;
-
+	private Date yesterday;
 	private List<String> group;
 	private List<PieData> currPieData = new ArrayList<PieData>();
 	private List<PieData> PieData2 = new ArrayList<PieData>();
@@ -96,6 +96,8 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 	public void getPerformanceList() {
 		deviceList = rdMemberDAO.getAllDeviceNameBySite(site);
 		group = rdMemberDAO.getGroupNameBySite(site);
+		yesterday  = new java.sql.Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
+		System.out.println(yesterday);
 		for (int i = 0; i < deviceList.size(); i++) {
 			MonkeyForRDPerformance rdPerformance = new MonkeyForRDPerformance();
 
@@ -106,7 +108,7 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 			int doDaysforAll = rdTestInfoDAO.getDoDaysForAllByDevice(deviceList
 					.get(i));
 			int doifYestoday = rdTestInfoDAO.getDoCountThisDayByDevice(
-					deviceList.get(i), date);
+					deviceList.get(i), yesterday);
 			if (0 == doifYestoday) {
 				rdPerformance.setDoIfYesterday("否");
 			} else {
@@ -137,7 +139,7 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 				float personNum = 0;
 				float doCountAll = 0;
 				String group = groupNames.get(i);
-				float performanceRatio;
+				float performanceRatio ;
 				if (null != deviceNames){
 					personNum = deviceNames.size() + 1;					
 					for (int j = 0; j < deviceNames.size(); j++){
@@ -259,6 +261,13 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 	public void setPieData3(List<PieData> pieData3) {
 		PieData3 = pieData3;
 	}
-	
+
+	public Date getYesterday() {
+		return yesterday;
+	}
+
+	public void setYesterday(Date yesterday) {
+		this.yesterday = yesterday;
+	}
 
 }

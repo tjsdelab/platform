@@ -291,6 +291,18 @@ $(function () { var chart; $(document).ready(function ()
 						                    this.show();},}}}},
 			series: [{ type: 'pie', name: 'Browser share', data: PieNotDoData3 }] }); }); });
 
+radiovalue=null; 
+function getRadioValue()
+{
+var doc = document.forms[0];
+for(var i = 0; i < doc.site.length; i++)
+{
+if(doc.site[i].checked)
+{ radiovalue=doc.site[i].value;
+// alert(window.radiovalue);
+return radiovalue;
+}}};
+
 $(document).ready(function(){
     $(".radio-site").change(function(){
         var value =$("input[name='site']:checked").val();
@@ -303,7 +315,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     $(".radio-time").change(function(){
         var value =$("input[name='time']:checked").val();        
-        location.href = "rdtest?queryDays=" + value;        
+        location.href = "rdtest?queryDays=" + value +"&site=" + getRadioValue() ;        
 });    });
 
 /*$(document).ready(function(){
@@ -456,11 +468,7 @@ $(document).ready(function(){
   							</tr>
   							
   							    <% 
-  							    int i = 0;
-  							    java.text.SimpleDateFormat dateFormate=new java.text.SimpleDateFormat("yyyy-MM-dd"); 
-  							    java.sql.Date date=new java.sql.Date(new java.util.Date().getTime()); 
-  							    String yesterday = dateFormate.format(new java.util.Date(date.getTime() - 24 * 60 * 60 * 1000));
-  							    
+  							    int i = 0;  							    
   							    %> 							
                              <s:iterator value="#request.rdPerformanceList" id="rdPerformance">
                                  <%
@@ -479,7 +487,7 @@ $(document).ready(function(){
         </li> 
                     <li class="tab_con"> 
        	<div class="radio">
-                              <input type="radio" name="time" class="radio-time" value="1" name="queryDays" /><%=yesterday %>
+                              <input type="radio" name="time" class="radio-time" value="1" name="queryDays" /><s:property value="#request.yesterday"/>
                               <input type="radio" name="time" class="radio-time" value="7" name="queryDays"  />一周
                              <input type="radio" name="time" class="radio-time" value="30" name="queryDays"  />一个月                         
                     </div>
