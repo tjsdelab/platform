@@ -130,7 +130,7 @@ public class MonkeyForRDTestInfoDAOImpl implements MonkeyForRDTestInfoDAO {
 		List<Date> results = new ArrayList<Date>();
 	    String sinceDate = dateFormate.format(new java.util.Date(date.getTime() - periodTime));
 		String hql;
-		hql = "select ti.testDate from MonkeyForRDTestInfo as ti where ti.deviceName='"+deviceName +"' and ti.testDate >'"+sinceDate +"' ";		
+		hql = "select ti.testDate from MonkeyForRDTestInfo as ti where ti.deviceName='"+deviceName +"' and ti.testDate >='"+sinceDate +"' ";		
 	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象
 		org.hibernate.Session session = new HibernateUtilForMonkeyRD().openSession();
 		Transaction tx = session.beginTransaction();

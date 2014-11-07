@@ -65,7 +65,6 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 		.setAttribute("PieData2", PieData2);
 		ServletActionContext.getRequest()
 		.setAttribute("PieData3", PieData3);
-System.out.println(tongji_select);
 		return SUCCESS;
 	}
 
@@ -99,7 +98,6 @@ System.out.println(tongji_select);
 		deviceList = rdMemberDAO.getAllDeviceNameBySite(site);
 		group = rdMemberDAO.getGroupNameBySite(site);
 		yesterday  = new java.sql.Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
-		System.out.println(yesterday);
 		for (int i = 0; i < deviceList.size(); i++) {
 			MonkeyForRDPerformance rdPerformance = new MonkeyForRDPerformance();
 
@@ -151,8 +149,7 @@ System.out.println(tongji_select);
 				}
 				performanceRatio = doCountAll / (personNum * piedays);
 				performanceRatio = new BigDecimal(performanceRatio).setScale(3, BigDecimal.ROUND_HALF_UP).floatValue();
-				results.add(new PieData(group,performanceRatio));
-				System.out.println(group + ":"+"performanceRatio:"+performanceRatio + "doCountAll:" + doCountAll);
+				results.add(new PieData(group,performanceRatio));				
 			}
 		}
 		ServletActionContext.getRequest()
