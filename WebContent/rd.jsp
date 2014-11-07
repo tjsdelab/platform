@@ -8,6 +8,8 @@
 <html>
 <head>
     <title>RD自测试信息</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" media="screen" />
+    <link rel="Bookmark" href="images/favicon.ico">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/tab.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="css/buttons.css" />
@@ -18,7 +20,6 @@
     <script type="text/javascript" src="jqplot/jquery-ui.js"></script>
    <script type="text/javascript" src="jqplot/jqplot.pieRenderer.min.js"></script>  
      <script type="text/javascript" src="jqplot/highcharts.js"></script> 
-     <script type="text/javascript" src="jqplot/exporting.js"></script>
    
 
 
@@ -92,206 +93,293 @@ $( "#datepicker" ).datepicker({
            }); 
  
 	     
-$(function () { $(document).ready(function () 
-		{ // Build the chart 
-	    var currPieDoData = [];
-	    <s:iterator  value="#request.currPieData" id="pieData">
-	    <%
-	    String group = (String)request.getAttribute("groupName");
-	    Object ratio =  request.getAttribute("performanceRatio");
-	    %>
-	       var currPieTmpData = ['<%=group%>',<%=ratio%>];
-	       currPieDoData.push(currPieTmpData);		       
-	    </s:iterator>       
-		$('#pie1').highcharts({ 
-					
-				chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
-			title: { 
-				text: '执行', align: 'center'}, 
-				tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
-			    legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
-	                labelFormatter: function() {
-	                    return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-	                }, useHTML:true},
-			plotOptions: { 
-			pie: { size:'95%', 
-				allowPointSelect: true, //	是否允许使用鼠标选中数据点
-					   cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
-					   dataLabels: { enabled: false }, //图上是否显示数据标签
-					   showInLegend: true,
-						        point:{
-						            events:{
-						                legendItemClick:function(){
-						                    this.select();
-						                    this.show();},}}}},						                    
-			series: [{ type: 'pie', name: 'Browser share',    data:currPieDoData }] }); 
-		
-		}); });
 
-$(function () {  $(document).ready(function () 
-		{ // Build the chart 
-    var currPieNoDoData = [];
-    <s:iterator  value="#request.currPieData" id="pieData">
-    <%
-    String group = (String)request.getAttribute("groupName");
-    Object ratio =  request.getAttribute("performanceRatio");
-    %>
-       var currPieTmpData = ['<%=group%>',1 - <%=ratio%>];
-       currPieNoDoData.push(currPieTmpData);		       
-    </s:iterator>  
-		$('#pie2').highcharts({ 
-				chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
-			title: { 
-				text: '未执行', align: 'center'}, 
-			tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
-			    legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
-	                labelFormatter: function() {
-	                    return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-	                }, useHTML:true},
-			plotOptions: { 
-			pie: { size:'95%', 
-				allowPointSelect: true, //	是否允许使用鼠标选中数据点
-					   cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
-					   dataLabels: { enabled: false }, //图上是否显示数据标签
-					   showInLegend: true,
-						        point:{
-						            events:{
-						                legendItemClick:function(){
-						                    this.select();
-						                    this.show();},}}}},
-			series: [{ type: 'pie', name: 'Browser share',    data: currPieNoDoData }] }); }); });
+       $(function () {var chart; $(document).ready(function () 
+               { // Build the chart 
+               var currPieDoData = [];
+               var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a'];
+               var flag = false;
+           
+               <s:iterator  value="#request.currPieData" id="pieData">
+               <%
+               String group = (String)request.getAttribute("groupName");
+               Object ratio =  request.getAttribute("performanceRatio");
+               %>
+                  var currPieTmpData = ['<%=group%>',<%=ratio%>];
+                  if(currPieTmpData[1] != "0")
+                      flag = true;
+                  currPieDoData.push(currPieTmpData);  
+               </s:iterator>       
+               if(!flag){
+                   currPieDoData = [];
+                   color = [];
+                   color.push("'#FF0033'");
+                   currPieDoData.push(["暂无数据",100]);
+               }
+           
+               $('#pie1').highcharts({ 
+                   chart: { plotBackgroundColor: null,
+                       plotBorderWidth: null, 
+                       plotShadow: false,
+                       backgroundColor: 'rgba(0,0,0,0)' 
+                       }, 
+                    colors:color,
+                   title: { 
+                       text: '执行率', align: 'center'}, 
+                       tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
+                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
+                           labelFormatter: function() {
+                               // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
+                                   return  '<table width=190px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;"><tr border-width:0px;><td width=100px>'
+                                     +this.name +'</b></td><td width=30px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
+                           }, useHTML:true},
+                   plotOptions: { 
+                   pie: { size:'90%', 
+                       allowPointSelect: true, //  是否允许使用鼠标选中数据点
+                              cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
+                              dataLabels: { enabled: false }, //图上是否显示数据标签
+                              showInLegend: true,
+                                       point:{
+                                           events:{
+                                               legendItemClick:function(){
+                                                   this.select();
+                                                   this.show();},}}}},                                         
+                   series: [{ type: 'pie', name: 'Execution rate',    data:currPieDoData }] }); 
+               
+               }); });
 
-$(function () {  $(document).ready(function () 
-		{ // Build the chart 
-    var PieDoData2 = [];
-    <s:iterator  value="#request.PieData2" id="pieData">
-    <%
-    String group = (String)request.getAttribute("groupName");
-    Object ratio =  request.getAttribute("performanceRatio");
-    %>
-       var currPieTmpData = ['<%=group%>',<%=ratio%>];
-       PieDoData2.push(currPieTmpData);		       
-    </s:iterator>  
-		$('#pie3').highcharts({ 
-				chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
-			title: { 
-				text: '执行', align: 'center'}, 
-			tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
-			    legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
-	                labelFormatter: function() {
-	                    return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-	                }, useHTML:true},
-			plotOptions: { 
-			pie: {size:'95%',  
-				allowPointSelect: true, //	是否允许使用鼠标选中数据点
-					   cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
-					   dataLabels: { enabled: false }, //图上是否显示数据标签
-					   showInLegend: true,
-						        point:{
-						            events:{
-						                legendItemClick:function(){
-						                    this.select();
-						                    this.show();},}}}},
-			series: [{ type: 'pie', name: 'Browser share',    data: PieDoData2 }] }); }); });
+       $(function () { var chart; $(document).ready(function () 
+               { // Build the chart 
+           var currPieDoData = [];
+           var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a'];
+           var flag = false;
+           <s:iterator  value="#request.currPieData" id="pieData">
+           <%
+           String group = (String)request.getAttribute("groupName");
+           Object ratio =  request.getAttribute("performanceRatio");
+           %>
+              var currPieTmpData = ['<%=group%>',1 - <%=ratio%>];
+              if(currPieTmpData[1] != "0")
+                  flag = true;
+              currPieDoData.push(currPieTmpData);  
+           </s:iterator>       
+           if(!flag){
+               currPieDoData = [];
+               currPieDoData.push(["暂无数据",100]);
+               color = [];
+               color.push("'#FF0033'");
+           }
+               $('#pie2').highcharts({ 
+                       chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
+                   title: { 
+                       text: '未执行率', align: 'center'}, 
+                        colors:color,
+                   tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
+                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
+                           labelFormatter: function() {
+                               // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
+                                return  '<table width=190px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;"><tr border-width:0px;><td width=100px>'
+                                +this.name +'</b></td><td width=30px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
+                           }, useHTML:true},
+                   plotOptions: { 
+                       pie: { size:'90%', 
+                           allowPointSelect: true, //  是否允许使用鼠标选中数据点
+                                  cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
+                                  dataLabels: { enabled: false }, //图上是否显示数据标签
+                                  showInLegend: true,
+                                           point:{
+                                               events:{
+                                                   legendItemClick:function(){
+                                                       this.select();
+                                                       this.show();},}}}},                                         
+                       series: [{ type: 'pie', name: 'Execution rate',    data:currPieDoData }] }); 
+                   
+                   }); });
+       $(function () { var chart; $(document).ready(function () 
+               { // Build the chart 
+            var PieDoData2 = [];
+            var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a'];
+            var flag = false;
+           <s:iterator  value="#request.PieData2" id="pieData">
+           <%
+           String group = (String)request.getAttribute("groupName");
+           Object ratio =  request.getAttribute("performanceRatio");
+           %>
+              var currPieTmpData = ['<%=group%>',<%=ratio%>];
+              if(currPieTmpData[1] != "0")
+                  flag = true;
+              PieDoData2.push(currPieTmpData); 
+           </s:iterator>       
+           if(!flag){
+               PieDoData2 = [];
+               PieDoData2.push(["暂无数据",100]);
+               color = [];
+               color.push("'#FF0033'");color.push("'#FF0033'");
+           }
+               $('#pie3').highcharts({ 
+                       chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
+                   title: { 
+                       text: '执行率', align: 'center'}, 
+                   tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
+                    colors:color,
+                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
+                           labelFormatter: function() {
+                               // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
+                               return  '<table width=190px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;"><tr border-width:0px;><td width=100px>'
+                                +this.name +'</b></td><td width=30px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
+                           }, useHTML:true},
+                   plotOptions: { 
+                   pie: {size:'95%',  
+                       allowPointSelect: true, //  是否允许使用鼠标选中数据点
+                              cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
+                              dataLabels: { enabled: false }, //图上是否显示数据标签
+                              showInLegend: true,
+                                       point:{
+                                           events:{
+                                               legendItemClick:function(){
+                                                   this.select();
+                                                   this.show();},}}}},
+                   series: [{ type: 'pie', name: 'Execution rate',    data: PieDoData2 }] }); }); });
 
-$(function () {  $(document).ready(function () 
-		{ // Build the chart 
-    var PieNotDoData2 = [];
-    <s:iterator  value="#request.PieData2" id="pieData">
-    <%
-    String group = (String)request.getAttribute("groupName");
-    Object ratio =  request.getAttribute("performanceRatio");
-    %>
-       var currPieTmpData = ['<%=group%>',1 - <%=ratio%>];
-       PieNotDoData2.push(currPieTmpData);		       
-    </s:iterator>  
-		$('#pie4').highcharts({ 
-				chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
-			title: { 
-				text: '未执行', align: 'center'}, 
-			tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
-			    legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
-	                labelFormatter: function() {
-	                    return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-	                }, useHTML:true},
-			plotOptions: { 
-			pie: { size:'95%', 
-				allowPointSelect: true, //	是否允许使用鼠标选中数据点
-					   cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
-					   dataLabels: { enabled: false }, //图上是否显示数据标签
-					   showInLegend: true,
-						        point:{
-						            events:{
-						                legendItemClick:function(){
-						                    this.select();
-						                    this.show();},}}}},
-			series: [{ type: 'pie', name: 'Browser share',    data: PieNotDoData2 }] }); }); });	 
+       $(function () { var chart; $(document).ready(function () 
+               { // Build the chart 
+            var PieNotDoData2 = [];
+            var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a'];
+            var flag = false;
+           <s:iterator  value="#request.PieData2" id="pieData">
+           <%
+           String group = (String)request.getAttribute("groupName");
+           Object ratio =  request.getAttribute("performanceRatio");
+           %>
+              var currPieTmpData = ['<%=group%>',1 - <%=ratio%>];
+              if(currPieTmpData[1] != "0")
+                  flag = true;
+              PieNotDoData2.push(currPieTmpData);  
+           </s:iterator>       
+           if(!flag){
+               PieNotDoData2 = [];
+               PieNotDoData2.push(["暂无数据",100]);
+               color = [];
+               color.push("'#FF0033'");color.push("'#FF0033'");
+           }
+               $('#pie4').highcharts({ 
+                       chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
+                   title: { 
+                       text: '未执行率', align: 'center'}, 
+                   colors:color,
+                   tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
+                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
+                           labelFormatter: function() {
+                               // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
+                               return  '<table width=190px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;"><tr border-width:0px;><td width=100px>'
+                                +this.name +'</b></td><td width=30px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
+                            }, useHTML:true},
+                   plotOptions: { 
+                   pie: { size:'95%', 
+                       allowPointSelect: true, //  是否允许使用鼠标选中数据点
+                              cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
+                              dataLabels: { enabled: false }, //图上是否显示数据标签
+                              showInLegend: true,
+                                       point:{
+                                           events:{
+                                               legendItemClick:function(){
+                                                   this.select();
+                                                   this.show();},}}}},
+                   series: [{ type: 'pie', name: 'Execution rate',    data: PieNotDoData2 }] }); }); });     
 
-$(function () {  $(document).ready(function () 
-		{ // Build the chart 
-    var PieDoData3 = [];
-    <s:iterator  value="#request.PieData3" id="pieData">
-    <%
-    String group = (String)request.getAttribute("groupName");
-    Object ratio =  request.getAttribute("performanceRatio");
-    %>
-       var currPieTmpData = ['<%=group%>',<%=ratio%>];
-       PieDoData3.push(currPieTmpData);		       
-    </s:iterator>
-		$('#pie5').highcharts({ 
-				chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
-			title: { 
-				text: '执行', align: 'center'}, 
-			tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
-			    legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
-	                labelFormatter: function() {
-	                    return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+'%';
-	                }, useHTML:true},
-			plotOptions: { 
-			pie: { size:'95%', 
-				allowPointSelect: true, //	是否允许使用鼠标选中数据点
-					   cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
-					   dataLabels: { enabled: false }, //图上是否显示数据标签
-					   showInLegend: true,
-						        point:{
-						            events:{
-						                legendItemClick:function(){
-						                    this.select();
-						                    this.show();},}}}},
-			series: [{ type: 'pie', data: PieDoData3 }] }); }); });
+       $(function () { var chart; $(document).ready(function () 
+               { // Build the chart 
+           var PieDoData3 = [];
+            var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a'];
+            var flag = false;
+           <s:iterator  value="#request.PieData3" id="pieData">
+           <%
+           String group = (String)request.getAttribute("groupName");
+           Object ratio =  request.getAttribute("performanceRatio");
+           %>
+              var currPieTmpData = ['<%=group%>',<%=ratio%>];
+              if(currPieTmpData[1] != "0")
+                  flag = true;
+              PieDoData3.push(currPieTmpData); 
+           </s:iterator>       
+           if(!flag){
+               PieDoData3 = [];
+               PieDoData3.push(["暂无数据",100]);
+               color = [];
+               color.push("'#FF0033'");color.push("'#FF0033'");
+           }
+               $('#pie5').highcharts({ 
+                       chart: { 
+                           plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
+                   title: { 
+                       text: '执行率', align: 'center'}, 
+                   colors:color,
+                   tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
+                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
+                           labelFormatter: function() {
+                              // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+'%';
+                               return  '<table width=190px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;"><tr border-width:0px;><td width=100px>'
+                                +this.name +'</b></td><td width=30px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
+                            }, useHTML:true},
+                   plotOptions: { 
+                   pie: { size:'90%', 
+                       allowPointSelect: true, //  是否允许使用鼠标选中数据点
+                              cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
+                              dataLabels: { enabled: false }, //图上是否显示数据标签
+                              showInLegend: true,
+                                       point:{
+                                           events:{
+                                               legendItemClick:function(){
+                                                   this.select();
+                                                   this.show();},}}}},
+                   series: [{ type: 'pie', data: PieDoData3 }] }); }); });
 
-$(function () {  $(document).ready(function () 
-		{ // Build the chart 
-    var PieNotDoData3 = [];
-    <s:iterator  value="#request.PieData3" id="pieData">
-    <%
-    String group = (String)request.getAttribute("groupName");
-    Object ratio =  request.getAttribute("performanceRatio");
-    %>
-       var currPieTmpData = ['<%=group%>',1-<%=ratio%>];
-       PieNotDoData3.push(currPieTmpData);		       
-    </s:iterator>
-		$('#pie6').highcharts({ 
-				chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
-			title: { 
-				text: '未执行', align: 'center'}, 
-			tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
-			    legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
-	                labelFormatter: function() {
-	                    return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-	                }, useHTML:true},
-			plotOptions: { 
-			pie: { size:'95%', 
-				allowPointSelect: true, //	是否允许使用鼠标选中数据点
-					   cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
-					   dataLabels: { enabled: false }, //图上是否显示数据标签
-					   showInLegend: true,
-						        point:{
-						            events:{
-						                legendItemClick:function(){
-						                    this.select();
-						                    this.show();},}}}},
-			series: [{ type: 'pie', name: 'Browser share', data: PieNotDoData3 }] }); }); });
+       $(function () { var chart; $(document).ready(function () 
+               { // Build the chart 
+           var PieNotDoData3 = [];
+           var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a'];
+            var flag = false;
+           <s:iterator  value="#request.PieData3" id="pieData">
+           <%
+           String group = (String)request.getAttribute("groupName");
+           Object ratio =  request.getAttribute("performanceRatio");
+           %>
+              var currPieTmpData = ['<%=group%>',1-<%=ratio%>];
+              if(currPieTmpData[1] != "0")
+                  flag = true;
+              PieNotDoData3.push(currPieTmpData);  
+           </s:iterator>       
+           if(!flag){
+               PieNotDoData3 = [];
+               PieNotDoData3.push(["暂无数据",100]);
+               color = [];
+               color.push("'#FF0033'");color.push("'#FF0033'");
+           }
+               $('#pie6').highcharts({ 
+                       chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
+                   title: { 
+                       text: '未执行率', align: 'center'}, 
+                   colors:color,
+                   tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
+                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
+                           labelFormatter: function() {
+                               // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
+                               return  '<table width=190px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;"><tr border-width:0px;><td width=100px>'
+                                +this.name +'</b></td><td width=30px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
+                            }, useHTML:true},
+                   plotOptions: { 
+                   pie: { size:'90%', 
+                       allowPointSelect: true, //  是否允许使用鼠标选中数据点
+                              cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
+                              dataLabels: { enabled: false }, //图上是否显示数据标签
+                              showInLegend: true,
+                                       point:{
+                                           events:{
+                                               legendItemClick:function(){
+                                                   this.select();
+                                                   this.show();},}}}},
+                   series: [{ type: 'pie', name: 'Execution rate', data: PieNotDoData3 }] }); }); });
+
 
 radiovalue=null; 
 function getRadioValue()
@@ -324,7 +412,7 @@ $(document).ready(function(){
 /*$(document).ready(function(){
 	$("input[name=site]:eq[0]").attr("checked", 'checked');
 });*/
-//加载到执行人员统计上去
+//加载到执行率率率人员统计上去
 $(document).ready(function(){
 	var select = "<s:property value="tongji_select" />";
 	var time = "<s:property value="queryDays" />";
@@ -359,7 +447,7 @@ $(document).ready(function(){
                     </li>
                       <li>
                        <a href="monkey.action" 
-                          class="button blue medium">Monkey测试</a>
+                          class="button blue medium">返回Monkey测试</a>
                     </li>
                     <li>
                         <a href="login.action" class="button blue medium">返回主页</a>
