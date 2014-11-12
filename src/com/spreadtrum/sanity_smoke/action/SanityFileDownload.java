@@ -43,7 +43,7 @@ public class SanityFileDownload extends ActionSupport{
 		String[] TestInfoHeader = { "ID", "Case序号", "模块", "功能", "测试", "重要性", "操作顺序", "显示", "结果","comments", "标识位"};
 		try{
 		//OutputStream out = new FileOutputStream("/home7/qilongyin/Documents/" + currentFormName + ".xls");
-		OutputStream out = new FileOutputStream("/home7/qilongyin/files/sanity/" + currentFormName + ".xls");			
+		OutputStream out = new FileOutputStream("/home/likewise-open/SPREADTRUM/senxue.jing/Downloads/" + currentFormName + ".xls");			
 		SaveExcel<SanityTestInfo> sel = new SaveExcel<SanityTestInfo>();
 		
 		// 声明一个工作薄
@@ -77,7 +77,7 @@ public class SanityFileDownload extends ActionSupport{
 		// ServletContext servletContext =
 		// ServletActionContext.getServletContext();
 		//String filename = "/home7/qilongyin/Documents/" + currentFormName + ".xls";
-		String filename = "/home7/qilongyin/files/sanity/" + currentFormName + ".xls";		
+		String filename = "/home/likewise-open/SPREADTRUM/senxue.jing/Downloads/" + currentFormName + ".xls";		
 
 		inputStream = new FileInputStream(filename);
 		contentLenght = inputStream.available();
