@@ -7,7 +7,7 @@ private int fail = 0;
 private int na = 0;
 private int block = 0;
 
-void addModuleToSequence(String result){
+public void addModuleToSequence(String result){
 
 	if(result.equalsIgnoreCase("Pass")){
 		pass++;

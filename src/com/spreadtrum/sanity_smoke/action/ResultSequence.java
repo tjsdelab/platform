@@ -19,7 +19,7 @@ private int block = 0;
 private	Map<String, ArrayList<Integer>> map = new TreeMap<String, ArrayList<Integer>>();
 
 
-void addModuleToSequence(String module,String result){
+public void addModuleToSequence(String module,String result){
 	if(map.get(module) == null){
 	map.put(module, new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);}});
 	}

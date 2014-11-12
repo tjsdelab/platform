@@ -16,9 +16,15 @@ import org.apache.poi.hssf.util.Region;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.spreadtrum.monkeytest.action.SaveExcel;
+import com.spreadtrum.monkeytest.service.MonkeyDetail;
+import com.spreadtrum.monkeytest.service.impl.MonkeyDetailImpl;
+import com.spreadtrum.monkeytest.vo.UperTestInfo;
 import com.spreadtrum.sanity_smoke.dao.SanityTestFormDAO;
 import com.spreadtrum.sanity_smoke.dao.impl.SanityTestFormDAOImpl;
 import com.spreadtrum.sanity_smoke.model.SanityTestInfo;
+import com.spreadtrum.sanity_smoke.service.OverallTestInfo;
+import com.spreadtrum.sanity_smoke.service.SanitySummary;
+import com.spreadtrum.sanity_smoke.service.SanitySummaryImpl;
 
 
 public class SanityFileDownload extends ActionSupport{
@@ -32,18 +38,23 @@ public class SanityFileDownload extends ActionSupport{
 	private String currentFormName;
 	private List<SanityTestInfo> allCaseList = new ArrayList<SanityTestInfo>();
 	private SanityTestFormDAO sanityFormDAO = new SanityTestFormDAOImpl();
+	private SanitySummary sanitySummary=new SanitySummaryImpl();
+	private List<OverallTestInfo> overallTestInfoList=new ArrayList<OverallTestInfo>();
 
 	@Override
 	public String execute() throws Exception {
-		
+		// 时间趋势信息
+		overallTestInfoList = sanitySummary.receiveOverallTestInfo_List(currentFormName);
 		//获取所有case的信息
 		allCaseList = sanityFormDAO.getSanityTestInfoByTableName(currentFormName);
 		
 		//生成excel文件
+		String[] OverallInfoHeader = { "Version", "Total", "Pass", "Fail","NA", "Block", "Pass-ratio", "Comment"};
 		String[] TestInfoHeader = { "ID", "Case序号", "模块", "功能", "测试", "重要性", "操作顺序", "显示", "结果","comments", "标识位"};
 		try{
 		//OutputStream out = new FileOutputStream("/home7/qilongyin/Documents/" + currentFormName + ".xls");
 		OutputStream out = new FileOutputStream("/home/likewise-open/SPREADTRUM/senxue.jing/Downloads/" + currentFormName + ".xls");			
+		SaveExcel<OverallTestInfo> seo = new SaveExcel<OverallTestInfo>();
 		SaveExcel<SanityTestInfo> sel = new SaveExcel<SanityTestInfo>();
 		
 		// 声明一个工作薄
@@ -51,15 +62,27 @@ public class SanityFileDownload extends ActionSupport{
 		// 生成一个表格
 		HSSFSheet sheet = workbook.createSheet("sanity_case");
 		//HSSFSheet sheet1 = workbook.createSheet("概述");
-		// 输出测试信息
+		
+		// 输出测试汇总信息
 		HSSFRow row = sheet.createRow(0);
 		HSSFCell cell = row.createCell(0);
-		HSSFRichTextString text = new HSSFRichTextString("Case Details");
+		HSSFRichTextString text = new HSSFRichTextString("1 Test Summary");
 		cell.setCellValue(text);
 		sheet.addMergedRegion(new Region(0, (short) 0, 0, (short) 10));
 		row = sheet.createRow(1);
+		seo.saveExcel(workbook, OverallInfoHeader, overallTestInfoList, sheet, row, 1);
+		// 输出测试信息
+					int rownum = overallTestInfoList.size() + 2;
+					row = sheet.createRow(rownum);
+					cell = row.createCell(0);
+					text = new HSSFRichTextString(
+							"2 Case Details");
+					cell.setCellValue(text);
+					sheet.addMergedRegion(new Region(rownum, (short) 0, rownum,
+							(short) 10));
+					row = sheet.createRow(rownum + 1);
 
-		sel.saveExcel(workbook, TestInfoHeader, allCaseList, sheet, row, 1);
+		sel.saveExcel(workbook, TestInfoHeader, allCaseList, sheet, row, rownum + 1);
 		try {
 				workbook.write(out);
 		} catch (IOException e) {
@@ -122,6 +145,14 @@ public class SanityFileDownload extends ActionSupport{
 
 	public void setAllCaseList(List<SanityTestInfo> allCaseList) {
 		this.allCaseList = allCaseList;
+	}
+
+	public SanitySummary getSanitySummary() {
+		return sanitySummary;
+	}
+
+	public void setSanitySummary(SanitySummary sanitySummary) {
+		this.sanitySummary = sanitySummary;
 	}
 	
 }

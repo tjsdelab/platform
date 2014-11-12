@@ -138,9 +138,12 @@ $( "#datepicker" ).datepicker({
                </s:iterator>       
                if(!flag){
                    currPieDoData = [];
-                   color = [];
+                   color = ['#EEC591'];
                    color.push("'#FF0033'");
                    currPieDoData.push(["暂无数据",100]);
+                   Highcharts.setOptions({
+                	    innerSize:'10',
+                	    });
                }
            
                $('#pie1').highcharts({ 
@@ -192,7 +195,7 @@ $( "#datepicker" ).datepicker({
            if(!flag){
                currPieDoData = [];
                currPieDoData.push(["暂无数据",100]);
-               color = [];
+               color = ['#EEE8AA'];
                color.push("'#FF0033'");
            }
                $('#pie2').highcharts({ 
@@ -239,7 +242,7 @@ $( "#datepicker" ).datepicker({
            if(!flag){
                PieDoData2 = [];
                PieDoData2.push(["暂无数据",100]);
-               color = [];
+               color = ['#EEE8AA'];
                color.push("'#FF0033'");color.push("'#FF0033'");
            }
                $('#pie3').highcharts({ 
@@ -285,7 +288,7 @@ $( "#datepicker" ).datepicker({
            if(!flag){
                PieNotDoData2 = [];
                PieNotDoData2.push(["暂无数据",100]);
-               color = [];
+               color = ['#EEE8AA'];
                color.push("'#FF0033'");color.push("'#FF0033'");
            }
                $('#pie4').highcharts({ 
@@ -331,7 +334,7 @@ $( "#datepicker" ).datepicker({
            if(!flag){
                PieDoData3 = [];
                PieDoData3.push(["暂无数据",100]);
-               color = [];
+               color = ['#EEE8AA'];
                color.push("'#FF0033'");color.push("'#FF0033'");
            }
                $('#pie5').highcharts({ 
@@ -378,7 +381,7 @@ $( "#datepicker" ).datepicker({
            if(!flag){
                PieNotDoData3 = [];
                PieNotDoData3.push(["暂无数据",100]);
-               color = [];
+               color = ['#EEE8AA'];
                color.push("'#FF0033'");color.push("'#FF0033'");
            }
                $('#pie6').highcharts({ 
@@ -492,22 +495,22 @@ $(document).ready(function(){
 <!-- taps -->   
         <div class="tapsbox"> 
             <ul class="taps" id="taps">
-               <li><a href="#">测试详细信息</a></li>
-       		<li><a href="#">执行人员名单</a></li>
-       		<li><a href="#" id="tongji">执行人员统计</a></li></ul>          
+               <li style="border-left:1px solid #4876FF;"><a href="#">测试详细信息</a></li>
+       		<li style="border:1px solid #4876FF;"><a href="#">执行人员名单</a></li>
+       		<li style="border-right:1px solid #4876FF;"><a href="#" id="tongji">执行人员统计</a></li></ul>          
             <ul class="taps_conbox" id="taps_conbox">
                 <li class="taps_con">
                 <%
                     String searchDate;
                     searchDate = request.getAttribute("date").toString();                 
                 %>
-    			<p  style="font-size:14px;">Date:<input type="text" id="datepicker" value=<%=searchDate%> name="testInfoDate" >
-                <s:submit style="font-size:14px;" id="rd" value="搜索" ></s:submit></p>
+    			<p  style="font-size:16px;margin-left:275px;">Date:&nbsp<input type="text" id="datepicker" value=<%=searchDate%> name="testInfoDate" >
+                <s:submit style="font-size:13px;" id="rd" value="搜索" ></s:submit></p>
     			
 <!-- warning -->
           
          <marquee onMouseOut="this.start()" onMouseOver="this.stop()" direction="left" scrollamount="6" 
-            style="margin-left:350px; width:250px;margin-top:5px;margin-bottom:5px;"  id="">
+            style="margin-left:300px; width:250px;margin-top:-5px;margin-bottom:8px;"  id="">
             <div style="text-align:center;color:#FF3300;font-size:16px;margin-top:5px;margin-bottom:5px;"><strong > <s:property value="#request.warning"/> </strong></div> 
          </marquee> 
 <!--case表格统计-->  
@@ -600,7 +603,7 @@ $(document).ready(function(){
         </li> 
                     <li class="tab_con"> 
        	<div class="radio">
-                              <input id="1" type="radio"  class="radio-time" value="1" name="queryDays" checked="checked"/><s:property value="#request.yesterday"/>
+                              <input id="1" style="margin-left:250px;" type="radio"  class="radio-time" value="1" name="queryDays" checked="checked"/><s:property value="#request.yesterday"/>
                               <input id="7" style="margin-left:55px;" type="radio"  class="radio-time" value="7" name="queryDays"  />一周
                               <input id="30" style="margin-left:80px;" type="radio"  class="radio-time" value="30" name="queryDays"  />一个月                         
                     </div>

@@ -19,6 +19,11 @@ import com.spreadtrum.monkeytest.action.SaveExcel;
 import com.spreadtrum.sanity_smoke.dao.SmokeTestFormDAO;
 import com.spreadtrum.sanity_smoke.dao.impl.SmokeTestFormDAOImpl;
 import com.spreadtrum.sanity_smoke.model.SmokeTestInfo;
+import com.spreadtrum.sanity_smoke.service.OverallTestInfo;
+import com.spreadtrum.sanity_smoke.service.SanitySummary;
+import com.spreadtrum.sanity_smoke.service.SanitySummaryImpl;
+import com.spreadtrum.sanity_smoke.service.SmokeSummary;
+import com.spreadtrum.sanity_smoke.service.SmokeSummaryImpl;
 
 
 public class SmokeFileDownload extends ActionSupport{
@@ -31,35 +36,53 @@ public class SmokeFileDownload extends ActionSupport{
 	//private String testFormName = null; 
 	private String currentFormName;
 	private List<SmokeTestInfo> allCaseList = new ArrayList<SmokeTestInfo>();
-	private SmokeTestFormDAO sanityFormDAO = new SmokeTestFormDAOImpl();
+	private SmokeTestFormDAO smokeFormDAO = new SmokeTestFormDAOImpl();
+	private SmokeSummary smokeSummary=new SmokeSummaryImpl();
+	private List<OverallTestInfo> overallTestInfoList=new ArrayList<OverallTestInfo>();
 
 	@Override
 	public String execute() throws Exception {
 		
+		overallTestInfoList = smokeSummary.receiveOverallTestInfo_List(currentFormName);
 		//获取所有case的信息
-		allCaseList = sanityFormDAO.getSmokeTestInfoByTableName(currentFormName);
+		allCaseList = smokeFormDAO.getSmokeTestInfoByTableName(currentFormName);
 		
 		//生成excel文件
+		String[] OverallInfoHeader = { "Version", "Total", "Pass", "Fail","NA", "Block", "Pass-ratio", "Comment"};
 		String[] TestInfoHeader = { "ID", "Case序号", "Feature", "预置条件", "测试步骤", "预期结果", "结果","bugID","comments", "标识位"};
 		try{
 		//OutputStream out = new FileOutputStream("/home7/qilongyin/Documents/" + currentFormName + ".xls");
-		OutputStream out = new FileOutputStream("/home7/qilongyin/files/smoke/" + currentFormName + ".xls");			
+		OutputStream out = new FileOutputStream("/home/likewise-open/SPREADTRUM/senxue.jing/Downloads/" + currentFormName + ".xls");			
 		SaveExcel<SmokeTestInfo> sel = new SaveExcel<SmokeTestInfo>();
+		SaveExcel<OverallTestInfo> seo = new SaveExcel<OverallTestInfo>();
 		
 		// 声明一个工作薄
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		// 生成一个表格
-		HSSFSheet sheet = workbook.createSheet("sanity_case");
+		HSSFSheet sheet = workbook.createSheet("smoke_case");
 		//HSSFSheet sheet1 = workbook.createSheet("概述");
 		// 输出测试信息
 		HSSFRow row = sheet.createRow(0);
 		HSSFCell cell = row.createCell(0);
-		HSSFRichTextString text = new HSSFRichTextString("Case Details");
+		
+		HSSFRichTextString text = new HSSFRichTextString("1 Test Summary");
 		cell.setCellValue(text);
 		sheet.addMergedRegion(new Region(0, (short) 0, 0, (short) 10));
 		row = sheet.createRow(1);
+		seo.saveExcel(workbook, OverallInfoHeader, overallTestInfoList, sheet, row, 1);
+		// 输出测试信息
+					int rownum = overallTestInfoList.size() + 2;
+					row = sheet.createRow(rownum);
+					cell = row.createCell(0);
+					text = new HSSFRichTextString(
+							"2 Case Details");
+					cell.setCellValue(text);
+					sheet.addMergedRegion(new Region(rownum, (short) 0, rownum,
+							(short) 10));
+					row = sheet.createRow(rownum + 1);
 
-		sel.saveExcel(workbook, TestInfoHeader, allCaseList, sheet, row, 1);
+		sel.saveExcel(workbook, TestInfoHeader, allCaseList, sheet, row, rownum + 1);
+		
 		try {
 				workbook.write(out);
 		} catch (IOException e) {
@@ -77,7 +100,7 @@ public class SmokeFileDownload extends ActionSupport{
 		// ServletContext servletContext =
 		// ServletActionContext.getServletContext();
 		//String filename = "/home7/qilongyin/Documents/" + currentFormName + ".xls";
-		String filename = "/home7/qilongyin/files/smoke/" + currentFormName + ".xls";		
+		String filename = "/home/likewise-open/SPREADTRUM/senxue.jing/Downloads/" + currentFormName + ".xls";		
 
 		inputStream = new FileInputStream(filename);
 		contentLenght = inputStream.available();
