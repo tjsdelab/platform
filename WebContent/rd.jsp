@@ -123,8 +123,9 @@ $( "#datepicker" ).datepicker({
        $(function () {var chart; $(document).ready(function () 
                { // Build the chart 
                var currPieDoData = [];
-               var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a'];
+               var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a','#FFFFCC','#FF00FF'];
                var flag = false;
+               var innersize = ['0'];
            
                <s:iterator  value="#request.currPieData" id="pieData">
                <%
@@ -138,12 +139,9 @@ $( "#datepicker" ).datepicker({
                </s:iterator>       
                if(!flag){
                    currPieDoData = [];
-                   color = ['#EEC591'];
-                   color.push("'#EEC591'");
-                   currPieDoData.push(["暂无数据",100]);
-                   Highcharts.setOptions({
-                	    innerSize:'10',
-                	    });
+                   color = ['#6495ED'];
+                   innersize = ['80%'];
+                   currPieDoData.push(["暂无数据",2]);
                }
            
                $('#pie1').highcharts({ 
@@ -154,18 +152,33 @@ $( "#datepicker" ).datepicker({
                        }, 
                     colors:color,
                    title: { 
-                       text: '<%=currSitePie%>'+':执行率', align: 'center'}, 
-                       tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
-                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
-                           labelFormatter: function() {
+                       text: '<%=currSitePie%>'+':执行率', align: 'center',
+                       x:-55,
+                   }, 
+                       tooltip: { 
+                    	   formatter:function(){
+                    		   if (this.y!=2){
+                    			   return '<b>'+ this.point.name +'</b>:'+ '<br/>'+'<b>'+this.series.name +'</b>:'+ this.percentage.toFixed(2)+' %'}
+                    		   else {
+                    			   return null
+                    		   }
+                    	   }
+                    	    }, 
+                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -30,y: 60,borderWidth: 0,
+                    	   labelFormatter: function() {
+                    		   if (this.y!=2)
                                // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-                        	   return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
+                        	   {return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
                                +this.name +'</b></td></tr><tr><td width=40px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
-                           }, useHTML:true},
+                           }
+                        	   else{ return this.name}
+                        	   }, useHTML:true},
                    plotOptions: { 
                    pie: { size:'90%', 
                        allowPointSelect: true, //  是否允许使用鼠标选中数据点
                               cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
+                             // sliced:  true ,
+                              innerSize:innersize, 
                               dataLabels: { enabled: false }, //图上是否显示数据标签
                               showInLegend: true,
                                        point:{
@@ -180,8 +193,10 @@ $( "#datepicker" ).datepicker({
        $(function () { var chart; $(document).ready(function () 
                { // Build the chart 
            var currPieDoData = [];
-           var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a'];
+           var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a','#FFFFCC','#FF00FF'];
            var flag = false;
+           var innersize = ['0'];
+           
            <s:iterator  value="#request.currPieData" id="pieData">
            <%
            String group = (String)request.getAttribute("groupName");
@@ -194,26 +209,40 @@ $( "#datepicker" ).datepicker({
            </s:iterator>       
            if(!flag){
                currPieDoData = [];
-               currPieDoData.push(["暂无数据",100]);
-               color = ['#EEE8AA'];
-               color.push("'#FF0033'");
+               color = ['#6495ED'];
+               innersize = ['80%'];
+               currPieDoData.push(["暂无数据",2]);
            }
                $('#pie2').highcharts({ 
                        chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
-                   title: { 
-                       text: '<%=currSitePie%>'+':未执行率', align: 'center'}, 
-                        colors:color,
-                   tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
-                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
-                           labelFormatter: function() {
+                       colors:color,
+                       title: { 
+                       text: '<%=currSitePie%>'+':未执行率', align: 'center',
+                           x:-55,
+                           },                     
+                        tooltip: { 
+                     	   formatter:function(){
+                     		   if (this.y!=2){
+                     			   return '<b>'+ this.point.name +'</b>:'+ '<br/>'+'<b>'+this.series.name +'</b>:'+ this.percentage.toFixed(2)+' %'}
+                     		   else {
+                     			   return null
+                     		   }
+                     	   }
+                     	    }, 
+                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -30,y: 60,borderWidth: 0,
+                    	   labelFormatter: function() {
+                    		   if (this.y!=2)
                                // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-                        	   return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
+                        	   {return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
                                +this.name +'</b></td></tr><tr><td width=40px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
-                           }, useHTML:true},
+                           }
+                        	   else{ return this.name}
+                        	   }, useHTML:true},                    	 
                    plotOptions: { 
                        pie: { size:'90%', 
                            allowPointSelect: true, //  是否允许使用鼠标选中数据点
                                   cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
+                                  innerSize:innersize, 
                                   dataLabels: { enabled: false }, //图上是否显示数据标签
                                   showInLegend: true,
                                            point:{
@@ -221,14 +250,16 @@ $( "#datepicker" ).datepicker({
                                                    legendItemClick:function(){
                                                        this.select();
                                                        this.show();},}}}},                                         
-                       series: [{ type: 'pie', name: 'Execution rate',    data:currPieDoData }] }); 
+                       series: [{ type: 'pie', name: 'Un-execution rate',    data:currPieDoData }] }); 
                    
                    }); });
        $(function () { var chart; $(document).ready(function () 
                { // Build the chart 
             var PieDoData2 = [];
-            var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a'];
+            var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a','#FFFFCC','#FF00FF'];
             var flag = false;
+            var innersize = ['0'];
+            
            <s:iterator  value="#request.PieData2" id="pieData">
            <%
            String group = (String)request.getAttribute("groupName");
@@ -240,27 +271,41 @@ $( "#datepicker" ).datepicker({
               PieDoData2.push(currPieTmpData); 
            </s:iterator>       
            if(!flag){
-               PieDoData2 = [];
-               PieDoData2.push(["暂无数据",100]);
-               color = ['#EEE8AA'];
-               color.push("'#FF0033'");color.push("'#FF0033'");
+        	   PieDoData2 = [];
+               color = ['#6495ED'];
+               innersize = ['80%'];
+               PieDoData2.push(["暂无数据",2]);
            }
                $('#pie3').highcharts({ 
                        chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
                    title: { 
-                       text: '<%=SitePie2%>'+':执行率', align: 'center'}, 
-                   tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
+                       text: '<%=SitePie2%>'+':执行率', align: 'center',
+                       x:-55,
+                       }, 
+                       tooltip: { 
+                    	   formatter:function(){
+                    		   if (this.y!=2){
+                    			   return '<b>'+ this.point.name +'</b>:'+ '<br/>'+'<b>'+this.series.name +'</b>:'+ this.percentage.toFixed(2)+' %'}
+                    		   else {
+                    			   return null
+                    		   }
+                    	   }
+                    	    }, 
                     colors:color,
-                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
-                           labelFormatter: function() {
+                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -30,y: 60,borderWidth: 0,
+                    	   labelFormatter: function() {
+                    		   if (this.y!=2)
                                // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-                        	   return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
+                        	   {return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
                                +this.name +'</b></td></tr><tr><td width=40px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
-                           }, useHTML:true},
+                           }
+                        	   else{ return this.name}
+                        	   }, useHTML:true},
                    plotOptions: { 
-                   pie: {size:'95%',  
+                   pie: {size:'90%',  
                        allowPointSelect: true, //  是否允许使用鼠标选中数据点
                               cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
+                              innerSize:innersize, 
                               dataLabels: { enabled: false }, //图上是否显示数据标签
                               showInLegend: true,
                                        point:{
@@ -273,8 +318,10 @@ $( "#datepicker" ).datepicker({
        $(function () { var chart; $(document).ready(function () 
                { // Build the chart 
             var PieNotDoData2 = [];
-            var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a'];
+            var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a','#FFFFCC','#FF00FF'];
             var flag = false;
+            var innersize = ['0'];
+            
            <s:iterator  value="#request.PieData2" id="pieData">
            <%
            String group = (String)request.getAttribute("groupName");
@@ -286,27 +333,41 @@ $( "#datepicker" ).datepicker({
               PieNotDoData2.push(currPieTmpData);  
            </s:iterator>       
            if(!flag){
-               PieNotDoData2 = [];
-               PieNotDoData2.push(["暂无数据",100]);
-               color = ['#EEE8AA'];
-               color.push("'#FF0033'");color.push("'#FF0033'");
+        	   PieDoData2 = [];
+               color = ['#6495ED'];
+               innersize = ['80%'];
+               PieDoData2.push(["暂无数据",2]);
            }
                $('#pie4').highcharts({ 
                        chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
                    title: { 
-                       text: '<%=SitePie2%>'+':未执行率', align: 'center'}, 
+                       text: '<%=SitePie2%>'+':未执行率', align: 'center',
+                       x:-55,
+                       }, 
                    colors:color,
-                   tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
-                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
-                           labelFormatter: function() {
+                   tooltip: { 
+                	   formatter:function(){
+                		   if (this.y!=2){
+                			   return '<b>'+ this.point.name +'</b>:'+ '<br/>'+'<b>'+this.series.name +'</b>:'+ this.percentage.toFixed(2)+' %'}
+                		   else {
+                			   return null
+                		   }
+                	   }
+                	    },  
+                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -30,y: 60,borderWidth: 0,
+                    	   labelFormatter: function() {
+                    		   if (this.y!=2)
                                // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-                        	   return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
+                        	   {return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
                                +this.name +'</b></td></tr><tr><td width=40px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
-                            }, useHTML:true},
+                           }
+                        	   else{ return this.name}
+                        	   }, useHTML:true},
                    plotOptions: { 
-                   pie: { size:'95%', 
+                   pie: { size:'90%', 
                        allowPointSelect: true, //  是否允许使用鼠标选中数据点
                               cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
+                              innerSize:innersize, 
                               dataLabels: { enabled: false }, //图上是否显示数据标签
                               showInLegend: true,
                                        point:{
@@ -314,13 +375,15 @@ $( "#datepicker" ).datepicker({
                                                legendItemClick:function(){
                                                    this.select();
                                                    this.show();},}}}},
-                   series: [{ type: 'pie', name: 'Execution rate',    data: PieNotDoData2 }] }); }); });     
+                   series: [{ type: 'pie', name: 'Un-execution rate',    data: PieNotDoData2 }] }); }); });     
 
        $(function () { var chart; $(document).ready(function () 
                { // Build the chart 
            var PieDoData3 = [];
-            var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a'];
+            var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a','#FFFFCC','#FF00FF'];
             var flag = false;
+            var innersize = ['0'];
+            
            <s:iterator  value="#request.PieData3" id="pieData">
            <%
            String group = (String)request.getAttribute("groupName");
@@ -332,28 +395,42 @@ $( "#datepicker" ).datepicker({
               PieDoData3.push(currPieTmpData); 
            </s:iterator>       
            if(!flag){
-               PieDoData3 = [];
-               PieDoData3.push(["暂无数据",100]);
-               color = ['#EEE8AA'];
-               color.push("'#FF0033'");color.push("'#FF0033'");
+        	   PieDoData3 = [];
+               color = ['#6495ED'];
+               innersize = ['80%'];
+               PieDoData3.push(["暂无数据",2]);
            }
                $('#pie5').highcharts({ 
                        chart: { 
                            plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
                    title: { 
-                       text: '<%=SitePie3%>'+':执行率', align: 'center'}, 
+                       text: '<%=SitePie3%>'+':执行率', align: 'center',
+                       x:-55,
+                       }, 
                    colors:color,
-                   tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
-                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
-                           labelFormatter: function() {
-                              // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+'%';
-                        	   return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
+                   tooltip: { 
+                	   formatter:function(){
+                		   if (this.y!=2){
+                			   return '<b>'+ this.point.name +'</b>:'+ '<br/>'+'<b>'+this.series.name +'</b>:'+ this.percentage.toFixed(2)+' %'}
+                		   else {
+                			   return null
+                		   }
+                	   }
+                	    }, 
+                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -30,y: 60,borderWidth: 0,
+                    	   labelFormatter: function() {
+                    		   if (this.y!=2)
+                               // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
+                        	   {return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
                                +this.name +'</b></td></tr><tr><td width=40px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
-                            }, useHTML:true},
+                           }
+                        	   else{ return this.name}
+                        	   }, useHTML:true},
                    plotOptions: { 
                    pie: { size:'90%', 
                        allowPointSelect: true, //  是否允许使用鼠标选中数据点
                               cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
+                              innerSize:innersize, 
                               dataLabels: { enabled: false }, //图上是否显示数据标签
                               showInLegend: true,
                                        point:{
@@ -361,13 +438,15 @@ $( "#datepicker" ).datepicker({
                                                legendItemClick:function(){
                                                    this.select();
                                                    this.show();},}}}},
-                   series: [{ type: 'pie', data: PieDoData3 }] }); }); });
+                   series: [{ type: 'pie', name: 'Execution rate', data: PieDoData3 }] }); }); });
 
        $(function () { var chart; $(document).ready(function () 
                { // Build the chart 
            var PieNotDoData3 = [];
-           var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a'];
+           var color = ['#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525','#a6c96a','#FFFFCC','#FF00FF'];
             var flag = false;
+            var innersize = ['0'];
+            
            <s:iterator  value="#request.PieData3" id="pieData">
            <%
            String group = (String)request.getAttribute("groupName");
@@ -379,27 +458,41 @@ $( "#datepicker" ).datepicker({
               PieNotDoData3.push(currPieTmpData);  
            </s:iterator>       
            if(!flag){
-               PieNotDoData3 = [];
-               PieNotDoData3.push(["暂无数据",100]);
-               color = ['#EEE8AA'];
-               color.push("'#FF0033'");color.push("'#FF0033'");
+        	   PieDoData3 = [];
+               color = ['#6495ED'];
+               innersize = ['80%'];
+               PieDoData3.push(["暂无数据",2]);
            }
                $('#pie6').highcharts({ 
                        chart: { plotBackgroundColor: null,plotBorderWidth: null, plotShadow: false,backgroundColor: 'rgba(0,0,0,0)' }, 
                    title: { 
-                       text: '<%=SitePie3%>'+':未执行率', align: 'center'}, 
+                       text: '<%=SitePie3%>'+':未执行率', align: 'center',
+                       x:-55,
+                       }, 
                    colors:color,
-                   tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' }, 
-                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -10,y: 60,borderWidth: 0,
-                           labelFormatter: function() {
+                   tooltip: { 
+                	   formatter:function(){
+                		   if (this.y!=2){
+                			   return '<b>'+ this.point.name +'</b>:'+ '<br/>'+'<b>'+this.series.name +'</b>:'+ this.percentage.toFixed(2)+' %'}
+                		   else {
+                			   return null
+                		   }
+                	   }
+                	    }, 
+                       legend: {layout: 'vertical',align: 'right',verticalAlign: 'top', x: -30,y: 60,borderWidth: 0,
+                    	   labelFormatter: function() {
+                    		   if (this.y!=2)
                                // return '&nbsp'+this.name+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.y+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+this.percentage.toFixed(2)+' %';
-                        	   return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
+                        	   {return  '<table width=100px; table-layout:auto; style="color:{series.color};background: none repeat scroll 0 0 #F0FFFF;text-align:left"><tr border-width:0px;><td colspan="2" width=90px>'
                                +this.name +'</b></td></tr><tr><td width=40px><b>'+this.y+'</b></td><td width=40px><b>'+this.percentage.toFixed(2)+' %';+'</b></td></tr></table>';
-                            }, useHTML:true},
+                           }
+                        	   else{ return this.name}
+                        	   }, useHTML:true},
                    plotOptions: { 
                    pie: { size:'90%', 
                        allowPointSelect: true, //  是否允许使用鼠标选中数据点
                               cursor: 'pointer', //鼠标移到图表上时鼠标的样式 
+                              innerSize:innersize, 
                               dataLabels: { enabled: false }, //图上是否显示数据标签
                               showInLegend: true,
                                        point:{
@@ -407,7 +500,7 @@ $( "#datepicker" ).datepicker({
                                                legendItemClick:function(){
                                                    this.select();
                                                    this.show();},}}}},
-                   series: [{ type: 'pie', name: 'Execution rate', data: PieNotDoData3 }] }); }); });
+                   series: [{ type: 'pie', name: 'Un-execution rate', data: PieNotDoData3 }] }); }); });
 
 
 radiovalue=null; 
@@ -561,7 +654,7 @@ $(document).ready(function(){
                              </s:iterator>
                </table></li>
             
-           			<li class="taps_con" id="r"> 
+           			<li class="taps_con" id="r" style="margin-left:40px"> 
    		            <div class="select_checkBox" >
 				<div class="chartQuota"  id="d">
 				<p id="p2">选择指标</p>
