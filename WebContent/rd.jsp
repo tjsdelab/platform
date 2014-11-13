@@ -139,7 +139,7 @@ $( "#datepicker" ).datepicker({
                if(!flag){
                    currPieDoData = [];
                    color = ['#EEC591'];
-                   color.push("'#FF0033'");
+                   color.push("'#EEC591'");
                    currPieDoData.push(["暂无数据",100]);
                    Highcharts.setOptions({
                 	    innerSize:'10',
