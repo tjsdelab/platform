@@ -52,7 +52,7 @@ public class SmokeFileDownload extends ActionSupport{
 		String[] TestInfoHeader = { "ID", "Case序号", "Feature", "预置条件", "测试步骤", "预期结果", "结果","bugID","comments", "标识位"};
 		try{
 		//OutputStream out = new FileOutputStream("/home7/qilongyin/Documents/" + currentFormName + ".xls");
-		OutputStream out = new FileOutputStream("/home/likewise-open/SPREADTRUM/senxue.jing/Downloads/" + currentFormName + ".xls");			
+		OutputStream out = new FileOutputStream("/home7/qilongyin/files/smoke/" + currentFormName + ".xls");			
 		SaveExcel<SmokeTestInfo> sel = new SaveExcel<SmokeTestInfo>();
 		SaveExcel<OverallTestInfo> seo = new SaveExcel<OverallTestInfo>();
 		
@@ -100,7 +100,7 @@ public class SmokeFileDownload extends ActionSupport{
 		// ServletContext servletContext =
 		// ServletActionContext.getServletContext();
 		//String filename = "/home7/qilongyin/Documents/" + currentFormName + ".xls";
-		String filename = "/home/likewise-open/SPREADTRUM/senxue.jing/Downloads/" + currentFormName + ".xls";		
+		String filename = "/home7/qilongyin/files/smoke/" + currentFormName + ".xls";		
 
 		inputStream = new FileInputStream(filename);
 		contentLenght = inputStream.available();
