@@ -51,7 +51,7 @@ public class IndexPageDAOImpl implements IndexPageDAO {
         e.printStackTrace();
         tx.rollback();
      } finally {
-    	 //new HibernateUtil().closeSession(session);
+    	 new HibernateUtil().closeSession(session);
      } 
     // IndexPage last = (IndexPage)list.get(0);
     // return last;
