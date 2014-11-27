@@ -261,6 +261,10 @@
                           class="button blue medium">研发自测试</a>
                     </li>
                     <li>
+                       <a href="epe.action" 
+                          class="button blue medium">EPE测试</a>
+                    </li>
+                    <li>
                         <a href="login.action" class="button blue medium">返回主页</a>
                     </li>
                 </ul>

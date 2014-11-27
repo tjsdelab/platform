@@ -71,6 +71,24 @@
             <result  name="success">/rd.jsp</result>
      </action>
      
+     <action name="epe"  class="com.spreadtrum.EPE.action.EPEHomeAction" method="execute">
+            <result  name="success">/epe.jsp</result>
+          <result type="redirectAction" name="search">
+     	  <param name="actionName">epeForm</param>
+     	  <param name="type">${type}</param>
+     	  <param name="searchProject">${searchProject}</param>
+     	</result>
+     </action>
+     
+     <action name="epeForm" class="com.spreadtrum.EPE.action.EpeFormNameAction">
+        <result name="success">/EpeFormName.jsp</result>
+     </action>
+     
+     <action name="epedownload" class="com.spreadtrum.EPE.action.EPEDownload">
+         <result type="stream"><param name="bufferSize">2048</param>
+         </result>
+     </action>
+     
      <action name="download" class="com.spreadtrum.monkeytest.action.ProjectDownloadAction">
         <result type="stream">
             <param name="bufferSize">2048</param>
