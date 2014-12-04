@@ -116,27 +116,5 @@
          </result>
      </action>     
     
-         <action name="userManager"  class="com.spreadtrum.userManager.UserAction" method="query">
-            <result  name="success">/userManager.jsp</result>
-     </action>
-     <action name="userDelete"  class="com.spreadtrum.userManager.UserAction" method="deleteUser">
-          <result type="redirectAction" name="success">
-          <param name="actionName">userManager</param>
-          </result>
-     </action>
-
-     <action name="addUser"  class="com.spreadtrum.userManager.UserAction" method="addUser">
-          <result type="redirectAction" name="success">
-          <param name="actionName">userManager</param>
-          </result>
-     </action>
-
-     <action name="userEdit"  class="com.spreadtrum.userManager.UserAction" method="userEdit">
-          <result type="redirectAction" name="success">
-          <param name="actionName">userManager</param>
-          </result>
-     </action>
-    
-    
      </package>
 </struts>

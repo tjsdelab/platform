@@ -35,14 +35,16 @@ public class CTSHomeAction extends ActionSupport {
 	public void getCtsInfo(){
 		ctsValidProjects = ctsProjects.getValidProject();
 		if (null == currentProject){
-			currentProject = ctsValidProjects.get(0);
+			if(null != ctsValidProjects){
+			    currentProject = ctsValidProjects.get(0);
+			}
 		}
 		moreTestInfo = testinfo.ctsTestInfoByProject(currentProject);
 		if(null != moreTestInfo){
 			lastTestInfo = moreTestInfo.get(0);
 			moreTestInfo.remove(0);
 		}
-		if(moreTestInfo.size()>5){
+		if(null !=moreTestInfo && moreTestInfo.size()>5){
 			for(int i=moreTestInfo.size();i>4;i--){
 				moreTestInfo.remove(i-1);
 			}			
