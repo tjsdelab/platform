@@ -450,7 +450,7 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-    $("#select").change(function(){
+    $("#select").change(function(){    
         var value = $(this).children('option:selected').val();
         if(value == "date"){
             var d=new Date(),str='';

@@ -1,0 +1,210 @@
+@CHARSET "UTF-8";
+body { 
+    margin:0 auto;
+    background-color:#E4E8EC; 
+    font-family:"Microsoft YaHei";
+    font-weight: normal;
+    width:1100px;
+}
+.page {
+	width:1100px;
+    overflow:hidden;
+    border-radius:10px;
+    min-height:800px;
+    position: relative;
+    background-color:#ededed;
+}
+.blue {
+        background:#33ddcc;
+       /* background:#33ffcc;*/    
+}
+table {
+    border-collapse: collapse;
+    font-family:"Arial";
+    font-weight: normal;
+}
+
+table, td{
+    border: 1px solid #98bf21;
+    text-align:center;
+    width:700px;height:20px;
+}
+table th{
+border: 1px solid #98bf21;
+width:700px;height:40px;
+background-color:#A7C942;color:#ffffff;text-align:center;
+font-size:20px;
+}
+#add{
+overflow:hidden;
+float:left;
+margin-top:50px;
+margin-left:68%;
+border-radius:5px;
+background-color:#A7C942;
+}
+
+#settings{
+overflow:hidden;
+float:left;
+margin-top:70px;
+margin-left:40%;
+border-radius:5px;
+background-color:#A7C942;
+}
+
+/*taps设计*/
+#tapsbox{
+	width:100%;
+    overflow:hidden;
+    border-collapse:collapse;
+    margin:0 auto;
+}
+.taps_conbox{
+	width:100%;
+}
+.taps_con{
+	width:100%;
+    margin-top:5px;
+    list-style:none; 
+}
+.taps{
+    border:none;
+    width:100%;
+    margin-top:50px;
+    padding-left:6%;
+}
+.taps li{
+    height:35px;
+    line-height:35px;
+    list-style:none;
+    float:left;
+    border-top:1px solid #CCCCCC;
+    border-left:1px solid #CCCCCC;
+    border-bottom:1px solid #CCCCCC;
+    margin-bottom: 0px;
+    overflow: hidden;
+    padding-left:50px;
+    padding-right:40px;
+    width:100px;
+    border-radius:5px;
+    background-color:#FFCC99;
+    font-size: 20px;
+    
+}
+.taps li a {
+    display:block;
+    text-align:center;
+    height:30px;
+    maggin:0px,10px;
+    color:#F0FFFF;
+    font-size:16px;
+    font-weight:bold;
+    float:left;
+    outline:none;
+
+ }
+   
+.taps .thistap,.taps .thistap:hover{
+    background: #4876FF;
+    border-bottom: 1px solid #fff;
+    list-style:none;
+}
+/*柱状图设计*/
+#histogram{
+width:800px; 
+overflow:hidden;
+}
+.figure_project
+{
+	padding-left:18%;
+    padding-top:70px;
+    height:250px;
+    width:600px;
+}
+/*进度条*/
+#button{
+	width:64%; 
+}
+.graph{ 
+width:450px; 
+border:1px solid #00EE00; 
+height:15px;
+overflow:hidden;
+position: absolute;
+float:left;
+margin-top:220px;
+margin-left:28%;
+border-radius:5px;
+} 
+#bar1{ 
+display:block; 
+background:#00EE00; 
+float:left; 
+height:15px;
+line-height:14px;  
+text-align:right;
+color:#666666; 
+} 
+#bar2{ 
+display:block; 
+background:#00EE00; 
+float:left; 
+height:15px;
+line-height:14px;  
+text-align:right;
+color:#666666;  
+}
+#barNum{ 
+position:absolute; 
+} 
+/*题标css设计*/
+#bar_tabbox
+{ 
+	width:1%; 
+	overflow:hidden;
+	position:relative;
+    float:left;
+    margin-top:92px;
+    margin-left:25%;
+    border-radius:5px;
+    /*background: -webkit-gradient(linear, left top, left 20, from(#ffffff), color-stop(0%, #0066FF), to(#ffffff)); 
+    background: -moz-linear-gradient(top, #ffffff, #0066FF 0, #ffffff 20px); 
+    background:-o-linear-gradient(top, #ffffff, #0066FF 0, #ffffff 20px); 
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#0066FF'); 
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#0066FF')";*/
+}
+
+
+.graybtn {
+    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #d1d1d1) );
+    background:-moz-linear-gradient( center top, #ffffff 5%, #f0ffff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#d1d1d1');
+    background-color:#ffffff;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:3px solid #4876FF;
+    display:inline-block;
+    color:#4876FF;
+    font-family:arial;
+    font-size:13px;
+    font-weight:bold;
+    padding:3px 3px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #873324;
+}
+.graybtn:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d1d1d1), color-stop(1, #ffffff) );
+    background:-moz-linear-gradient( center top, #d1d1d1 5%, #ffffff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d1d1d1', endColorstr='#ffffff');
+    background-color:#d1d1d1;
+}
+.graybtn:active {
+    position:relative;
+    top:1px;
+}
+

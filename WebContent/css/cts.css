@@ -1,0 +1,216 @@
+@CHARSET "UTF-8";
+body {
+   background:#ffffff;
+   font-family:"Microsoft YaHei";
+   font-weight: normal;
+   width:1100px;
+   margin:0 auto;
+}
+.page {
+    overflow:hidden;
+    border-radius:10px;
+}
+.right {
+	border-radius:10px;
+    float:left;
+    width:935px;
+    position: relative;
+    height:auto;
+    border-color: #dfdfdf;
+    border-width: 1px;
+    background:#F0FBEB;
+   -moz-box-shadow: 0 0 5px 3px #d3d3d3;
+   -webkit-box-shadow: 0 0 5px 3px #d3d3d3; 
+    box-shadow: 0 0 5px 3px #d3d3d3;
+    }
+  .rightwhole{
+  float:left;
+  overflow:hidden;
+  position:relative;
+  min-height:1000px;
+  width:935px;
+ }
+
+  .bar1_first{
+  float:left;
+  }
+  #bar_tabbox1
+{ 
+	width:935px; 
+	overflow:hidden;
+	margin-left:10px;	
+	margin-top:40px;
+    position: relative;
+}
+
+.bar_tabs1
+{
+	
+	width:800px;
+	margin-left:33.5px;
+    padding-left:12.5px;
+	background-image:url(../images/smallbar.png);
+    background-repeat:repeat-x;   
+    background-position:center center;
+    background-size:100% 20%;
+    filter:Alpha(opacity=80); 
+    -moz-opacity:0.8; /*支持 FireFox 浏览器*/
+    -khtml-opacity: 0.8; 
+    
+}
+.bar_tabs1 li
+{
+    width:140px;
+    display:inline;
+    margin-left:-120px;
+   
+    position:relative;
+    zoom:1;
+    outline: none;
+    font-weight: bold;
+    font-size: 19px;
+    font-family:"Microsoft YaHei";
+    padding-left:27px;
+
+}
+.bar_tabs li a{
+	display:block;
+	float:left;
+
+}
+
+.graybtn1{
+   -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #d1d1d1) );
+    background:-moz-linear-gradient( center top, #ffffff 5%, #f0ffff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#d1d1d1');
+    background-color:#ffffff;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:3px solid #1E90FF;
+    display:inline-block;
+    color:#873324;
+    font-family:arial;
+    font-size:13px;
+    font-weight:bold;
+    padding:3px 3px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #873324;
+    margin-left:30px;
+    margin-top:5px;
+}
+ #bar_tabbox2
+{ 
+	width:935px; 
+	overflow:hidden;
+	margin-left:10px;	
+    position: relative;
+}
+
+.bar_tabs2
+{
+	
+	width:844px;
+	margin-left:26px;
+	background-image:url(../images/smallbar.png);
+    background-repeat:repeat-x;   
+    background-position:center center;
+    background-size:100% 20%;
+    filter:Alpha(opacity=80); 
+    -moz-opacity:0.8; /*支持 FireFox 浏览器*/
+    -khtml-opacity: 0.8; 
+     padding-left:12.5px;
+}
+.bar_tabs2 li
+{
+    width:140px;
+    display:inline;
+    margin-left:-120px;
+    padding-left:68.5px;
+    position:relative;
+    zoom:1;
+    outline: none;
+    font-weight: bold;
+    font-size: 19px;
+    font-family:"Microsoft YaHei";
+
+}
+
+.graybtn2{
+   -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #d1d1d1) );
+    background:-moz-linear-gradient( center top, #ffffff 5%, #f0ffff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#d1d1d1');
+    background-color:#ffffff;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:3px solid #1E90FF;
+    display:inline-block;
+    color:#873324;
+    font-family:arial;
+    font-size:13px;
+    font-weight:bold;
+    padding:3px 3px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #873324;
+    margin-left:30px;
+    margin-top:5px;
+}
+/*所有的link css格式 */
+.report_information_list li  a, .oldreport_information_list li a
+{
+	font-size:16px;
+	color:blue;
+	font-weight:normal;
+	margin-left:80px;
+}
+.detail_information li a,.olddetail_information li a{
+ font-size:14px;
+color:#3C3C3C;
+ margin-left:80px;
+}
+
+.report_information_list li{
+	font-size:16px;
+	font-weight:bold;
+	
+    margin-left:68px;
+
+	
+}
+.detail_information,.olddetail_information li{
+	font-size:15px;
+	font-weight:normal;
+	margin-left:130px;
+	color:#3C3C3C;
+	
+}
+
+.oldreport_information_list li{
+	font-size:16px;
+	margin-left:70px;
+	font-weight:bold;
+
+}
+
+#version{
+	float:left;
+	margin-left:20px;
+	font-size:19px;
+	padding-top:10px;
+	display:inline;
+}
+#date{
+	float:left;
+	margin-left:160px;
+	font-size:19px;
+	padding-top:10px;
+	display:inline
+}
+	

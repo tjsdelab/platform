@@ -71,6 +71,19 @@
             <result  name="success">/rd.jsp</result>
      </action>
      
+     <action name="cts"  class="com.spreadtrum.cts.action.CTSHomeAction" method="execute">
+            <result  name="success">/cts.jsp</result>
+            <result type="redirectAction" name="search">
+     	        <param name="actionName">ctsForm</param>
+     	        <param name="type">${type}</param>
+     	        <param name="searchProject">${searchProject}</param>
+     	    </result>
+     </action>
+     
+     <action name="ctsForm" class="com.spreadtrum.cts.action.CTSFormSearchAction">
+        <result name="success">/ctsTestInfoList.jsp</result>
+     </action>
+     
      <action name="epe"  class="com.spreadtrum.EPE.action.EPEHomeAction" method="execute">
             <result  name="success">/epe.jsp</result>
           <result type="redirectAction" name="search">
@@ -101,28 +114,29 @@
      <action name="smoke_download" class="com.spreadtrum.sanity_smoke.action.SmokeFileDownload">
          <result type="stream"><param name="bufferSize">2048</param>
          </result>
+     </action>     
+    
+         <action name="userManager"  class="com.spreadtrum.userManager.UserAction" method="query">
+            <result  name="success">/userManager.jsp</result>
      </action>
-     <!-- 
-     <action name="download"  class="com.spreadtrum.monkeytest.action.MonkeyDetailAction" method="download">
-            <result  name="success">
-            <param name="testFormName">${testFormName}</param>
-            </result>
+     <action name="userDelete"  class="com.spreadtrum.userManager.UserAction" method="deleteUser">
+          <result type="redirectAction" name="success">
+          <param name="actionName">userManager</param>
+          </result>
      </action>
 
+     <action name="addUser"  class="com.spreadtrum.userManager.UserAction" method="addUser">
+          <result type="redirectAction" name="success">
+          <param name="actionName">userManager</param>
+          </result>
+     </action>
 
-     <action name="project"  class="com.spreadtrum.monkeytest.action.MonkeyDetailAction" method="monkeyDetail">
-            <result  name="success">/project.jsp</result>
-            <result type="redirectAction" name="search">
-                    <param name="actionName">formName</param>
-                    <param name="type">${type}</param>
-                    <param name="searchProject">${searchProject}</param>
-            </result>
+     <action name="userEdit"  class="com.spreadtrum.userManager.UserAction" method="userEdit">
+          <result type="redirectAction" name="success">
+          <param name="actionName">userManager</param>
+          </result>
      </action>
- 
-     <action name="formName" class="com.spreadtrum.monkeytest.action.MonkeySearchAction">
-        <result name="success">/formName.jsp</result>
-     </action>
--->
+    
     
      </package>
 </struts>

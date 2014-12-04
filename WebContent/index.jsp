@@ -41,7 +41,7 @@
                         <a href="#" class="button blue medium">静态代码测试</a>
                     </li>
                     <li>
-                        <a href="#" class="button blue medium">CTS测试</a>
+                        <a href="cts.action" class="button blue medium">CTS测试</a>
                     </li>
                 </ul>
                   <div id="form">
