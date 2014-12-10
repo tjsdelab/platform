@@ -450,8 +450,8 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-    $("#select").change(function(){    
-        var value = $(this).children('option:selected').val();
+    $("#select").change(function(){
+       var value = $(this).children('option:selected').val();
         if(value == "date"){
             var d=new Date(),str='';
             str += d.getFullYear()+'-'; //获取当前年份

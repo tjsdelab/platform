@@ -1,6 +1,9 @@
 package com.spreadtrum.mail;
 
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -10,27 +13,34 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class MailSender {
+import com.spreadtrum.monkeytest.dao.TestFormDAO;
+import com.spreadtrum.monkeytest.dao.impl.TestFormDAOImpl;
+
+public class TimerTest {
+	private static String PreTestForm;
+	private static TestFormDAO testFormDAO =new TestFormDAOImpl();
 
 	Properties emailProperties;
 	Session mailSession;
 	MimeMessage emailMessage;
 	String emailHost = "mail.spreadtrum.com";
 
-	public static void sendMail(String htmlBody) throws AddressException,
-			MessagingException {
+	public void sendMail(String htmlBody) throws AddressException,MessagingException {
 
-		MailSender javaEmail = new MailSender();
+		TimerTest javaEmail = new TimerTest();
 
 		javaEmail.setMailServerProperties();
 		javaEmail.createEmailMessage(htmlBody);
 		javaEmail.sendEmail();
 	}
 
-	public static void main(String args[]) throws AddressException,
-			MessagingException {
-		sendMail("sdsdsd");
+	public static void main(String[] args)  {
+		PreTestForm = testFormDAO.getLastTestFormByProject("t8861a");
+		Timer timer = new Timer();
+		timer.schedule(new MyTask(), 1000, 10000);
 	}
+
+
 
 	public void setMailServerProperties() {
 
@@ -80,4 +90,21 @@ public class MailSender {
 		transport.close();
 	}
 
+	public String getPreTestForm() {
+		return PreTestForm;
+	}
+
+	public void setPreTestForm(String preTestForm) {
+		PreTestForm = preTestForm;
+	}
+
+	public TestFormDAO getTestFormDAO() {
+		return testFormDAO;
+	}
+
+	public void setTestFormDAO(TestFormDAO testFormDAO) {
+		this.testFormDAO = testFormDAO;
+	}
+
 }
+

@@ -12,7 +12,7 @@
 <meta name="renderer" content="webkit">
 <head>
 
-<title>CTS测试信息</title>
+<title>CTS测试信息1</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico"
@@ -28,6 +28,8 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="jqplot/jquery-ui.js"></script>
+
+
 <!-- 日期时间设置 -->
 <script>
 	$(document).ready(function() {
@@ -140,7 +142,7 @@
 					</div>
 					<br>
 
-					<div class="report_information">
+					<div class="report_information" style="word-break:break-all;margin-right:10px">
 
 						<ul class="report_information_list">
 
@@ -156,7 +158,7 @@
 							<li style="clear: left">版本信息&nbsp:<br></li>
 						</ul>
 						<ul class="detail_information">
-							<li>版&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp次：&nbsp&nbsp<s:property value="#request.lastTestInfo.softwareVsn" /></li>
+							<li>版&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp次：&nbsp&nbsp&nbsp<s:property value="#request.lastTestInfo.softwareVsn" /></li>
 							<li><span style="float: left">版本路径:</span><a
 								href=<s:property value="#request.lastTestInfo.pacPath"/>><s:property
 										value="#request.lastTestInfo.pacPath" /></a></li>
@@ -211,28 +213,27 @@
 
 							<div>
 								<!--显示内容 -->
-								<div class="oldreport_information" style="margin-left: 40px">
+								<div class="oldreport_information" style="margin-left: 40px ;word-break:break-all;margin-right:10px">
 									<ul class="oldreport_information_list">
 
 										<li><span style="float: left">测试报告：</span><a
 											href=<s:property value="#TestInfo.reportUrl"/>><s:property
-													value="#request.lastTestInfo.reportUrl" /></a></li>
+													value="#TestInfo.reportUrl" /></a></li>
 
 										<li style="clear: left"><span style="float: left">Log&nbsp路径：</span><a
 											href=<s:property value="#TestInfo.logPath"/>><s:property
-													value="#request.lastTestInfo.pacPath" /></a></li>
+													value="#TestInfo.logPath" /></a></li>
 
 										<li style="clear: left">版本信息&nbsp:</li>
 									</ul>
 									<ul class="olddetail_information">
-										<li>版&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp次：&nbsp&nbsp<s:property
-												value="#request.lastTestInfo.softwareVsn" /></li>
+										<li>版&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp次：&nbsp&nbsp&nbsp<s:property
+												value="#TestInfo.softwareVsn" /></li>
 										<li><span style="float: left">版本路径:</span><a
-											href=<s:property value="#request.lastTestInfo.pacPath"/>><s:property
-													value="#request.lastTestInfo.pacPath" /> <s:property
-													value="#request.lastTestInfo.pacPath" /></a></li>
+											href=<s:property value="#TestInfo.pacPath"/>><s:property
+													value="#TestInfo.pacPath" /></a></li>
 										<li style="clear: left">硬件版本:&nbsp&nbsp&nbsp&nbsp<s:property
-												value="#request.lastTestInfo.hardwareVsn" /></li>
+												value="#TestInfo.hardwareVsn" /></li>
 									</ul>
 								</div>
 							</div>
