@@ -163,18 +163,28 @@ body {
     margin-top:5px;
 }
 /*所有的link css格式 */
-.report_information_list li  a, .oldreport_information_list li a
+.report_information_list li  a
 {
 	font-size:16px;
 	color:blue;
 	font-weight:normal;
-	margin-left:80px;
 }
+
+.oldreport_information_list li a
+{
+	font-size:14px;
+	color:blue;
+	font-weight:normal;
+	margin-left:65px;
+}
+
 .detail_information li a,.olddetail_information li a{
  font-size:14px;
-color:#3C3C3C;
- margin-left:80px;
+color:blue;
+
 }
+
+
 
 .report_information_list li{
 	font-size:16px;

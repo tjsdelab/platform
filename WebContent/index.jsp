@@ -24,10 +24,7 @@
         <div class="page">
             <div class="sidebar" >
                 <a href="#" id="logo" ><img src="images/logo.png" width="120" alt="logo"></a>
-                <br><ul>
-                    <li >
-                        <a href="#" class="button blue medium ">提测中心</a>
-                    </li>
+                <br><ul>                    
                     <li>
                         <a href="monkey.action" class="button blue medium">Monkey测试</a>
                     </li>
@@ -35,13 +32,23 @@
                         <a href="sanity.action" class="button blue medium">Sanity_Smoke</a>
                     </li>
                     <li>
+                        <a href="cts.action" class="button blue medium">CTS测试</a>
+                    </li>
+                    <li>
+                        <a href="mtbf.action" class="button blue medium">MTBF测试</a>
+                    </li>
+                    <li>
+                        <a href="mtbf_ui.action" class="button blue medium">MTBF_ui测试</a>
+                    </li>
+                    <li>
                         <a href="#" class="button blue medium">性能测试</a>
                     </li>
                     <li>
                         <a href="#" class="button blue medium">静态代码测试</a>
                     </li>
-                    <li>
-                        <a href="cts.action" class="button blue medium">CTS测试</a>
+                    
+                    <li >
+                        <a href="#" class="button blue medium ">提测中心</a>
                     </li>
                 </ul>
                   <div id="form">

@@ -1,0 +1,299 @@
+@CHARSET "UTF-8";
+
+body {
+   /* background:url(../images/bg-body.jpg);*/
+   /* background:#0099cc;*/
+   background:#ffffff;
+   font-family:"Microsoft YaHei";
+   font-weight: normal;
+   width:1100px;
+   margin:0 auto;
+}
+.page {
+    overflow:hidden;
+    border-radius:10px;
+}
+.right {
+    border-radius:10px;
+    float:left;
+    /*width:1000px;*/
+    width:935px;
+    position: relative;
+    height:auto;
+    border-color: #dfdfdf;
+    border-width: 1px;
+    background:#FFFAFA;
+   -moz-box-shadow: 0 0 5px 3px #d3d3d3;
+   -webkit-box-shadow: 0 0 5px 3px #d3d3d3;
+    box-shadow: 0 0 5px 3px #d3d3d3;
+    
+}
+.right_whole{
+	/* border-radius:8px;*/
+    /*background:#99ccff;*/
+    
+    /*-moz-box-shadow: 0 0 5px 3px #d3d3d3;*/
+    /*-webkit-box-shadow: 0 0 5px 3px #d3d3d3;*/
+    /*box-shadow: 0 0 5px 3px #d3d3d3;*/
+     overflow:hidden;
+     float:left;
+    /* padding-left:20px;*/
+     width:935px;
+     min-height:1000px;
+     position: relative; 
+}
+.panel-title img{
+	height:20px;
+	width:25px;
+	float:right;
+	padding-bottom:10px;
+}
+
+/*firstbar设计*/	
+#bar1{
+    width:935;
+    height:35px;
+    overflow:hidden;
+	border-collapse: collapse;
+	/*background: #ADD8E6;*/
+	margin-top:25px;
+	margin-left:-20px;
+	margin-right:15px;
+}
+.bar1_first{
+	width:935px;
+	margin-top:5px;
+   /* background-color:rgba(220, 220, 220, 1)!important;*/
+   /* filter:Alpha(opacity=100); 
+    -moz-opacity:1.0; 支持 FireFox 浏览器
+    background-image:url('images/smallbar.png');
+    background-repeat:repeat-x;   
+    background-position:center center;
+    background-size:100% 20%;*/
+}
+.bar1_first li{
+	width:400px;
+	border-collapse:collapse;
+	padding-left:42px;
+	position:relative;
+}
+/*table信息*/
+table{
+	 border-collapse: collapse;
+     table-layout:fixed;
+	-moz-border-radius:5px; /* FF1+ */
+	-webkit-border-radius:5px; /* Saf3-4 */
+	 border-radius:5px;
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+	}
+.caselist td{
+	font-size:14px;
+ 	border-collapse:collapse;
+ 	border: 1px solid #C1CDC1;
+	text-align:center;
+	position:relative;
+	zoom:1;
+}
+.caselist th{
+	background-color:#F5FFFA;
+	border: 1px solid #C1CDC1;
+	text-align:center;
+	text-align:center;
+	padding-top:3px;
+	padding-bottom:3px;
+	height:20px;
+	}
+.conclusion th{
+	font-size:14px;
+	text-align:center;
+	 background-color:#F0FFF0;
+	 border: 1px solid #cccccc;
+	 text-align:center;
+	padding-top:5px;
+	padding-bottom:6px;
+ }
+.conclusion td{
+ font-size:14px;
+ border-collapse:collapse;
+ border: 1px solid #cccccc;
+ text-align:center;
+ background-color:#ffffff;
+ height:25px;
+ }
+ .
+ /*设备详细信息*/
+   #bar_tabbox1
+{ 
+	width:935px; 
+	overflow:hidden;
+	margin-top:20px;	
+    position: relative;
+}
+
+.bar_tabs1,.bar_tabs2
+{
+	
+	width:895px;
+    margin-top:0px;
+    margin-left:15px;
+	background-image:url(../images/caolv.png);
+    background-repeat:repeat-x;   
+    background-position:center center;
+    background-size:100% 15%;
+    filter:Alpha(opacity=80); 
+    -moz-opacity:0.8; /*支持 FireFox 浏览器*/
+    -khtml-opacity: 0.8; 
+}
+.bar_tabs1 li
+{
+    width:140px;
+
+    zoom:1;
+    outline: none;
+    font-weight: bold;
+    font-size: 17px;
+    font-family:"Microsoft YaHei";
+
+}
+.bar_tabs2 li{
+	width:140px;
+    display:inline;
+    margin-left:-123px;
+    position:relative;
+    zoom:1;
+    outline: none;
+    font-weight: bold;
+    font-size: 17px;
+    font-family:"Microsoft YaHei";
+}
+
+.graybtn1{
+    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #d1d1d1) );
+    background:-moz-linear-gradient( center top, #FFFFFF 5%, #f0ffff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#d1d1d1');
+    background-color:#ffffff;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:3px solid #66CDAA;
+    display:inline-block;
+    color:#873324;
+    font-family:arial;
+    font-size:13px;
+    font-weight:bold;
+    padding:3px 3px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #873324;
+    margin-left:10px;
+    margin-top:5px;
+}
+.graybtn2 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #d1d1d1) );
+    background:-moz-linear-gradient( center top, #ffffff 5%, #f0ffff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#d1d1d1');
+    background-color:#ffffff;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:3px solid #66CDAA;
+    display:inline-block;
+    color:#873324;
+    font-family:arial;
+    font-size:13px;
+    font-weight:bold;
+    padding:3px 3px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #873324;
+    margin-left:10px;
+    margin-top:5px;
+   
+}
+/*taps css */
+/*.tapsbox{
+	width:9350px;
+    overflow:hidden;
+    border-collapse:collapse;
+    margin-left:20px;
+    overflow:hidden;
+    }
+  .taps{
+  background:green;
+  }  
+ .taps li{
+    height:25px;
+    line-height:25px;
+    float:left;
+    border-top:1px solid #CCCCCC;
+    border-left:1px solid #CCCCCC;
+    border-bottom:1px solid #CCCCCC;
+    margin-bottom: 0px;
+    overflow: hidden;
+    padding-left:10px;
+    padding-right:10px;
+    border-radius:5px;
+    background-color:#FFF5EE;
+ }
+    
+.taps li a {
+    display: block;
+    margin-top:3px;
+    outline: none;
+    font-weight: normal;
+    font-size: 15px;
+            }
+.taps li a:hover {
+    background: #CAE1FF;
+    } 
+.taps .thistap,.taps .thistap a:hover{
+    background: #CAE1FF;
+    border-bottom: 1px solid #fff;
+} */  
+  
+.downdrop{
+background:url(../images/sort-down-green.png) no-repeat #FFFFFF;
+background-position:161px 0px;
+background-size:5% 100%;
+} 
+
+.updrop{
+background:url(../images/sort-up-green.png) no-repeat #FFFFFF;
+background-position:161px 0px;
+background-size:5% 100%;	
+}       
+.panel-title a
+{
+blur:expression(this.blur());/*针对 IE引起的点击链接引起的焦点虚线框问题设置*/
+outline:none; /*针对firefox焦点虚线框等*/}
+}              
+
+ 
+.popover {  
+      position: relative;  
+      display: block;  
+      float: left;  
+      width: 240px;  
+      margin: 20px;  
+}
+
+.excerpt{
+	margin-top:7px;
+	margin-bootom:-2px;
+}
+
+
+
+
+
+
+
+
+
+
+

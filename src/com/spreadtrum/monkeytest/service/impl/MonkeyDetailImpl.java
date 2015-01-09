@@ -77,13 +77,13 @@ public class MonkeyDetailImpl implements MonkeyDetail {
 			String firstErrorType = p.getFirstErrType().getErrtype();
 
 			String bugID = "";
-			Float firstJavaCrashTime = 0f;
+			Float firstJavaCrashTime = -1f;
 			int numOfJavaCrash = 0;
 			String modleOfJavaCrash = "";
-			Float firstNativeCrashTime = 0f;
+			Float firstNativeCrashTime = -1f;
 			int numOfNativeCrash = 0;
 			String modleOfNativeCrash = "";
-			Float firstANRTime = 0f;
+			Float firstANRTime = -1f;
 			int numOfANR = 0;
 			String modleOfANR = "";
 
@@ -122,7 +122,7 @@ public class MonkeyDetailImpl implements MonkeyDetail {
 							.equalsIgnoreCase("javacrash")) {
 						// 得到首次出错时长
 						if ((firstJavaCrashTime > errSameDev.getFirstErrtime())
-								|| (firstJavaCrashTime == 0f)) {
+								|| (firstJavaCrashTime == -1f)) {
 							firstJavaCrashTime = errSameDev.getFirstErrtime();
 						}
 						numOfJavaCrash = numOfJavaCrash
@@ -134,7 +134,7 @@ public class MonkeyDetailImpl implements MonkeyDetail {
 						// 得到首次出错时长
 						if ((firstNativeCrashTime > errSameDev
 								.getFirstErrtime())
-								|| (firstNativeCrashTime == 0f)) {
+								|| (firstNativeCrashTime == -1f)) {
 							firstNativeCrashTime = errSameDev.getFirstErrtime();
 						}
 						numOfNativeCrash = numOfNativeCrash
@@ -145,7 +145,7 @@ public class MonkeyDetailImpl implements MonkeyDetail {
 							.equalsIgnoreCase("anr")) {
 						// 得到首次出错时长
 						if ((firstANRTime > errSameDev.getFirstErrtime())
-								|| (firstANRTime == 0f)) {
+								|| (firstANRTime == -1f)) {
 							firstANRTime = errSameDev.getFirstErrtime();
 						}
 						numOfANR = numOfANR + errSameDev.getModuleErrCount();
@@ -164,13 +164,13 @@ public class MonkeyDetailImpl implements MonkeyDetail {
 			if (modleOfANR.length() > 0) {
 				modleOfANR = modleOfANR.substring(1);
 			}
-			if (firstJavaCrashTime == 0f) {
+			if (firstJavaCrashTime == -1f) {
 				firstJavaCrashTime = null;
 			}
-			if (firstNativeCrashTime == 0f) {
+			if (firstNativeCrashTime == -1f) {
 				firstNativeCrashTime = null;
 			}
-			if (firstANRTime == 0f) {
+			if (firstANRTime == -1f) {
 				firstANRTime = null;
 			}
 			// 把单台手机的信息写入到 uper

@@ -2,19 +2,16 @@
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
-
 <struts>
 <!-- 允许访问静态成员 -->
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
     <constant name="struts.devMode" value="true" />
     <constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
-    <package name="hello" extends="struts-default">
-   
+    <package name="hello" extends="struts-default"> 
+     
 <!-- 一个action类可以被多个action映射，每个action可以对应到一个类的方法上 -->
-
-
     <default-action-ref name="error"></default-action-ref>
-        
+      
     <action name="login"  class="com.spreadtrum.action.IndexPageAction" >
             <result  name="success">/index.jsp</result>
              <result name="error">/error.jsp</result>
@@ -33,9 +30,24 @@
             	<param name="actionName">project</param>
             	<param name="sortedProjectList">${sortedProjectList}</param>
             	<param name="projectSearchNameString">${projectSearchNameString}</param>
-            </result>
-            
+            </result>        
      </action>
+     
+      <action name="project"  class="com.spreadtrum.monkeytest.action.MonkeyDetailAction" method="monkeyDetail">
+            <result  name="success">/project.jsp</result>
+            <result  name="search">/formName.jsp</result>
+     </action>
+     
+     <action name="rdtest"  class="com.spreadtrum.monkeyForRD.action.MonkeyForRDHomeAction" method="execute">
+            <result  name="success">/rd.jsp</result>
+     </action>
+     
+     <action name="download" class="com.spreadtrum.monkeytest.action.ProjectDownloadAction">
+        <result type="stream">
+            <param name="bufferSize">2048</param>
+        </result>
+     </action>
+     
      <action name="sanity" class="com.spreadtrum.sanity_smoke.action.SanityHomeManagerAction">
      	<result name="success">/sanity.jsp</result>
      	<result type="redirectAction" name="search">
@@ -62,15 +74,17 @@
         <result name="success">/SmokeFormName.jsp</result>
      </action>
      
-      <action name="project"  class="com.spreadtrum.monkeytest.action.MonkeyDetailAction" method="monkeyDetail">
-            <result  name="success">/project.jsp</result>
-            <result  name="search">/formName.jsp</result>
+     <action name="sanity_download" class="com.spreadtrum.sanity_smoke.action.SanityFileDownload">
+         <result type="stream"><param name="bufferSize">2048</param>
+         </result>
      </action>
      
-     <action name="rdtest"  class="com.spreadtrum.monkeyForRD.action.MonkeyForRDHomeAction" method="execute">
-            <result  name="success">/rd.jsp</result>
-     </action>
+     <action name="smoke_download" class="com.spreadtrum.sanity_smoke.action.SmokeFileDownload">
+         <result type="stream"><param name="bufferSize">2048</param>
+         </result>
+     </action> 
      
+ 
      <action name="cts"  class="com.spreadtrum.cts.action.CTSHomeAction" method="execute">
             <result  name="success">/cts.jsp</result>
             <result type="redirectAction" name="search">
@@ -83,6 +97,34 @@
      <action name="ctsForm" class="com.spreadtrum.cts.action.CTSFormSearchAction">
         <result name="success">/ctsTestInfoList.jsp</result>
      </action>
+     
+     
+      <action name="mtbf"  class="com.spreadtrum.mtbf.action.MTBFHomeAction" method="execute">
+            <result name="success">/mtbf.jsp</result>
+            <result type="redirectAction" name="search">
+     	        <param name="actionName">mtbfForm</param>
+     	        <param name="type">${type}</param>
+     	        <param name="searchProject">${searchProject}</param>
+     	    </result>
+     </action>
+     
+     <action name="mtbfForm" class="com.spreadtrum.mtbf.action.MTBFFormSearchAction">
+        <result name="success">/mtbfFormName.jsp</result>
+     </action>
+     
+      <action name="mtbf_ui"  class="com.spreadtrum.mtbf_ui.action.MTBF_uiHomeAction" method="execute">
+            <result name="success">/mtbf_ui.jsp</result>
+            <result type="redirectAction" name="search">
+     	        <param name="actionName">mtbf_uiForm</param>
+     	        <param name="type">${type}</param>
+     	        <param name="searchProject">${searchProject}</param>
+     	    </result>
+     </action>
+     
+     <action name="mtbf_uiForm" class="com.spreadtrum.mtbf_ui.action.MTBF_uiFormSearchAction">
+        <result name="success">/mtbf_uiFormName.jsp</result>
+     </action>
+
      
      <action name="epe"  class="com.spreadtrum.EPE.action.EPEHomeAction" method="execute">
             <result  name="success">/epe.jsp</result>
@@ -102,19 +144,6 @@
          </result>
      </action>
      
-     <action name="download" class="com.spreadtrum.monkeytest.action.ProjectDownloadAction">
-        <result type="stream">
-            <param name="bufferSize">2048</param>
-        </result>
-     </action>
-     <action name="sanity_download" class="com.spreadtrum.sanity_smoke.action.SanityFileDownload">
-         <result type="stream"><param name="bufferSize">2048</param>
-         </result>
-     </action>
-     <action name="smoke_download" class="com.spreadtrum.sanity_smoke.action.SmokeFileDownload">
-         <result type="stream"><param name="bufferSize">2048</param>
-         </result>
-     </action>     
-    
-     </package>
+   
+   </package>
 </struts>
