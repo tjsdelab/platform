@@ -6,7 +6,6 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
 <meta name="renderer" content="webkit">
 <head>
 <title>mtbf_uiautomator测试首页</title>
@@ -105,7 +104,7 @@ $(function () {
     // Grab all the excerpt class  
     $('.excerpt').each(function () {  
         // Run formatWord function and specify the length of words display to viewer       
-        $(this).html(formatWords($(this).html(), 50));         
+        $(this).html(formatWords($(this).html(), 48));         
         // Hide the extra words  
         $(this).children('span').hide();  
     // Apply click event to read more link  
@@ -142,14 +141,22 @@ function formatWords(sentence, show) {
         // process the rest of the words 
         } else {   
             // add a span at start 
-            if (i == (show + 1)) new_sentence +='...<span class="more_text hide">';        
+            if (i == (show + 1)) new_sentence +='<span class="more_text hide">';        
             new_sentence += words[i];      
             // close the span tag and add read more link in the very end 
-            if (words[i+1] == null) new_sentence += '</span><a href="#" class="more_link" style="color:#0000CD"> » more</a>';  
+            if (words[i+1] == null) new_sentence += '</span><a href="#" class="more_link" style="color:#0000CD;float:right;margin-right:10px;"> » more</a>';  
         }         
     }   
     return new_sentence;  
-}    
+}
+$(document).ready(function() {
+    $(".table tr").hover(function() {
+        // $("#orderedlist li:last").hover(function() {
+            $(this).addClass("white");
+        }, function() {
+            $(this).removeClass("white");
+        });
+    });
     </script>
 
 </head>
@@ -182,39 +189,36 @@ function formatWords(sentence, show) {
     		 	<s:submit id="auto_submit" value="搜索" method="execute" style="display:none"></s:submit>			
     		 </li>
     	  </ul>
-    	  </div><br><br>
+    	  </div><br>
   
-		<table width="900px" border="1" height="80px" class="pacinformation">
+		<table width="820px" style="margin-left:4%" border="1" height="80px" class="pacinformation">
 			<tr >
-				<th colspan="2">测试版本</th>
+				<th colspan="2">测&nbsp&nbsp试&nbsp&nbsp版&nbsp&nbsp本</th>
 			</tr>
 			<tr>
-				<td width="200px">工程名</td>
-				<td width="700px" style="text-align:left;font-weight:normal;font-size:14px;"><s:property value="currentProject"/></td>
+				<td width="15%" style="font-size:16px;font-weight:bold;">工程名</td>
+				<td width="85%" style="text-align:left;"><s:property value="currentProject"/></td>
 			</tr>
 			<tr>
-				<td>测试版本</td>
-				<td><a style="color:blue;font-size:14px;font-weight:normal"><s:property value="hardwareVsn"/></a></td>
+				<td style="font-size:16px;font-weight:bold;">测试版本</td>
+				<td style="text-align:left;"><s:property value="softwareVsn"/></td>
 			</tr>
 			<tr>
-				<td>&nbsp&nbspP&nbsp&nbspA&nbsp&nbspC&nbsp&nbsp</td>
-				<td><a style="color:blue;font-size:14px;font-weight:normal"><s:property value="pacPath"/></a></td>
+				<td style="font-size:16px;font-weight:bold;">PAC地址</td>
+				<td><a style="color:blue;" href=<s:property value="pacPath"/>><s:property value="pacPath"/></a></td>
 			</tr>
 			<tr>
-				<td style="background-color:#FFFFF0;">初步结论</td>
-				<td style="font-size:14px;font-weight:normal;text-align:left;">
+				<td style="background-color:#FFFFF0;font-size:16px;font-weight:bold;">初步结论</td>
+				<td style="text-align:left;">
 				<p class="excerpt"><s:property value="conclusion"/></p></td>
-			</tr>
-		</table>
-		
-		<br><br>
-		<table width="900px" border="1" height="80px" class="failure">
+			</tr></table><br>
+		<table width="820px" style="margin-left:4%" border="1" height="80px" class="failure">
 			<tr >
-				<th colspan="2">故障信息</th>
+				<th colspan="2">故&nbsp&nbsp障&nbsp&nbsp信&nbsp&nbsp息</th>
 			</tr>
 			<tr>
-				<td width=50%>设备编号</td>
-				<td width=50%>每台设备故障数</td>
+				<td width="50%" style="font-size:16px;font-weight:bold;">设备编号</td>
+				<td width="50%" style="font-size:16px;font-weight:bold;">每台设备故障数</td>
 			</tr>
 			<s:iterator value="#request.allDeviceList" id="device">
 			<tr>
@@ -229,7 +233,7 @@ function formatWords(sentence, show) {
         <li>统计信息</li>
         </ul>
     </div><br> 
-    <table width="900px" border="1" height="80px" class="conclusion">
+    <table width="820px" style="margin-left:4%" border="1" height="80px" class="conclusion">
       <tbody>
        <tr>
       	 <th>设备总数</th>
@@ -247,35 +251,35 @@ function formatWords(sentence, show) {
         </tr>   
       </tbody>
     </table>
-  <div><span style="font-size:14px;font-weight:bold;">备注：</span>
-  <ul>
+  <div><span style="font-size:14px;font-weight:bold;margin-left:4%">备注：</span>
+  <ul style="margin-left:6%">
   <li>1.MTBF值=所有终端运行总时间/所有终端故障总数。</li>
   <li>2.一旦某台终端出现死机、重启、冻屏等严重问题，则停止测试该台终端，
   已运行时间记为该台终端运行时间。</li>
   <li>3.故障定义：死机、重启、冻屏等严重本地故障；如单台终端的网络交互业务通过率未达到95%，也记为一次故障。</li>
   </ul>
-  </div> <br> 
+  </div>
       
-   		 <div class="bar_tabbox2" id="bar_tabbox2">
-        	<ul class="graybtn2" style="float: left"></ul>
-        	<ul class="bar_tabs2" id="bar_tabs2" style="float: right">
-        		<li>测试报告</li>
+   		 <div class="bar_tabbox1" id="bar_tabbox1">
+        	<ul class="graybtn1" style="float: left"></ul>
+        	<ul class="bar_tabs1" id="bar_tabs1" style="float: right">
+        	<li>测试报告</li>
        		</ul>
-   		 </div><br><br>
+   		 </div><br>
  
      
 <!--case表格统计-->
 	<table class="caselist"  width="880px" border="1" style="margin-left:20px;margin-top:10px">
 		<tbody>
-		<tr >
-		<th width="12.5%">编号</th>
-		<th width="12.5%">项目名称</th>
-		<th width="12.5%">循环次数</th>
-		<th width="12.5%">预置条件</th>
-		<th width="12.5%">执行步骤</th>
-		<th width="12.5%">循环部分</th>
-		<th width="12.5%">检查点</th>
-		<th width="12.5%">测试级别</th>
+		<tr>
+		<th width="5%">编号</th>
+		<th width="16%">项目名称</th>
+		<th width="4%">轮次</th>
+		<th width="15%">预置条件</th>
+		<th width="20%">执行步骤</th>
+		<th width="20%">循环部分</th>
+		<th width="16%">检查点</th>
+		<th width="4%">级别</th>
 		</tr>
 	        <%
 			    String str = (String)request.getAttribute("groups0");
@@ -288,16 +292,16 @@ function formatWords(sentence, show) {
 				String var = (String)request.getAttribute("groups");
 				if (i==0){
 					mu = "mu"+i;
-					%><tr class="parent" id="<%=mu%>"><td colspan="8" style="text-align:left;background-color:#B4EEB4">
-					&nbsp<%=str%><img style="float:left;margin-left:0px;margin-top:0px;"height="18" width="18" alt="line" src="images/opened.png"></td></tr><%
+					%><tr class="parent" id="<%=mu%>"><th colspan="8" style="text-align:left;background-color:#B4EEB4;font-weight:normal;">
+					&nbsp<%=str%><img style="float:left;margin-left:0px;margin-top:0px;"height="18" width="18" alt="line" src="images/opened.png"></th></tr><%
 				}
 				else {
 				if (!str.equals(var)){
 					str = var;
 					mu = "mu"+i;
 					j++;
-	        		%><tr class="parent" id="<%=mu%>"><td colspan="8" style="text-align:left;background-color:#B4EEB4">&nbsp<%=str%>
-	        		<img style="float:left;margin-left:0px;margin-top:0px;"height="18" width="18" alt="line" src="images/opened.png"></td></tr><%	        	    
+	        		%><tr class="parent" id="<%=mu%>"><th colspan="8" style="text-align:left;background-color:#B4EEB4;font-weight:normal;">&nbsp<%=str%>
+	        		<img style="float:left;margin-left:0px;margin-top:0px;"height="18" width="18" alt="line" src="images/opened.png"></th></tr><%	        	    
 	        	    }
 				}
 				i++;

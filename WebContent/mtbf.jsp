@@ -155,7 +155,7 @@ function formatWords(sentence, show) {
             if (i == (show + 1)) new_sentence +='...<span class="more_text hide">';        
             new_sentence += words[i];      
             // close the span tag and add read more link in the very end 
-            if (words[i+1] == null) new_sentence += '</span><a href="#" class="more_link" style="color:#0000CD"> » more</a>';  
+            if (words[i+1] == null) new_sentence += '</span><a href="#" class="more_link" style="color:#0000CDfloat:right;margin-right:10px;"> » more</a>';  
         }         
     }   
     return new_sentence;  
@@ -288,19 +288,16 @@ function formatWords(sentence, show) {
 <!--case表格统计-->
 	<table class="caselist"  width="880px" style="margin-left:20px;margin-top:10px">
 		<tbody>
-		<tr>
-		<th width="5%" rowspan="2">编号</th>
-		<th width="10%" rowspan="2">项目名称</th>
-		<th width="80%" height=20px; colspan="5"></th>
-		<th width="5%"  rowspan="2">测试级别</th>
-		</tr>		
-		<tr>
-		<th width="5%">循环次数</th>
-		<th>预置条件</th>
-		<th>执行步骤</th>
-		<th>循环部分</th>
-		<th>检查点</th>
-		</tr>
+        <tr>
+        <th width="5%">编号</th>
+        <th width="16%">项目名称</th>
+        <th width="4%">轮次</th>
+        <th width="15%">预置条件</th>
+        <th width="20%">执行步骤</th>
+        <th width="20%">循环部分</th>
+        <th width="16%">检查点</th>
+        <th width="4%">级别</th>
+        </tr>
 			<%
 			    String str = (String)request.getAttribute("groups0");
 				int i = 0;
@@ -312,16 +309,16 @@ function formatWords(sentence, show) {
 				String var = (String)request.getAttribute("groups");
 				if (i==0){
 					mu = "mu"+i;
-					%><tr class="parent" id="<%=mu%>"><td colspan="8" style="text-align:left;background-color:#B4EEB4;">
-					&nbsp<%=str%><img style="float:left;margin-left:0px;margin-top:0px;"height="18" width="18" alt="line" src="images/opened.png"></td></tr><%
+					%><tr class="parent" id="<%=mu%>"><th colspan="8" style="text-align:left;background-color:#B4EEB4;font-weight:normal;">
+                    &nbsp<%=str%><img style="float:left;margin-left:0px;margin-top:0px;"height="18" width="18" alt="line" src="images/opened.png"></th></tr><%
 				}
 				else {
 				if (!str.equals(var)){
 					str = var;
 					mu = "mu"+i;
 					j++;
-	        		%><tr class="parent" id="<%=mu%>"><td colspan="8" style="text-align:left;background-color:#B4EEB4;">&nbsp<%=str%>
-	        		<img style="float:left;margin-left:0px;margin-top:0px;"height="18" width="18" alt="line" src="images/opened.png"></td></tr><%	        	    
+	        		%><tr class="parent" id="<%=mu%>"><th colspan="8" style="text-align:left;background-color:#B4EEB4;font-weight:normal;">&nbsp<%=str%>
+	        		<img style="float:left;margin-left:0px;margin-top:0px;"height="18" width="18" alt="line" src="images/opened.png"></th></tr><%	        	    
 	        	    }
 				}
 				i++;

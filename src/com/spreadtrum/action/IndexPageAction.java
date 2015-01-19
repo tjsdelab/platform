@@ -1,5 +1,7 @@
 package com.spreadtrum.action;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +60,9 @@ public class IndexPageAction extends ActionSupport {
 		return "formName";
 	}
 	public String execute(){
+		File file = new File("/home/apuser/Downloads/","mtbf_ui.jsp");
+		
+		System.out.println("文件名："+(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(file.lastModified()));
 	IndexPage indexPage=new IndexPage();
 	
 	if(null != indexPageDAO.showLastIndexPage()){
