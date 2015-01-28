@@ -10,6 +10,7 @@ public class MTBF_uiProjectInfo {
 	private String projectName;
 	private String projectFlag;
 	private String mailTo;
+	private String mailCC;
 	
 	@Id
     @GeneratedValue
@@ -36,6 +37,12 @@ public class MTBF_uiProjectInfo {
 	}
 	public void setMailTo(String mailTo) {
 		this.mailTo = mailTo;
+	}
+	public String getMailCC() {
+		return mailCC;
+	}
+	public void setMailCC(String mailCC) {
+		this.mailCC = mailCC;
 	}
 }
 

@@ -9,6 +9,8 @@ public class ProjectForm {
 	private int id;
 	private String projectName;
 	private int flag;
+	private String mailTo;
+	private String mailCC;
 	@Id
     @GeneratedValue
 	public int getId() {
@@ -28,6 +30,18 @@ public class ProjectForm {
 	}
 	public void setFlag(int flag) {
 		this.flag = flag;
+	}
+	public String getMailTo() {
+		return mailTo;
+	}
+	public void setMailTo(String mailTo) {
+		this.mailTo = mailTo;
+	}
+	public String getMailCC() {
+		return mailCC;
+	}
+	public void setMailCC(String mailCC) {
+		this.mailCC = mailCC;
 	}
 	
 	

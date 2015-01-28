@@ -224,5 +224,29 @@ public class TestFormDAOImpl implements TestFormDAO{
 		     
 		return results!=null&&results.size()>0?(Date)results.get(0):null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TestForm> getMonkeyTestInfoByProject(String project) {
+		String hql;
+		List<TestForm> results = null;
+		hql = "from TestForm as tf where tf.hardwareInfo = '"+project+"' order by tf.tdate desc";
+
+	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象
+		org.hibernate.Session session = new HibernateUtil().openSession();
+		Transaction tx = session.beginTransaction();
+		try{
+		    //开启事务
+			results = session.createQuery(hql).list();
+		    tx.commit();
+		} catch (HibernateException e) { //捕捉异常
+		    e.printStackTrace();
+		    tx.rollback();
+		    } finally {
+		        new HibernateUtil().closeSession(session);
+		        } 
+		     
+		return results!=null&&results.size()>0?results:null;
+	}
 
 }

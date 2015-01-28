@@ -11,6 +11,8 @@ public class MonkeyForRDGroup {
     @GeneratedValue
 	private int id;
 	private String groupName;
+	private String groupLeader;
+
 	private int validFlag;
 	
 	public int getId() {
@@ -32,5 +34,12 @@ public class MonkeyForRDGroup {
 	}
 	public void setValidFlag(int validFlag) {
 		this.validFlag = validFlag;
+	}
+	@Column(nullable=false)
+	public String getGroupLeader() {
+		return groupLeader;
+	}
+	public void setGroupLeader(String groupLeader) {
+		this.groupLeader = groupLeader;
 	}
 }

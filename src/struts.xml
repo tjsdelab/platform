@@ -87,11 +87,7 @@
  
      <action name="cts"  class="com.spreadtrum.cts.action.CTSHomeAction" method="execute">
             <result  name="success">/cts.jsp</result>
-            <result type="redirectAction" name="search">
-     	        <param name="actionName">ctsForm</param>
-     	        <param name="type">${type}</param>
-     	        <param name="searchProject">${searchProject}</param>
-     	    </result>
+
      </action>
      
      <action name="ctsForm" class="com.spreadtrum.cts.action.CTSFormSearchAction">
@@ -143,7 +139,23 @@
          <result type="stream"><param name="bufferSize">2048</param>
          </result>
      </action>
+       <action name="managerLogin"  class="com.spreadtrum.login.LoginAction" method="loginVerify">
+          <result name="success" type="redirectAction"><param name="actionName">back-stageManage</param></result> 
+          <result name="loginFail">/managerLogin.jsp</result>  
+     </action> 
      
+     <action name="back-stageManage"  class="com.spreadtrum.backmanage.BackManageAction" method="execute">          
+            <result name="success">/back-stageManage.jsp</result>
+
+     </action>
+
+     <action name="backManageSendMail"  class="com.spreadtrum.backmanage.MailSendAction" method="mail">
+           <result name="success" type="redirectAction"><param name="actionName">back-stageManage</param>
+           </result>  
+     </action>   
+     
+     <action name="rdSendMailCtrl"  class="com.spreadtrum.monkeyForRD.action.MonkeyForRDHomeAction" method="sendMailForRD">
+     </action>
    
    </package>
 </struts>

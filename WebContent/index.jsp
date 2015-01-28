@@ -50,6 +50,9 @@
                     <li >
                         <a href="#" class="button blue medium ">提测中心</a>
                     </li>
+                    <li>
+                        <a href="managerLogin.jsp" class="button blue medium">后台管理</a>
+                    </li>
                 </ul>
                   <div id="form">
                 <p>

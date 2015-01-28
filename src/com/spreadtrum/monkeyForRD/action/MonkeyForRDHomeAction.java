@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Timer;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -22,9 +24,12 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 	private String tongji_select="unselect";
 	private Date date;
 	private MonkeyForRDTestInfoDAO rdTestInfoDAO = new MonkeyForRDTestInfoDAOImpl();
+	//private static MonkeyForRDTestInfoDAO rdTestInfoDAOForMonth = new MonkeyForRDTestInfoDAOImpl();
 	private MonkeyForRDMemberInfoDAO rdMemberDAO = new MonkeyForRDMemberInfoDAOImpl();
+	//private static MonkeyForRDMemberInfoDAO rdMemberDAOForMonth = new MonkeyForRDMemberInfoDAOImpl();
 	private List<MonkeyForRDTestInfo> rdTestInfo;
 	private List<String> deviceList;
+	//private static List<String> deviceListForMonth;
 	private String testInfoDate;
 	private int queryDays = 1;
 	private Date yesterday;
@@ -33,8 +38,10 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 	private List<PieData> PieData2 = new ArrayList<PieData>();
 	private List<PieData> PieData3 = new ArrayList<PieData>();
 	private List<MonkeyForRDPerformance> rdPerformanceList = new ArrayList<MonkeyForRDPerformance>();
+	private static String timerFlag = "defualt" ;
+	private static Timer timer = new Timer();
 
-	public String execute() {
+	public String execute() throws InterruptedException {
 
 		if (null == site) {
 			site = "TJ";
@@ -65,9 +72,29 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 		.setAttribute("PieData2", PieData2);
 		ServletActionContext.getRequest()
 		.setAttribute("PieData3", PieData3);
+		sendMailForRD();
 		return SUCCESS;
 	}
 
+	public Boolean sendMailForRD() throws InterruptedException{
+		
+		
+		if (timerFlag.equalsIgnoreCase("start")){	
+			System.out.println("stimerFlag:"+ timerFlag);
+			//void java.util.Timer.schedule(TimerTask task, long delay, long period)
+		    timer.schedule(new RdTask(), 60000, 24*60*60);
+		    //Thread.sleep(1000);
+		    //timer.cancel();
+		} else if(timerFlag.equalsIgnoreCase("stop")){
+			System.out.println("ttimerFlag:"+ timerFlag);
+			timer.cancel();
+			timer = new Timer();
+		}
+		ServletActionContext.getRequest().setAttribute("timerFlag",
+				timerFlag);
+		return false;
+	}
+	
 	public void getRDTestInfo() {
 
 		rdTestInfo = rdTestInfoDAO.getSiteTestInfoByDate(site, date);
@@ -129,6 +156,39 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 				rdPerformanceList);
 		ServletActionContext.getRequest().setAttribute("group", group);
 	}
+	
+	public List<MonkeyForRDPerformance> emailToNotDoInAMonth(){
+
+		deviceList = rdMemberDAO.getAllDeviceNameBySite("BJ");
+		deviceList.addAll(rdMemberDAO.getAllDeviceNameBySite("TJ"));
+		deviceList.addAll(rdMemberDAO.getAllDeviceNameBySite("SH"));
+		for(int i=0; i<deviceList.size(); i++){
+			
+			MonkeyForRDPerformance rdPerformance = new MonkeyForRDPerformance();
+
+			String engName = (String) (rdMemberDAO.getPerPropByDevice("engName",
+					deviceList.get(i)).get(0));
+			int doCount = rdTestInfoDAO.getDoDaysForPeriodByDevice(100,
+					deviceList.get(i));
+
+			String belongGroup = rdMemberDAO
+					.getAllPerPropByDevice(deviceList.get(i)).get(0)
+					.getGroupID().getGroupName();
+			String leaderName = rdMemberDAO
+					.getAllPerPropByDevice(deviceList.get(i)).get(0)
+					.getGroupID().getGroupLeader();
+			if (0 == doCount){	
+				rdPerformance.setName(engName);
+				rdPerformance.setDoDaysForMonth(doCount);
+				rdPerformance.setBelongGroup(belongGroup);
+				rdPerformance.setGroupLeader(leaderName);
+				rdPerformanceList.add(rdPerformance);
+			} else {
+				System.out.println(engName+":"+doCount);
+			}					
+		}
+		return rdPerformanceList;			
+	}
 
 	public List<PieData> getPieData(int piedays, String pieSite) {
 		List<PieData> results = new ArrayList<PieData>();
@@ -156,6 +216,10 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 		.setAttribute("queryDays", queryDays);
 		return results;
 	}
+	
+	public void mailForNotPerformance(){
+		
+	}
 
 	Comparator<MonkeyForRDPerformance> comparator = new Comparator<MonkeyForRDPerformance>() {
 		public int compare(MonkeyForRDPerformance m1, MonkeyForRDPerformance m2) {
@@ -163,6 +227,7 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 					.getDoDaysForAll()));
 		}
 	};
+	
 
 	public String getSite() {
 		return site;
@@ -276,6 +341,14 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 
 	public void setYesterday(Date yesterday) {
 		this.yesterday = yesterday;
+	}
+
+	public String getTimerFlag() {
+		return timerFlag;
+	}
+
+	public void setTimerFlag(String timerFlag) {
+		this.timerFlag = timerFlag;
 	}
 
 }

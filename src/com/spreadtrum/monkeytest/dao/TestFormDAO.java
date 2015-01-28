@@ -22,5 +22,8 @@ public interface TestFormDAO {
 	public List<String> searchTestFormByPacVersion(String pacVersion);
 	//通过工程名获得本工程最新测试表单名
 	public String getLastTestFormByProject(String project);	
+	
+	//通过工程获取测试主题信息
+	public List<TestForm> getMonkeyTestInfoByProject(String project);
 
 }

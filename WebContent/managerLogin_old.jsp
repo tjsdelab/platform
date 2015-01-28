@@ -9,7 +9,7 @@
     <meta name="renderer" content="webkit">
     <head> 
     <title>后台管理</title> 
-    <link rel="stylesheet" href="css/managerLogin.css" type="text/css"> 
+    <link rel="stylesheet" href="css/back-stage.css" type="text/css"> 
     <script type="text/javascript" src="jqplot/jquery.js"></script>
 
     <!--为了让IE支持HTML5元素，做如下操作：--> 
