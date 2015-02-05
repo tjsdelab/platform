@@ -1,4 +1,4 @@
-package com.spreadtrum.backStageManager;
+package com.spreadtrum.backstageManager;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,6 +8,14 @@
     <constant name="struts.devMode" value="true" />
     <constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
     <package name="hello" extends="struts-default"> 
+    
+    	<interceptors>
+    		<interceptor name="loginInterceptor" class="com.spreadtrum.interceptor.LoginInterceptor" />
+    		<interceptor-stack name="mystack">
+	    		<interceptor-ref name="loginInterceptor"></interceptor-ref>
+	    		<interceptor-ref name="defaultStack"></interceptor-ref>
+    		</interceptor-stack>
+    	</interceptors>
      
 <!-- 一个action类可以被多个action映射，每个action可以对应到一个类的方法上 -->
     <default-action-ref name="error"></default-action-ref>
@@ -121,6 +129,11 @@
         <result name="success">/mtbf_uiFormName.jsp</result>
      </action>
 
+     <action name="mtbf_uidownload" class="com.spreadtrum.mtbf_ui.action.MTBF_uiDownload">
+	     <result type="stream"><param name="bufferSize">2048</param>
+	     </result>
+     </action>
+
      
      <action name="epe"  class="com.spreadtrum.EPE.action.EPEHomeAction" method="execute">
             <result  name="success">/epe.jsp</result>
@@ -139,17 +152,20 @@
          <result type="stream"><param name="bufferSize">2048</param>
          </result>
      </action>
-       <action name="managerLogin"  class="com.spreadtrum.login.LoginAction" method="loginVerify">
+     
+     
+       <action name="managerLogin"  class="com.spreadtrum.backstageLogin.LoginAction" method="loginVerify">
           <result name="success" type="redirectAction"><param name="actionName">back-stageManage</param></result> 
           <result name="loginFail">/managerLogin.jsp</result>  
      </action> 
      
-     <action name="back-stageManage"  class="com.spreadtrum.backmanage.BackManageAction" method="execute">          
+     <action name="back-stageManage"  class="com.spreadtrum.backstageManager.BackManageAction" method="execute">          
+            <interceptor-ref name="mystack"/> 
             <result name="success">/back-stageManage.jsp</result>
-
+            <result name="loginFail">/managerLogin.jsp</result>
      </action>
 
-     <action name="backManageSendMail"  class="com.spreadtrum.backmanage.MailSendAction" method="mail">
+     <action name="backManageSendMail"  class="com.spreadtrum.backstageManager.MailSendAction" method="mail">
            <result name="success" type="redirectAction"><param name="actionName">back-stageManage</param>
            </result>  
      </action>   

@@ -15,8 +15,8 @@
 <property name="cache.use_second_level_cache">false</property>
 <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 <property name="house-keeping-sleep-time">100</property>
-<property name="connection.username">mtbf</property>
-<property name="connection.password">mtbf</property>
+<property name="connection.username">admin</property>
+<property name="connection.password">adminUse</property>
 <property name="connection.url">jdbc:mysql://localhost:3306/mtbf_ui</property>
 <property name="connection.driver_class">org.gjt.mm.mysql.Driver</property>
 <property name="show_sql">true</property>

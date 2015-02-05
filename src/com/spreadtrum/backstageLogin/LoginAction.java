@@ -1,10 +1,8 @@
-package com.spreadtrum.login;
+package com.spreadtrum.backstageLogin;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 public class LoginAction extends ActionSupport{
@@ -17,6 +15,8 @@ public class LoginAction extends ActionSupport{
 	public String loginVerify() {
 		System.out.println("username:"+userName);
 		System.out.println("password:"+passWord);
+		
+		HttpServletRequest request = ServletActionContext.getRequest();
 		if(null == userName || null == passWord){
 			return "loginFail";
 		} else {
@@ -27,6 +27,7 @@ public class LoginAction extends ActionSupport{
 				return "loginFail";
 			} else {
 				System.out.println("success");
+				request.getSession().setAttribute("userName","success");
 				return "success";
 			}			
 		}

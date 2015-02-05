@@ -320,6 +320,12 @@ $(document).ready(function() {
 			</s:iterator>		         
      </tbody>
      </table><br><br><br><br>
+      <!-- 报告下载 -->  
+    <div>
+    <div style="float:left;margin-left:80%;">报告下载</div>
+     <div style="float:left;margin-left:10px;">
+  <a style="color:#0000ff;font-size: 15px;"target="_blank" href="mtbf_uidownload?currentFormName=<s:property value="#request.currentFormName"/>"> <img src="images/download.png" alt="download" height="25" width="30" ></a> </div><br>   
+     </div>
    </div>
    </div>
  </div>  

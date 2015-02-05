@@ -1,23 +1,22 @@
-package com.spreadtrum.backStageManager;
+package com.spreadtrum.backstageManager;
+
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Transaction;
 
-public class EditUser {
-	public boolean updateUser(int id,String userName,String passWord, String type) {
-
+public class AddUser {
+	
+	public boolean addUser(BackStageUserBean user) {
+		//String hql;
+		//hql = "insert into UserBean insert into UserBean (passWord,type,userName) values ('"+userName +"','"+passWard +"','"+type+"'"+")" ;
 		
 	    //开启session,与HttpSession完全没有任何关系，相当于一个数据库连接对象
 		org.hibernate.Session session = new BackStageManagerUtil().openSession();
 		Transaction tx = session.beginTransaction();
-		BackStageUserBean u = (BackStageUserBean)session.get(BackStageUserBean.class, id);
-		System.out.println(id + userName + passWord);
-		u.setUserName(userName);
-		u.setPassWord(passWord);
-		u.setType(type);
 		try{
 		    //开启事务
-			session.update(u);
+			session.save(user);
 
                     //返回全部的记录集       
     //遍历结果集
@@ -32,5 +31,4 @@ public class EditUser {
 		     
 		return true;		
 	}
-
 }

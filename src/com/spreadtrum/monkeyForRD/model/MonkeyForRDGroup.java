@@ -12,6 +12,7 @@ public class MonkeyForRDGroup {
 	private int id;
 	private String groupName;
 	private String groupLeader;
+	private String DepartmentLeader;
 
 	private int validFlag;
 	
@@ -41,5 +42,11 @@ public class MonkeyForRDGroup {
 	}
 	public void setGroupLeader(String groupLeader) {
 		this.groupLeader = groupLeader;
+	}
+	public String getDepartmentLeader() {
+		return DepartmentLeader;
+	}
+	public void setDepartmentLeader(String departmentLeader) {
+		DepartmentLeader = departmentLeader;
 	}
 }

@@ -6,8 +6,10 @@ public class MonkeyForRDPerformance {
 	private int doDaysForAll;
 	private String doIfYesterday;
 	private String belongGroup;
-	private int doDaysForMonth;
+	private int doDaysForPeriod;
 	private String groupLeader;
+	private String departmentLeader;
+	private String emailAddr;
 	
 	public String getName() {
 		return name;
@@ -39,17 +41,29 @@ public class MonkeyForRDPerformance {
 	public void setDoIfYesterday(String doIfYesterday) {
 		this.doIfYesterday = doIfYesterday;
 	}
-	public int getDoDaysForMonth() {
-		return doDaysForMonth;
-	}
-	public void setDoDaysForMonth(int doDaysForMonth) {
-		this.doDaysForMonth = doDaysForMonth;
-	}
 	public String getGroupLeader() {
 		return groupLeader;
 	}
 	public void setGroupLeader(String groupLeader) {
 		this.groupLeader = groupLeader;
+	}
+	public int getDoDaysForPeriod() {
+		return doDaysForPeriod;
+	}
+	public void setDoDaysForPeriod(int doDaysForPeriod) {
+		this.doDaysForPeriod = doDaysForPeriod;
+	}
+	public String getDepartmentLeader() {
+		return departmentLeader;
+	}
+	public void setDepartmentLeader(String departmentLeader) {
+		this.departmentLeader = departmentLeader;
+	}
+	public String getEmailAddr() {
+		return emailAddr;
+	}
+	public void setEmailAddr(String emailAddr) {
+		this.emailAddr = emailAddr;
 	}
 	
 }

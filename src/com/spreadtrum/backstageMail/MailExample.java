@@ -1,4 +1,4 @@
-package com.spreadtrum.mail;
+package com.spreadtrum.backstageMail;
 
 import java.util.Properties;
 import javax.mail.*;

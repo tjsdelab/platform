@@ -23,7 +23,7 @@
 <property name="hbm2ddl.auto">update</property>
     	<!-- Model属性与数据库字段的映射文件 -->
 
- <mapping class="com.spreadtrum.backStageManager.BackStageUserBean" />
+ <mapping class="com.spreadtrum.backstageLogin.BackStageUserBean" />
 
     </session-factory>
 

@@ -18,7 +18,7 @@ body {
 .tabs-right > .nav-tabs,
 .tabs-left > .nav-tabs {
   border-bottom:0px;
-  min-height:500px;
+  min-height:280px;
   margin:0 auto; 
 }
 
@@ -65,7 +65,8 @@ body {
 .tabs-left > .nav-tabs > li,
 .tabs-right > .nav-tabs > li {
   float: none;
-  background-color:#DCDCDC;
+  background-color:	#FAF0E6;
+  border-radius:4px;
 }
 
 .tabs-left > .nav-tabs > li > a,
@@ -94,7 +95,7 @@ body {
 .tabs-left > .nav-tabs > li > a:hover,
 .tabs-left > .nav-tabs > li > a:focus {
   border-color: #eeeeee #dddddd #eeeeee #eeeeee;
-  background-color:#FFCC99;
+  background-color:#F0FFFF;
 }
 
 .tabs-left > .nav-tabs .active > a,
@@ -260,3 +261,43 @@ font-size:16px;
 	display:block;
 	float:left;
 }
+
+.box{
+        position:absolutely;
+        width:500px;
+    }
+    input.uploadFile{
+        position:absolute;
+        right:0px;
+        top:0px;
+        opacity:0;
+        filter:alpha(opacity=0);
+        cursor:pointer;
+        width:276px;
+        height:36px;
+        overflow: hidden;
+    }
+    input.textbox{
+        float:left;
+        margin-left:20px;
+        padding:5px;
+        color:#999;
+        height:24px;
+        line-height:24px;
+        border:1px #1E90FF solid;
+        width:300px;
+        margin-right:4px;
+        margin-top:4px;
+    }
+    a.link{
+        float:left;
+        display:inline-block;
+        padding:3px 14px;
+        color:#fff;
+        font:16px "Microsoft YaHei", Verdana, Geneva, sans-serif;
+        cursor:pointer;
+        background-color:#0099ff;
+        line-height:28px;
+        text-decoration:none;
+    }
+    

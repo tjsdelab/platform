@@ -1,11 +1,11 @@
-package com.spreadtrum.login;
+package com.spreadtrum.backstageLogin;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class UserBean {
+public class BackStageUserBean {
 	private int id;
 	private String userName;
 	private String passWord;

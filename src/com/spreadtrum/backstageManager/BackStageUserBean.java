@@ -1,4 +1,4 @@
-package com.spreadtrum.backStageManager;
+package com.spreadtrum.backstageManager;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

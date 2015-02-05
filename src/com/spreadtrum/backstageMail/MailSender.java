@@ -1,4 +1,4 @@
-package com.spreadtrum.mail;
+package com.spreadtrum.backstageMail;
 
 import java.util.Properties;
 
@@ -64,15 +64,16 @@ public class MailSender {
 		System.out.println(to);
 		for (int i = 0; i < toEmails.length; i++) {
 			emailMessage.addRecipient(Message.RecipientType.TO,
-					new InternetAddress(toEmails[i] + "/Spreadtrum@SPREADTRUM"));
+					new InternetAddress(toEmails[i]));
+					//new InternetAddress(toEmails[i] + "/Spreadtrum@SPREADTRUM"));
 		}
 		// CC
 		for (int i = 0; i < ccEmails.length; i++) {
 			emailMessage.addRecipient(Message.RecipientType.CC,
-					new InternetAddress(ccEmails[i] + "/Spreadtrum@SPREADTRUM"));
+					new InternetAddress(ccEmails[i] ));
 		}
 		emailMessage.setSubject(emailSubject);
-		emailMessage.setFrom(new InternetAddress ("qilong.yin"));
+		emailMessage.setFrom(new InternetAddress ("tjsdelab@spreadtrum.com"));
 		emailMessage.setContent(emailBody, "text/html; charset=utf-8");
 	}
 

@@ -1,4 +1,4 @@
-package com.spreadtrum.backStageManager;
+package com.spreadtrum.backstageManager;
  
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

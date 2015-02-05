@@ -1,9 +1,9 @@
-package com.spreadtrum.backmanage;
+package com.spreadtrum.backstageManager;
 
 import java.io.UnsupportedEncodingException;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.spreadtrum.mail.MailSender;
+import com.spreadtrum.backstageMail.MailSender;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;

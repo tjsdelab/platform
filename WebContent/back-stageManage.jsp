@@ -4,7 +4,10 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
- 
+	 <% 
+	    String tabclicking = (String) request.getAttribute("tabclicked"); 
+	 %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,7 +19,8 @@
     <title>后台管理界面</title>
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" media="screen" />
     <link rel="Bookmark" href="images/favicon.ico">
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">    
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">  
+    <link rel="stylesheet" type="text/css" href="css/buttons.css" />  
     <link rel="stylesheet" href="css/back-stage.css" type="text/css">
     <link type="text/css" href="css/lrtk.css" rel="stylesheet" />
    
@@ -29,6 +33,54 @@
     
 <script>
 <!--时间日期设置 -->
+
+var tabclicked='<%=tabclicking%>';
+var pSelected;
+$(function() {
+    if (tabclicked=="tab-monkey"){  
+		   $("#tab-left li:eq(0)").addClass('active');
+		   $('#monkey').addClass('active');
+		   }
+	if (tabclicked=="tab-sanity"){  
+		   $("#tab-left li:eq(1)").addClass('active');
+		   $('#sanity').addClass('active');
+		   }
+    if (tabclicked=="tab-smoke"){  
+		   $("#tab-left li:eq(2)").addClass('active');
+		   $('#smoke').addClass('active');
+		   }
+	if (tabclicked=="tab-mtbf_ui"){  
+		   $("#tab-left li:eq(3)").addClass('active');
+		   $('#mtbf_ui').addClass('active');
+		   }
+	if (tabclicked=="tab-mfrd"){  
+		   $("#tab-left li:eq(4)").addClass('active');
+		   $('#monkeyForRD').addClass('active');
+		   }
+	
+	
+		$('#tab-left-nav').click(function (e) {
+					tabclicked = $(e.target).attr('id');
+					location.href ="back-stageManage?tabclicked=" + tabclicked;
+				});			 
+         $("#autoM").change(function() {
+        	    pSelected = $(this).children('option:selected').val();
+	 			location.href = "back-stageManage?tabclicked=" + tabclicked + "&mselected=" + pSelected;        
+	         });
+         $("#autoSn").change(function() {
+        	    pSelected = $(this).children('option:selected').val();
+	 			location.href = "back-stageManage?tabclicked=" + tabclicked + "&snselected=" + pSelected;         
+	         });
+         $("#autoSm").change(function() {
+        	    pSelected = $(this).children('option:selected').val();
+	 			location.href = "back-stageManage?tabclicked=" + tabclicked + "&smselected=" + pSelected;        
+	         });
+         $("#autoMu").change(function() {
+        	    pSelected = $(this).children('option:selected').val();
+	 			location.href = "back-stageManage?tabclicked=" + tabclicked + "&muselected=" + pSelected;          
+	         });
+    });
+    
 $(document).ready(function() {
 		$("#search").bind('click', function() {
 			var value = $("#select").children('option:selected').val();
@@ -83,15 +135,6 @@ $(document).ready(function() {
 			}
 		});
 	});
-
-	$(document).ready(function() {
-		$("#autoM,#autoSn,#autoSm,#autoMu").change(function() {
-			// alert($(this).children('option:selected').val());
-			$("#auto_submitM,#auto_submitSn,#auto_submitSm,#auto_submitMu").click();
-		});});
-	
-	
-	
 
 //Ajax实现邮件发送
 	var XMLHttpReq = false;
@@ -227,10 +270,14 @@ $(document).ready(function() {
 <!-- 导航条taps -->
 	<div class="navbar" role="navigation" style="margin-top:5px;background-color:#708069;width:1200px;">	
 	   <a class="navbar-brand" style="font-size:22px;font-weight:bold;color:#FF6103">后台管理</a> 
+	   <a class="button blue medium" style="float:right;font-size:21px;font-weight:bold;margin-top:5px;margin-right:4px;" href="login.action">返回主页</a> 
 		<div class="tabbable">
 		  <ul class="nav nav-pills">
 			<li class="active">
 				<a data-toggle="tab" style="font-size:large;font-weight:bold;margin:3px;" href="#report">报告管理</a>
+			</li>
+			<li>
+				<a data-toggle="tab" style="font-size:large;font-weight:bold;margin:3px;" href="#fileUpload">文件共享</a>
 			</li>
 			<li>
 				<a data-toggle="tab" style="font-size:large;font-weight:bold;margin:3px;" href="#other">其他管理</a>
@@ -238,30 +285,30 @@ $(document).ready(function() {
 		   </ul>
 		</div></div><br>
 <!-- 页面taps 首页展示报告管理report-->	
-    <div class="tab-content">
+<div class="tab-content">
 		<div class="tab-pane active" id="report">				
-	        <div class="tabbable tabs-left" id="tab-left">
+	        <div class="tabbable tabs-left" id="tab-left" >
 	          <ul class="nav nav-tabs" id="tab-left-nav">  
-	            <li class="active">
-	            	<a data-toggle="tab" href="#monkey">Monkey测试</a>
+	            <li>
+	            	<a id="tab-monkey"  href="#monkey" data-toggle="tab" >Monkey测试</a>
 	            </li>
 	            <li>
-	                 <a data-toggle="tab" href="#sanity">Sanity测试</a>
+	                 <a id="tab-sanity" href="#sanity" data-toggle="tab">Sanity测试</a>
 	            </li>
 	            <li>
-	                 <a data-toggle="tab" href="#smoke">Smoke测试</a>
+	                 <a id="tab-smoke" href="#smoke" data-toggle="tab">Smoke测试</a>
 	            </li> 
 	            <li>
-	                 <a data-toggle="tab" href="#mtbf_ui">Mtbf_ui测试</a>
-	            </li> 
+	                 <a id="tab-mtbf_ui"  href="#mtbf_ui" data-toggle="tab">Mtbf_ui测试</a>
+	            </li>  
 	            <li>
-	                 <a data-toggle="tab" href="#monkeyForRD">monkeyForRD</a>
+	                 <a id="tab-mfrd" data-toggle="tab" href="#monkeyForRD">monkeyForRD</a>
 	            </li> 
 	           </ul>
     </div>
 <!-- 侧边栏taps 默认显示monkey-->	
       <div class="tab-content">
-        <div class="tab-pane active" id="monkey">      
+        <div class="tab-pane" id="monkey">      
           
 		 <div class="selectANDsearch" style="width:980px;margin-left:200px;">
 	    	 <ul class="bar1_first" id="bar1_first">
@@ -277,8 +324,8 @@ $(document).ready(function() {
 	             <s:submit style="font-size:14px;" id="search" value="搜索" method="search"></s:submit>
 	    		 </li>    		 
 	    		 <li style="float:left;padding-left:20px;padding-top:2px">
-	    		 	<s:select id="autoM" style="width:450px;text-align:center;" list="projectListM" name="currentProjectM"></s:select>
-	    		 	<s:submit id="auto_submitM" value="搜索" method="execute" style="display:none"></s:submit>			
+	    		 	<s:select id="autoM" style="width:450px;text-align:center;" list="projectListM" name="mselected"></s:select>
+	    		 	<s:submit id="auto_submitM" value="搜索"  method="execute" style="display:none"></s:submit>			
 	    		 </li>
 	    	  </ul>
 	    	  </div><br><br>
@@ -376,7 +423,7 @@ $(document).ready(function() {
 	             <s:submit style="font-size:14px;" id="search" value="搜索" method="search"></s:submit>
 	    		 </li>    		 
 	    		 <li style="float:left;padding-left:20px;padding-top:2px">
-	    		 	<s:select id="autoSn" style="width:450px;text-align:center;" list="projectListSn" name="currentProjectSn"></s:select>
+	    		 	<s:select id="autoSn" style="width:450px;text-align:center;" list="projectListSn" name="snselected"></s:select>
 	    		 	<s:submit id="auto_submitSn" value="搜索" method="execute" style="display:none"></s:submit>			
 	    		 </li>
 	    	  </ul>
@@ -387,11 +434,11 @@ $(document).ready(function() {
 				<img style="float:left; margin-left:0px;margin-top:4px; display: inline" height="30" width="30" alt="picture" src="images/mtbfc.gif">	
 				<img style="float:left; margin-left:0px; margin-top:23px; display: inline" height="6" width="890" alt="line" src="images/caolv.png">	
         		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:0px; margin-top:-25px;">最新报告</div>   
-        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:318px; margin-top:-25px;">表单名</div>
+        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:280px; margin-top:-25px;">表单名</div>
         	    <div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:790px; margin-top:-25px;">时间</div>
         	   </div>
         	   <div style="position:absolute;width:980px;margin-left:220px;margin-top:70px;">
-        	       <span style="float:left;width:40%;font-size:19px;"><s:property value="currentProjectSn"/>_<s:property value="#request.sanityLastInfo.versionForNum"/></span>
+        	       <span style="float:left;width:36%;font-size:19px;"><s:property value="currentProjectSn"/>_<s:property value="#request.sanityLastInfo.versionForNum"/></span>
         	       <span style="width:50%;margin-left:10px;font-size:19px;"><s:property value="#request.sanityLastInfo.testFormName"/></span>
 				   <span style="float:right;width:10%;margin-right:90px;font-size:19px;"><s:property value="#request.sanityLastInfo.testDate"/></span>
 				    <button type="button" class="btn" data-toggle="modal"  data-target="#myModalSn" 
@@ -456,7 +503,7 @@ $(document).ready(function() {
 	             <s:submit style="font-size:14px;" id="search" value="搜索" method="search"></s:submit>
 	    		 </li>    		 
 	    		 <li style="float:left;padding-left:20px;padding-top:2px">
-	    		 	<s:select id="autoSm" style="width:450px;text-align:center;" list="projectListSm" name="currentProjectSm"></s:select>
+	    		 	<s:select id="autoSm" style="width:450px;text-align:center;" list="projectListSm" name="smselected"></s:select>
 	    		 	<s:submit id="auto_submitSm" value="搜索" method="execute" style="display:none"></s:submit>			
 	    		 </li>
 	    	  </ul>
@@ -467,11 +514,11 @@ $(document).ready(function() {
 				<img style="float:left; margin-left:0px;margin-top:4px; display: inline" height="30" width="30" alt="picture" src="images/mtbfc.gif">	
 				<img style="float:left; margin-left:0px; margin-top:23px; display: inline" height="6" width="890" alt="line" src="images/caolv.png">	
         		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:0px; margin-top:-25px;">最新报告</div>   
-        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:318px; margin-top:-25px;">表单名</div>
+        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:280px; margin-top:-25px;">表单名</div>
         	    <div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:790px; margin-top:-25px;">时间</div>
         	   </div>
         	   <div style="position:absolute;width:980px;margin-left:220px;margin-top:70px;">
-        	       <span style="float:left;width:40%;font-size:19px;"><s:property value="currentProjectSm"/>_<s:property value="#request.smokeLastInfo.versionForNum"/></span>
+        	       <span style="float:left;width:36%;font-size:19px;"><s:property value="currentProjectSm"/>_<s:property value="#request.smokeLastInfo.versionForNum"/></span>
         	       <span style="width:50%;margin-left:10px;font-size:19px;"><s:property value="#request.smokeLastInfo.testFormName"/></span>
 				   <span style="float:right;width:10%;margin-right:90px;font-size:19px;"><s:property value="#request.smokeLastInfo.testDate"/></span>
 				    <button type="button" class="btn" data-toggle="modal"  data-target="#myModalSm" 
@@ -535,7 +582,7 @@ $(document).ready(function() {
 	             <s:submit style="font-size:14px;" id="search" value="搜索" method="search"></s:submit>
 	    		 </li>    		 
 	    		 <li style="float:left;padding-left:20px;padding-top:2px">
-	    		 	<s:select id="autoMu" style="width:450px;text-align:center;" list="projectListMu" name="currentProjectMu"></s:select>
+	    		 	<s:select id="autoMu" style="width:450px;text-align:center;" list="projectListMu" name="muselected"></s:select>
 	    		 	<s:submit id="auto_submitMu" value="搜索" method="execute" style="display:none"></s:submit>			
 	    		 </li>
 	    	  </ul>
@@ -595,7 +642,7 @@ $(document).ready(function() {
 				      </div><!-- /.modal-content -->
 				   </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
-		<br><br><br><br> 
+		<br><br><br><br>  
             
    </div>
 		  <div class="tab-pane " id="monkeyForRD">
@@ -605,16 +652,30 @@ $(document).ready(function() {
 	                  <button style="float:right;height:40px;margin-top:10px;margin-right:498px;font-size:25px;background-color:#EE0000" id="stopMonitor">停止监控</button>
 
 	  </div>  
-	 
    </div>
  </div>
 
 
+<!-- 页面taps 次页展示文件共享fileUpload-->					
+<div class="tab-pane" id="fileUpload">
 	
-		
-		
-		
-		
+	
+	     
+	     <div class="box">
+	     <span style="float:left;margin-top:2px;font-size:20px;color:#FF6100">上传文件:</span>
+	     <input type="text" name="copyFile"  class="textbox" />
+	     <a href="javascript:void(0);"  class="link">浏览</a>
+	     <input type="file" class="uploadFile" name="upload"
+	     onchange="" />
+    </div>
+    
+
+
+
+
+</div>
+	
+			
 		
 <!-- 页面taps 次页展示其他管理other-->					
 <div class="tab-pane" id="other">

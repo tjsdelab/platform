@@ -70,15 +70,15 @@ public class RdEmailTimer {
 		// To
 		for (int i = 0; i < toEmails.length; i++) {
 			emailMessage.addRecipient(Message.RecipientType.TO,
-					new InternetAddress(toEmails[i] + "/Spreadtrum@SPREADTRUM"));
+					new InternetAddress(toEmails[i] ));
 		}
 		// CC
 		for (int i = 0; i < ccEmails.length; i++) {
 			emailMessage.addRecipient(Message.RecipientType.CC,
-					new InternetAddress(ccEmails[i] + "/Spreadtrum@SPREADTRUM"));
+					new InternetAddress(ccEmails[i] ));
 		}
 		emailMessage.setSubject(emailSubject);
-		emailMessage.setFrom(new InternetAddress ("tjsdelab"));
+		emailMessage.setFrom(new InternetAddress ("tjsdelab@spreadtrum.com"));
 		emailMessage.setContent(emailBody, "text/html; charset=utf-8");
 	}
 

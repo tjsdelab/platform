@@ -38,6 +38,9 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 	private List<PieData> PieData2 = new ArrayList<PieData>();
 	private List<PieData> PieData3 = new ArrayList<PieData>();
 	private List<MonkeyForRDPerformance> rdPerformanceList = new ArrayList<MonkeyForRDPerformance>();
+	private List<MonkeyForRDPerformance> rd30DayNotDoList = new ArrayList<MonkeyForRDPerformance>();
+	private List<MonkeyForRDPerformance> rd10DayNotDoList = new ArrayList<MonkeyForRDPerformance>();
+	private List<MonkeyForRDPerformance> rd1DayNotDoList = new ArrayList<MonkeyForRDPerformance>();
 	private static String timerFlag = "defualt" ;
 	private static Timer timer = new Timer();
 
@@ -82,7 +85,7 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 		if (timerFlag.equalsIgnoreCase("start")){	
 			System.out.println("stimerFlag:"+ timerFlag);
 			//void java.util.Timer.schedule(TimerTask task, long delay, long period)
-		    timer.schedule(new RdTask(), 60000, 24*60*60);
+		    timer.schedule(new RdTask(), 60000, 24*60*60*1000);
 		    //Thread.sleep(1000);
 		    //timer.cancel();
 		} else if(timerFlag.equalsIgnoreCase("stop")){
@@ -157,6 +160,8 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 		ServletActionContext.getRequest().setAttribute("group", group);
 	}
 	
+
+	
 	public List<MonkeyForRDPerformance> emailToNotDoInAMonth(){
 
 		deviceList = rdMemberDAO.getAllDeviceNameBySite("BJ");
@@ -168,26 +173,100 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 
 			String engName = (String) (rdMemberDAO.getPerPropByDevice("engName",
 					deviceList.get(i)).get(0));
-			int doCount = rdTestInfoDAO.getDoDaysForPeriodByDevice(100,
-					deviceList.get(i));
-
+			String emailAddr= (String) (rdMemberDAO.getPerPropByDevice("emailAddr",
+					deviceList.get(i)).get(0));
 			String belongGroup = rdMemberDAO
 					.getAllPerPropByDevice(deviceList.get(i)).get(0)
 					.getGroupID().getGroupName();
 			String leaderName = rdMemberDAO
 					.getAllPerPropByDevice(deviceList.get(i)).get(0)
 					.getGroupID().getGroupLeader();
-			if (0 == doCount){	
+			String departmentLeader = rdMemberDAO
+					.getAllPerPropByDevice(deviceList.get(i)).get(0)
+					.getGroupID().getDepartmentLeader();
+			int do30Count = rdTestInfoDAO.getDoDaysForPeriodByDevice(30,
+					deviceList.get(i));
+			if (0 == do30Count){
 				rdPerformance.setName(engName);
-				rdPerformance.setDoDaysForMonth(doCount);
+				rdPerformance.setEmailAddr(emailAddr);
+				rdPerformance.setDoDaysForPeriod(do30Count);
 				rdPerformance.setBelongGroup(belongGroup);
 				rdPerformance.setGroupLeader(leaderName);
-				rdPerformanceList.add(rdPerformance);
-			} else {
-				System.out.println(engName+":"+doCount);
+				rdPerformance.setDepartmentLeader(departmentLeader);
+				rd30DayNotDoList.add(rdPerformance);
+			} 			
+		}
+		return rd30DayNotDoList;			
+	}
+	
+	public List<MonkeyForRDPerformance> emailToNotDoIn10Days(){
+
+		deviceList = rdMemberDAO.getAllDeviceNameBySite("BJ");
+		deviceList.addAll(rdMemberDAO.getAllDeviceNameBySite("TJ"));
+		deviceList.addAll(rdMemberDAO.getAllDeviceNameBySite("SH"));
+		for(int i=0; i<deviceList.size(); i++){
+			
+			MonkeyForRDPerformance rdPerformance = new MonkeyForRDPerformance();
+
+			String engName = (String) (rdMemberDAO.getPerPropByDevice("engName",
+					deviceList.get(i)).get(0));
+			String emailAddr= (String) (rdMemberDAO.getPerPropByDevice("emailAddr",
+					deviceList.get(i)).get(0));
+			String belongGroup = rdMemberDAO
+					.getAllPerPropByDevice(deviceList.get(i)).get(0)
+					.getGroupID().getGroupName();
+			String leaderName = rdMemberDAO
+					.getAllPerPropByDevice(deviceList.get(i)).get(0)
+					.getGroupID().getGroupLeader();
+			int do30Count = rdTestInfoDAO.getDoDaysForPeriodByDevice(30,
+					deviceList.get(i));
+			if (0 != do30Count){	
+				int do10Count = rdTestInfoDAO.getDoDaysForPeriodByDevice(10,
+						deviceList.get(i));
+				if (0 == do10Count){	
+					rdPerformance.setName(engName);
+					rdPerformance.setEmailAddr(emailAddr);
+					rdPerformance.setDoDaysForPeriod(do10Count);
+					rdPerformance.setBelongGroup(belongGroup);
+					rdPerformance.setGroupLeader(leaderName);
+					rd10DayNotDoList.add(rdPerformance);
+				} 
 			}					
 		}
-		return rdPerformanceList;			
+		return rd10DayNotDoList;			
+	}
+	
+	public List<MonkeyForRDPerformance> emailToNotDoIn1Days(){
+
+		deviceList = rdMemberDAO.getAllDeviceNameBySite("BJ");
+		deviceList.addAll(rdMemberDAO.getAllDeviceNameBySite("TJ"));
+		deviceList.addAll(rdMemberDAO.getAllDeviceNameBySite("SH"));
+		for(int i=0; i<deviceList.size(); i++){
+			
+			MonkeyForRDPerformance rdPerformance = new MonkeyForRDPerformance();
+
+			String engName = (String) (rdMemberDAO.getPerPropByDevice("engName",
+					deviceList.get(i)).get(0));
+			String emailAddr= (String) (rdMemberDAO.getPerPropByDevice("emailAddr",
+					deviceList.get(i)).get(0));
+			String belongGroup = rdMemberDAO
+					.getAllPerPropByDevice(deviceList.get(i)).get(0)
+					.getGroupID().getGroupName();
+			int do10Count = rdTestInfoDAO.getDoDaysForPeriodByDevice(10,
+					deviceList.get(i));
+			if (0 != do10Count){
+				int do1Count = rdTestInfoDAO.getDoDaysForPeriodByDevice(1,
+						deviceList.get(i));
+				if (0 == do1Count){	
+					rdPerformance.setName(engName);
+					rdPerformance.setEmailAddr(emailAddr);
+					rdPerformance.setDoDaysForPeriod(do1Count);
+					rdPerformance.setBelongGroup(belongGroup);
+					rd1DayNotDoList.add(rdPerformance);
+				} 
+			}				
+		}
+		return rd1DayNotDoList;			
 	}
 
 	public List<PieData> getPieData(int piedays, String pieSite) {
@@ -350,5 +429,30 @@ public class MonkeyForRDHomeAction extends ActionSupport {
 	public void setTimerFlag(String timerFlag) {
 		this.timerFlag = timerFlag;
 	}
+	public List<MonkeyForRDPerformance> getRd30DayNotDoList() {
+		return rd30DayNotDoList;
+	}
+
+	public void setRd30DayNotDoList(List<MonkeyForRDPerformance> rd30DayNotDoList) {
+		this.rd30DayNotDoList = rd30DayNotDoList;
+	}
+
+	public List<MonkeyForRDPerformance> getRd10DayNotDoList() {
+		return rd10DayNotDoList;
+	}
+
+	public void setRd10DayNotDoList(List<MonkeyForRDPerformance> rd10DayNotDoList) {
+		this.rd10DayNotDoList = rd10DayNotDoList;
+	}
+
+
+	public List<MonkeyForRDPerformance> getRd1DayNotDoList() {
+		return rd1DayNotDoList;
+	}
+
+	public void setRd7DayNotDoList(List<MonkeyForRDPerformance> rd7DayNotDoList) {
+		this.rd1DayNotDoList = rd7DayNotDoList;
+	}
+
 
 }

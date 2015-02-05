@@ -1,7 +1,9 @@
-package com.spreadtrum.backmanage;
+package com.spreadtrum.backstageManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.spreadtrum.monkeytest.dao.ProjectFormDAO;
@@ -35,7 +37,15 @@ public class BackManageAction extends ActionSupport{
 	private String type;
 	private String project;
 	private String searchProject;
+	private String tabclicked;
+	private String mselected;
+	private String snselected;
+	private String smselected;
+	private String mtselected;
+	private String muselected;
 	
+
+
 	//monkey测试信息获取
 	private List<String> projectListM = new ArrayList<String>();
 	private String currentProjectM;
@@ -84,27 +94,88 @@ public class BackManageAction extends ActionSupport{
 	private String MumailCC;	
 	
 
-	public String execute(){		
-		getMonkeyInfo();
-		getSanityInfo();
-		getSmokeInfo();
-		getMtbf_uiInfo();
+	public String execute(){
+		if (tabclicked==null){
+			tabclicked = "tab-monkey";
+		   if (null == mselected){
+			getMonkeyInfoInit();
+			getMonkeyInfo(mselected);
+		     }else if (null != mselected){	
+			    getMonkeyInfo(mselected);
+		       }
+		   }
 		
+	    if ( tabclicked.equals("tab-monkey") ){
+	    	if (null == mselected){
+				getMonkeyInfoInit();
+				getMonkeyInfo(mselected);
+			     }else if (null != mselected){	
+				    getMonkeyInfo(mselected);
+			       }	
+		   }
+	    
+	    if ( tabclicked.equals("tab-sanity") ){
+	    	if (null == snselected){
+			    getSanityInfoInit();
+			    getSanityInfo(snselected);
+			   }else{
+	            getSanityInfo(snselected);
+			   }	
+		   }
+		 
+	    if ( tabclicked.equals("tab-smoke") ){
+	    	if (null == smselected){
+	  		    getSmokeInfoInit();
+	  		    getSmokeInfo(smselected);
+	  		}else{
+	        	getSmokeInfo(smselected);
+	  		}	
+		   }
+	    
+	    if ( tabclicked.equals("tab-mtbf_ui") ){
+	    	if (null == muselected){
+	        	getMtbf_uiInfoInit();
+	        	getMtbf_uiInfo(muselected);
+	      	}else{
+	      		tabclicked ="tab-mtbf_ui";
+	            getMtbf_uiInfo(muselected);
+	      	}	
+		   }
+	    
+
+		
+		  
+
 		return SUCCESS;
 	}	
+	
+	public void getMonkeyInfoInit(){
+		projectListM = monkeyProjectDAO.getValidProjectName();		
+		mselected = projectListM.get(0);	
+	}
 
-	public void getMonkeyInfo(){
-		projectListM = monkeyProjectDAO.getValidProjectName();
-		if (null == currentProjectM){
-			if(null != projectListM){
-			    currentProjectM = projectListM.get(0);
-			    MmailTo = monkeyProjectDAO.getmailInfoByProject("mailTo", currentProjectM);
-			    MmailCC = monkeyProjectDAO.getmailInfoByProject("mailCC", currentProjectM);
-			}
-		} 
-		monkeyMoreInfo = monkeyInfo.getMonkeyTestInfoByProject(currentProjectM);
-		MmailTo = monkeyProjectDAO.getmailInfoByProject("mailTo", currentProjectM);
-	    MmailCC = monkeyProjectDAO.getmailInfoByProject("mailCC", currentProjectM);
+	public void getSanityInfoInit(){
+		projectListSn = sanityProjectDAO.getSanityValidProjectName();
+		snselected = projectListSn.get(0);
+	}
+	
+	public void getSmokeInfoInit(){
+		projectListSm = smokeProjectDAO.getSmokeValidProjectName();
+		smselected = projectListSm.get(0);
+	}
+	
+	public void getMtbf_uiInfoInit(){
+		projectListMu = mtbf_uiProjectDAO.getValidProjectName();
+		muselected = projectListMu.get(0);
+	}
+	
+	public void getMonkeyInfo(String MSelected){	
+		    projectListM = monkeyProjectDAO.getValidProjectName();
+			currentProjectM = MSelected;
+			monkeyMoreInfo = monkeyInfo.getMonkeyTestInfoByProject(currentProjectM);
+			MmailTo = monkeyProjectDAO.getmailInfoByProject("mailTo", currentProjectM);
+		    MmailCC = monkeyProjectDAO.getmailInfoByProject("mailCC", currentProjectM);
+		
 		if(null != monkeyMoreInfo){
 			monkeyLastInfo = monkeyMoreInfo.get(0);
 			monkeyMoreInfo.remove(0);
@@ -116,60 +187,28 @@ public class BackManageAction extends ActionSupport{
 		}	
 	}
 	
-	public void getSanityInfo(){
-		projectListSn = sanityProjectDAO.getSanityValidProjectName();
-		if (null == currentProjectSn){
-			if(null != projectListSn){
-			    currentProjectSn = projectListSn.get(0);
-			    SnmailTo = sanityProjectDAO.getmailInfoByProject("mailTo", currentProjectSn);
-			    SnmailCC = sanityProjectDAO.getmailInfoByProject("mailCC", currentProjectSn);
-			    sanityLastInfo = sanityInfo.getSanityLastInfoByProject(currentProjectSn);
-			}
-		}
-		else {
+	public void getSanityInfo(String SnSelected){
+		    projectListSn = sanityProjectDAO.getSanityValidProjectName();
+			currentProjectSn = SnSelected;
 			SnmailTo = sanityProjectDAO.getmailInfoByProject("mailTo", currentProjectSn);
 		    SnmailCC = sanityProjectDAO.getmailInfoByProject("mailCC", currentProjectSn);
 		    sanityLastInfo = sanityInfo.getSanityLastInfoByProject(currentProjectSn);
 		}
-		
-	}
-	
-	public void getSmokeInfo(){
-		projectListSm = smokeProjectDAO.getSmokeValidProjectName();
-		if (null == currentProjectSm){
-			if(null != projectListSm){
-			    currentProjectSm = projectListSm.get(0);
-			    SmmailTo = smokeProjectDAO.getmailInfoByProject("mailTo", currentProjectSm);
-			    SmmailCC = smokeProjectDAO.getmailInfoByProject("mailCC", currentProjectSm);
-			    smokeLastInfo = smokeInfo.getSmokeLastInfoByProject(currentProjectSm);
-			}
-		} 
-		else {
-			SmmailTo = smokeProjectDAO.getmailInfoByProject("mailTo", currentProjectSm);
+
+	public void getSmokeInfo(String SmSelected){
+	        projectListSm = smokeProjectDAO.getSmokeValidProjectName();
+		    currentProjectSm = SmSelected;
+		    SmmailTo = smokeProjectDAO.getmailInfoByProject("mailTo", currentProjectSm);
 		    SmmailCC = smokeProjectDAO.getmailInfoByProject("mailCC", currentProjectSm);
 		    smokeLastInfo = smokeInfo.getSmokeLastInfoByProject(currentProjectSm);
-		}
-		
 	}
-
-
 	
-	public void getMtbf_uiInfo(){
-		projectListMu = mtbf_uiProjectDAO.getValidProjectName();
-		if (null == currentProjectMu){
-			if(null != projectListMu){
-			    currentProjectMu = projectListMu.get(0);
-			    MumailTo = mtbf_uiProjectDAO.getmailInfoByProject("mailTo", currentProjectMu);
-			    MumailCC = mtbf_uiProjectDAO.getmailInfoByProject("mailCC", currentProjectMu);
-			    mtbf_uiLastInfo = mtbf_uiInfo.getMTBF_uiLastTestByProject(currentProjectMu);
-			}
-		} 
-		else {
-			MumailTo = mtbf_uiProjectDAO.getmailInfoByProject("mailTo", currentProjectMu);
+	public void getMtbf_uiInfo(String MuSelected){
+	        projectListMu = mtbf_uiProjectDAO.getValidProjectName();
+		    currentProjectMu = MuSelected;
+		    MumailTo = mtbf_uiProjectDAO.getmailInfoByProject("mailTo", currentProjectMu);
 		    MumailCC = mtbf_uiProjectDAO.getmailInfoByProject("mailCC", currentProjectMu);
-		    mtbf_uiLastInfo = mtbf_uiInfo.getMTBF_uiLastTestByProject(currentProjectMu);
-		}
-		
+		    mtbf_uiLastInfo = mtbf_uiInfo.getMTBF_uiLastTestByProject(currentProjectMu);		
 	}
 
 	
@@ -443,6 +482,53 @@ public class BackManageAction extends ActionSupport{
 
 	public void setMumailCC(String mumailCC) {
 		MumailCC = mumailCC;
+	}
+
+	public String getTabclicked() {
+		return tabclicked;
+	}
+
+	public void setTabclicked(String tabclicked) {
+		this.tabclicked = tabclicked;
+	}
+	public String getMselected() {
+		return mselected;
+	}
+
+	public void setMselected(String mselected) {
+		this.mselected = mselected;
+	}
+
+	public String getSnselected() {
+		return snselected;
+	}
+
+	public void setSnselected(String snselected) {
+		this.snselected = snselected;
+	}
+
+	public String getSmselected() {
+		return smselected;
+	}
+
+	public void setSmselected(String smselected) {
+		this.smselected = smselected;
+	}
+
+	public String getMtselected() {
+		return mtselected;
+	}
+
+	public void setMtselected(String mtselected) {
+		this.mtselected = mtselected;
+	}
+
+	public String getMuselected() {
+		return muselected;
+	}
+
+	public void setMuselected(String muselected) {
+		this.muselected = muselected;
 	}
 
 }
