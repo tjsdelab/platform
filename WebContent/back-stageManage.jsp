@@ -23,13 +23,15 @@
     <link rel="stylesheet" type="text/css" href="css/buttons.css" />  
     <link rel="stylesheet" href="css/back-stage.css" type="text/css">
     <link type="text/css" href="css/lrtk.css" rel="stylesheet" />
+    <link href="css/uploadify.css" rel="stylesheet" type="text/css"/>
    
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+
 	<script type="text/javascript" src="jqplot/jquery.js"></script>
 	<script type="text/javascript" src="jqplot/lrtk.js"></script>
 	<script type="text/javascript" src="jqplot/jquery-ui.js"></script>
-	<script src="js/respond.js"></script>
+	
     
 <script>
 <!--时间日期设置 -->
@@ -153,24 +155,76 @@ $(document).ready(function() {
 	        }
 	    }
 	}
-	//发送请求函数
-	function sendRequest(url) {
+	//发送请求函数post方式
+	function sendRequest(mailProp) {
 	    createXMLHttpRequest();
-	    XMLHttpReq.open("GET", url, true);
+	    //XMLHttpReq.onreadystatechange = handleStateChange;
+	   // XMLHttpReq.open("GET", url, true);
+	    XMLHttpReq.onreadystatechange = processResponseMail;//指定响应函数
+	    XMLHttpReq.open("POST","backManageSendMail",true)
+	    XMLHttpReq.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	    XMLHttpReq.send(mailProp);  // 发送请求
+	}
+	
+	// 处理返回信息函数
+	function processResponseMail() {
+	    if (XMLHttpReq.readyState == 4) { // 判断对象状态
+	        if (XMLHttpReq.status == 200) { // 信息已经成功返回，开始处理信息
+	        	//提示返回信息
+	        	//alert("服务器返回信息"+XMLHttpReq.responseText)
+	        	alert("邮件发送成功!")
+	            var result = XMLHttpReq.responseText;    
+	            document.getElementById("data").innerHTML = result;	       
+	        } else { //页面不正常
+	            window.alert("您所请求的页面有异常。");
+	        }
+	    }
+	}
+	
+	//发送请求函数get方式
+	function sendRequestByGET() {
+	    createXMLHttpRequest();
 	    XMLHttpReq.onreadystatechange = processResponse;//指定响应函数
+	    XMLHttpReq.open("GET", url, true);
 	    XMLHttpReq.send(null);  // 发送请求
 	}
-	// 处理返回信息函数
 	function processResponse() {
 	    if (XMLHttpReq.readyState == 4) { // 判断对象状态
 	        if (XMLHttpReq.status == 200) { // 信息已经成功返回，开始处理信息
+	        	//提示返回信息
+	        	//alert("服务器返回信息"+XMLHttpReq.responseText)
 	            var result = XMLHttpReq.responseText;    
-	            document.getElementById("data").innerHTML = result;     
+	            document.getElementById("data").innerHTML = result;	       
 	        } else { //页面不正常
 	            window.alert("您所请求的页面有异常。");
 	        }
 	    }
 	}	
+	
+	//文件上传发送请求函数post方式
+	function sendRequestForFile(fileProp) {
+	    createXMLHttpRequest();
+	    //XMLHttpReq.onreadystatechange = handleStateChange;
+	   // XMLHttpReq.open("GET", url, true);
+	    XMLHttpReq.onreadystatechange = processResponseFile;//指定响应函数
+	    XMLHttpReq.open("POST","upload",true)
+	    XMLHttpReq.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	    XMLHttpReq.send(fileProp);  // 发送请求
+	}
+	function processResponseFile() {
+	    if (XMLHttpReq.readyState == 4) { // 判断对象状态
+	        if (XMLHttpReq.status == 200) { // 信息已经成功返回，开始处理信息
+	        	//提示返回信息
+	        	//alert("服务器返回信息"+XMLHttpReq.responseText)
+	        	alert("属性成功保存!")
+	            var result = XMLHttpReq.responseText;    
+	            document.getElementById("data").innerHTML = result;	       
+	        } else { //页面不正常
+	            window.alert("您所请求的页面有异常。");
+	        }
+	    }
+	}
+	
 	function sendMailM(){
 		var contents =$("#contentsM").html();
 		var To = $("#toM").text();
@@ -179,12 +233,10 @@ $(document).ready(function() {
 		if (contents==""){
 			window.alert("没有工程数据！")
 		} else {
-		var url = "backManageSendMail?contents=" +contents + "&To=" + To +"&CC=" + CC +"&subject=" +subject;  
-		url=encodeURI(url); 
-		url=encodeURI(url); 
-	    sendRequest(url);
+		var mailProp = "contents=" +encodeURIComponent(contents) + "&To=" + encodeURIComponent(To) +"&CC=" + encodeURIComponent(CC) +"&subject=" +encodeURIComponent(subject);  
+		//window.alert(mailProp)
+	    sendRequest(mailProp);
 	    $("#myModalM").hide();
-	    window.alert("邮件已发送!")
 		}
 	}
 	function sendMailSn(){
@@ -195,12 +247,9 @@ $(document).ready(function() {
 		if (contents==""){
 			window.alert("没有工程数据！")
 		} else {
-		var url = "backManageSendMail?contents=" +contents + "&To=" + To +"&CC=" + CC +"&subject=" +subject;  
-		url=encodeURI(url); 
-		url=encodeURI(url); 
-	    sendRequest(url);
+		var mailProp = "contents=" +encodeURIComponent(contents) + "&To=" + encodeURIComponent(To) +"&CC=" + encodeURIComponent(CC) +"&subject=" +encodeURIComponent(subject);  
+	    sendRequest(mailProp);
 	    $("#myModalSn").hide();
-	    window.alert("邮件已发送!")
 		}
 	}
 	function sendMailSm(){
@@ -211,12 +260,9 @@ $(document).ready(function() {
 		if (contents==""){
 			window.alert("没有工程数据！")
 		} else {
-		var url = "backManageSendMail?contents=" +contents + "&To=" + To +"&CC=" + CC +"&subject=" +subject;  
-		url=encodeURI(url); 
-		url=encodeURI(url); 
-	    sendRequest(url);
+		var mailProp = "contents=" +encodeURIComponent(contents) + "&To=" + encodeURIComponent(To) +"&CC=" + encodeURIComponent(CC) +"&subject=" +encodeURIComponent(subject);
+		sendRequest(mailProp);
 	    $("#myModalSm").hide();
-	    window.alert("邮件已发送!")
 		}
 	}
 	function sendMailMu(){
@@ -227,15 +273,12 @@ $(document).ready(function() {
 		if (contents==""){
 			window.alert("没有工程数据！")
 		} else {
-		var url = "backManageSendMail?contents=" +contents + "&To=" + To +"&CC=" + CC +"&subject=" +subject;  
-		url=encodeURI(url); 
-		url=encodeURI(url); 
-	    sendRequest(url);
+		var mailProp = "contents=" +encodeURIComponent(contents) + "&To=" + encodeURIComponent(To) +"&CC=" + encodeURIComponent(CC) +"&subject=" +encodeURIComponent(subject);  
+		sendRequest(mailProp);
 	    $("#myModalMu").hide();
-	    window.alert("邮件已发送!")
 		}
 	}
-	
+// monkeyForRD后台监测	
 	$(document).ready(function(){
 	    $("#startMonitor").click(function() {
 			undo("startMonitor");
@@ -243,7 +286,7 @@ $(document).ready(function() {
 			$("#startMonitor").css("background-color","#919191");
 			$("#stopMonitor").css("background-color","#EE0000");
 			var url = "rdSendMailCtrl?timerFlag=start";  
-		    sendRequest(url);
+			sendRequestByGET(url);
 			return false;
 	    });
 	    $("#stopMonitor").click(function() {
@@ -252,7 +295,7 @@ $(document).ready(function() {
 			$("#stopMonitor").css("background-color","#919191");
 			$("#startMonitor").css("background-color","#00FF00");
 			var url = "rdSendMailCtrl?timerFlag=stop";  
-		    sendRequest(url);
+			sendRequestByGET(url);
 			return false;
 	    });});
 	function undo(button_id) {
@@ -261,11 +304,85 @@ $(document).ready(function() {
 	function reveal(button_id) {
 		document.getElementById(button_id).disabled = false;
 		}	
+	
+var languageSelect;
+var osSelect;
+var locationSelect;
+function uploadFile(){
+		var toolType =$("#toolType").val();
+		var introduction = $("#introduction").val();
+		var usageMethod = $("#usageMethod").val();
+		languageSelect = $("#languageSelect").val();
+		osSelect = $("#osSelect").val();
+		locationSelect = $("#locationSelect").val();
+
+		//window.alert(toolType+languageSelect+osSelect+locationSelect+introduction+usageMethod);
+		 
+		var fileProp = "languageSelect=" + encodeURIComponent(languageSelect) + "&osSelect=" + encodeURIComponent(osSelect) +"&locationSelect=" + encodeURIComponent(locationSelect)
+			+"&toolType=" +encodeURIComponent(toolType) + "&introduction=" + encodeURIComponent(introduction) +"&usageMethod=" + encodeURIComponent(usageMethod);  
+		//$("#form2").submit;
+		sendRequestForFile(fileProp);
+		
+		var value = $("#fileUpload").val();
+		if(confirm('开始上传文件?'))
+          {
+			$("#upSubmit").click();
+            return true;
+          }
+		 
+	    //window.alert("上传成功!")    
+}
+
+// 邮件可编辑
+var originalStyle = 'btn-success';
+var afterClickedStyle = 'btn-inverse';
+var temp;
+function MmailEditF() {
+	//alert("For your attentation, the above data modification is temporary, which will not be written to the database!");
+    currentState = MmailEditable.isContentEditable;
+    newState = !currentState;
+    MmailEditable.contentEditable = newState;
+    $("#editMailM").removeClass(originalStyle).addClass(afterClickedStyle);
+	    temp = originalStyle;
+	    originalStyle = afterClickedStyle;
+	    afterClickedStyle = temp;
+    }
+function SnmailEditF() {
+	//alert("For your attentation, the above data modification is temporary, which will not be written to the database!");
+    currentState = SnmailEditable.isContentEditable;
+    newState = !currentState;
+    SnmailEditable.contentEditable = newState;
+    $("#editMailSn").removeClass(originalStyle).addClass(afterClickedStyle);
+	    temp = originalStyle;
+	    originalStyle = afterClickedStyle;
+	    afterClickedStyle = temp;
+    }
+function SmmailEditF() {
+	//alert("For your attentation, the above data modification is temporary, which will not be written to the database!");
+    currentState = SmmailEditable.isContentEditable;
+    newState = !currentState;
+    SmmailEditable.contentEditable = newState;
+    $("#editMailSm").removeClass(originalStyle).addClass(afterClickedStyle);
+	    temp = originalStyle;
+	    originalStyle = afterClickedStyle;
+	    afterClickedStyle = temp;
+    }
+function MumailEditF() {
+	//alert("For your attentation, the above data modification is temporary, which will not be written to the database!");
+    currentState = MumailEditable.isContentEditable;
+    newState = !currentState;
+    MumailEditable.contentEditable = newState;
+    $("#editMailMu").removeClass(originalStyle).addClass(afterClickedStyle);
+	    temp = originalStyle;
+	    originalStyle = afterClickedStyle;
+	    afterClickedStyle = temp;
+    }
+
 
 </script>
 </head> 
 <body>
-<s:form action="back-stageManage" theme="simple">
+
 <div class="page">    
 <!-- 导航条taps -->
 	<div class="navbar" role="navigation" style="margin-top:5px;background-color:#708069;width:1200px;">	
@@ -273,9 +390,11 @@ $(document).ready(function() {
 	   <a class="button blue medium" style="float:right;font-size:21px;font-weight:bold;margin-top:5px;margin-right:4px;" href="login.action">返回主页</a> 
 		<div class="tabbable">
 		  <ul class="nav nav-pills">
+			
 			<li class="active">
 				<a data-toggle="tab" style="font-size:large;font-weight:bold;margin:3px;" href="#report">报告管理</a>
 			</li>
+			
 			<li>
 				<a data-toggle="tab" style="font-size:large;font-weight:bold;margin:3px;" href="#fileUpload">文件共享</a>
 			</li>
@@ -286,7 +405,8 @@ $(document).ready(function() {
 		</div></div><br>
 <!-- 页面taps 首页展示报告管理report-->	
 <div class="tab-content">
-		<div class="tab-pane active" id="report">				
+		<div class="tab-pane active" id="report">	
+		<s:form action="back-stageManage" theme="simple" style="display:inline;">			
 	        <div class="tabbable tabs-left" id="tab-left" >
 	          <ul class="nav nav-tabs" id="tab-left-nav">  
 	            <li>
@@ -308,8 +428,7 @@ $(document).ready(function() {
     </div>
 <!-- 侧边栏taps 默认显示monkey-->	
       <div class="tab-content">
-        <div class="tab-pane" id="monkey">      
-          
+        <div class="tab-pane" id="monkey">          
 		 <div class="selectANDsearch" style="width:980px;margin-left:200px;">
 	    	 <ul class="bar1_first" id="bar1_first">
 	    	 	<li style="float:right;width:290px;margin-right:30px;">
@@ -330,35 +449,34 @@ $(document).ready(function() {
 	    	  </ul>
 	    	  </div><br><br>
 	    
-		<div style="position:absolute;margin-top:30px;width:980px;margin-left:190px;">
-        		
+		<div style="position:absolute;margin-top:30px;width:980px;margin-left:190px;">	
 				<img style="float:left; margin-left:0px;margin-top:4px; display: inline" height="30" width="30" alt="picture" src="images/mtbfc.gif">	
 				<img style="float:left; margin-left:0px; margin-top:23px; display: inline" height="6" width="890" alt="line" src="images/caolv.png">	
-        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:0px; margin-top:-25px;">最新报告</div>   
-        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:232px; margin-top:-25px;">表单名</div>
-        	    <div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:790px; margin-top:-25px;">时间</div>
+        		<div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-top:-25px;">最新报告</div>   
+        		<div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-left:28%;margin-top:-25px;">表单名</div>
+        	    <div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-left:82%;margin-top:-25px;">时间</div>
+        	   <button type="button" class="btn" data-toggle="modal" data-target="#myModalM" style="font-size:12px;font-weight:bold;float:right;margin-right:-14px;margin-top:8px;background-color:#2E8B57;color:#FAFFF0;padding:5px 10px;">发送邮件</button>
         	   </div>
-        	   <div style="position:absolute;width:980px;margin-left:220px;margin-top:70px;">
-        	       <span style="float:left;width:30%;font-size:19px;"><s:property value="currentProjectM"/>_<s:property value="#request.monkeyLastInfo.pacVersion"/></span>
-        	       <span style="width:50%;margin-left:20px;font-size:19px;"><s:property value="#request.monkeyLastInfo.formName"/></span>
-				   <span style="float:right;width:10%;margin-right:90px;font-size:19px;"><s:property value="#request.monkeyLastInfo.tdate"/></span>
-				    <button type="button" class="btn" data-toggle="modal"  data-target="#myModalM" 
-				 	style="font-size:12px;font-weight:bold;clear:both;float:right;margin-right:5px;margin-top:-27px;background-color:#2E8B57;color:#FAFFF0;padding:5px 10px;">发送邮件</button>		
+        	   <div style="position:absolute;width:890px;margin-left:220px;margin-top:70px;word-wrap:break-word;word-break:break-all;white-space:normal">
+        	       <div style="float:left;width:40%;font-size:18px;"><s:property value="currentProjectM"/>_<s:property value="#request.monkeyLastInfo.pacVersion"/></div>
+        	       <div style="float:left;width:50%;font-size:18px;"><s:property value="#request.monkeyLastInfo.formName"/></div>
+				   <div style="float:right;width:10%;font-size:18px;"><s:property value="#request.monkeyLastInfo.tdate"/></div>	    		
         </div>
              <!-- 模态框（Modal） -->
 				<div class="modal fade in" id="myModalM" tabindex="-1" role="dialog" 
 				   aria-labelledby="myModalLabel" aria-hidden="true">
-				   <div class="modal-dialog" style="position:absolute;margin:252px 0px 0 380px;">
-				      <div class="modal-content" style="width:750px;">
+				   <div class="modal-dialog" style="position:absolute;margin:80px 150px 0 200px;word-wrap:break-word;word-break:break-all;white-space:normal">
+				      <div class="modal-content" style="width:1000px;">
+				        <div id="MmailEditable">
 				         <div class="modal-header">
 				            <button type="button" class="close" data-dismiss="modal" 
 				               aria-hidden="true">×
 				            </button>
-				            <h4 class="modal-title"><strong>发送邮件：</strong><strong id="subjectM"><s:property value="currentProjectM"/>_<s:property value="#request.monkeyLastInfo.pacVersion"/> Monkey test results! [focus]</strong></h4>
+				            <h4 class="modal-title"><strong>SENDING EMAIL:&nbsp</strong><strong id="subjectM"><s:property value="currentProjectM"/>_<s:property value="#request.monkeyLastInfo.pacVersion"/> Monkey test results! [focus]</strong></h4>
 				            </div>
-				            <div class="modal-header">
-				            <h5 class="modal-title" id="myModalLabel"><strong>收件人：</strong><a id="toM" href="#"><s:property value="MmailTo"/></a></h5>
-				            <h5 class="modal-title"><strong>抄送人：</strong><a id="ccM" href="#"><s:property value="MmailCC"/></a></h5>  
+				         <div class="modal-header" >
+				            <h5 class="modal-title" id="myModalLabel"><strong>Recipient:&nbsp</strong><a id="toM" href="#"><s:property value="MmailTo"/></a></h5>
+				            <h5 class="modal-title"><strong>CC:&nbsp</strong><a id="ccM" href="#"><s:property value="MmailCC"/></a></h5>  
 				         </div>
 				         <div class="modal-body" id="contentsM">
 				            <dl>
@@ -372,11 +490,12 @@ $(document).ready(function() {
 				            <dd style="text-indent:1em;">Please give this matter your prompt attention.</dd>
 				            <dd style="text-indent:1em;">Thanks!</dd>
 				         </dl></div>
+				         </div>
 				         <div class="modal-footer">
-				            <button type="button" class="btn btn-default" 
-				               data-dismiss="modal">
+				             <button type="button" class="btn btn-default" data-dismiss="modal">
 				               取消
 				            </button>
+				             <button type="button" class="btn btn-success" style="width:70px;" data-toggle="button" id="editMailM" onclick="MmailEditF()">编&nbsp&nbsp辑</button>			                      
 				            <button class="btn btn-primary" type="button" data-toggle="button" id="monkeyMail" onclick="sendMailM()">
 				               确认发送
 				            </button>
@@ -386,27 +505,26 @@ $(document).ready(function() {
 				</div><!-- /.modal -->
 		<br><br><br><br>		     
 
-			<div style="position:absolute;width:980px;margin-left:195px;margin-top:35px;">
+			<div style="position:absolute;width:980px;margin-left:195px;margin-top:45px;">
 				<img style="float:left; margin-left:0px;margin-top:6px; display: inline" height="20" width="20" alt="picture" src="images/aperture.png">        			
 				<img style="float:left; margin-left:5px; margin-top:23px; display: inline" height="6" width="890" alt="line" src="images/caolv.png">	
-        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:25px; margin-top:-25px;">最新报告</div>   
-        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:250px; margin-top:-25px;">表单名</div>
-        	    <div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:815px; margin-top:-25px;">时间</div>
+        		<div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-left:2.5%;margin-top:-25px;">更多报告</div>   
+        		<div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-left:28.5%;margin-top:-25px;">表单名</div>
+        	    <div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-left:84.6%;margin-top:-25px;">时间</div>
         	   </div>
-        	<div style="position:absolute;width:980px;margin-left:215px;margin-top:60px;">
+        	<div style="position:absolute;width:885px;margin-left:215px;margin-top:70px;word-wrap:break-word;word-break:break-all;white-space:normal">
         	    <s:iterator value="#request.monkeyMoreInfo" id="MMoreInfo">
-        	    <div style="clear:both;margin-top:20px;">
+        	    <div style="clear:both;margin-top:25px;">
         	       <img style="float:left; margin-left:-5px;margin-top:-3px; display: inline" height="30" width="30" alt="picture" src="images/mtbfc.gif">
-        	       <span style="float:left;width:30%;font-size:19px;"><s:property value="currentProjectM"/>_<s:property value="#MMoreInfo.pacVersion"/></span>
-        	       <span style="width:50%;margin-left:20px;font-size:19px;"><s:property value="#MMoreInfo.formName"/></span>
-				   <span style="float:right;width:10%;margin-right:90px;font-size:19px;"><s:property value="#MMoreInfo.tdate"/></span>
-				   <button type="button" class="btn disabled" data-toggle="modal"  data-target="#myModalM"
-				 	style="font-size:12px;font-weight:bold;clear:both;float:right;margin-right:5px;margin-top:-27px;background-color:#32CD32;color:#FAFFF0;padding:5px 10px;">发送邮件</button>
-				</div></s:iterator>
-             </div>
+        	       <div style="float:left;width:39%;font-size:18px;"><s:property value="currentProjectM"/>_<s:property value="#MMoreInfo.pacVersion"/></div>
+        	       <div style="float:left;width:49%;font-size:18px;"><s:property value="#MMoreInfo.formName"/></div>
+				   <div style="float:right;width:9%;font-size:18px;"><s:property value="#MMoreInfo.tdate"/></div>  
+				</div>
+				<button type="button" class="btn disabled" data-toggle="modal" data-target="#myModalM" style="font-size:12px;font-weight:bold;float:right;margin-right:-165px;margin-bottom:5px;background-color:#2E8B57;color:#FAFFF0;padding:5px 10px;">发送邮件</button>
+				</s:iterator>
+             </div>           
 	 </div>
-				
-									    	 
+												    	 
 <!-- 侧边栏taps 第二显示sanity-->						    	 					      
    <div class="tab-pane " id="sanity">
 	  <div class="selectANDsearch" style="width:980px;margin-left:200px;">
@@ -429,35 +547,35 @@ $(document).ready(function() {
 	    	  </ul>
 	    	  </div><br><br>
 	    
-		<div style="position:absolute;margin-top:30px;width:980px;margin-left:190px;">
-        		
+		<div style="position:absolute;margin-top:30px;width:980px;margin-left:190px;">        		
 				<img style="float:left; margin-left:0px;margin-top:4px; display: inline" height="30" width="30" alt="picture" src="images/mtbfc.gif">	
 				<img style="float:left; margin-left:0px; margin-top:23px; display: inline" height="6" width="890" alt="line" src="images/caolv.png">	
-        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:0px; margin-top:-25px;">最新报告</div>   
-        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:280px; margin-top:-25px;">表单名</div>
-        	    <div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:790px; margin-top:-25px;">时间</div>
+        		<div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-top:-25px;">最新报告</div>   
+        		<div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-left:28%;margin-top:-25px;">表单名</div>
+        	    <div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-left:82%;margin-top:-25px;">时间</div>
+        	   <button type="button" class="btn" data-toggle="modal" data-target="#myModalSn" style="font-size:12px;font-weight:bold;float:right;margin-right:-14px;margin-top:8px;background-color:#2E8B57;color:#FAFFF0;padding:5px 10px;">发送邮件</button>
         	   </div>
-        	   <div style="position:absolute;width:980px;margin-left:220px;margin-top:70px;">
-        	       <span style="float:left;width:36%;font-size:19px;"><s:property value="currentProjectSn"/>_<s:property value="#request.sanityLastInfo.versionForNum"/></span>
-        	       <span style="width:50%;margin-left:10px;font-size:19px;"><s:property value="#request.sanityLastInfo.testFormName"/></span>
-				   <span style="float:right;width:10%;margin-right:90px;font-size:19px;"><s:property value="#request.sanityLastInfo.testDate"/></span>
-				    <button type="button" class="btn" data-toggle="modal"  data-target="#myModalSn" 
-				 	style="font-size:12px;font-weight:bold;clear:both;float:right;margin-right:5px;margin-top:-27px;background-color:#2E8B57;color:#FAFFF0;padding:5px 10px;">发送邮件</button>		
+        	   <div style="position:absolute;width:890px;margin-left:220px;margin-top:70px;word-wrap:break-word;word-break:break-all;white-space:normal">
+        	       <div style="float:left;width:40%;font-size:18px;"><s:property value="currentProjectSn"/>_<s:property value="#request.sanityLastInfo.versionForNum"/></div>
+        	       <div style="float:left;width:50%;font-size:18px;"><s:property value="#request.sanityLastInfo.testFormName"/></div>
+				   <div style="float:right;width:10%;font-size:18px;"><s:property value="#request.sanityLastInfo.testDate"/></div>	    		
         </div>
+		
 		    <!-- 模态框（Modal） -->
 				<div class="modal fade in" id="myModalSn" tabindex="-1" role="dialog" 
 				   aria-labelledby="myModalLabel" aria-hidden="true">
-				   <div class="modal-dialog" style="position:absolute;margin:252px 0px 0 380px;">
-				      <div class="modal-content" style="width:750px;">
+				   <div class="modal-dialog" style="position:absolute;margin:80px 150px 0 200px;word-wrap:break-word;word-break:break-all;white-space:normal">
+				      <div class="modal-content" style="width:1000px;">
+				         <div id="SnmailEditable">
 				         <div class="modal-header">
 				            <button type="button" class="close" data-dismiss="modal" 
 				               aria-hidden="true">×
 				            </button>
-				            <h4 class="modal-title"><strong>发送邮件：</strong><strong id="subjectSn"><s:property value="currentProjectSn"/>_<s:property value="#request.sanityLastInfo.versionForNum"/> Sanity test results! [focus]</strong></h4>
+				            <h4 class="modal-title"><strong>SENDING EMAIL:&nbsp</strong><strong id="subjectSn"><s:property value="currentProjectSn"/>_<s:property value="#request.sanityLastInfo.versionForNum"/> Sanity test results! [focus]</strong></h4>
 				            </div>
 				            <div class="modal-header">
-				            <h5 class="modal-title" id="myModalLabel"><strong>收件人：</strong><a id="toSn" href="#"><s:property value="SnmailTo"/></a></h5>
-				            <h5 class="modal-title"><strong>抄送人：</strong><a id="ccSn" href="#"><s:property value="SnmailCC"/></a></h5>  
+				            <h5 class="modal-title" id="myModalLabel"><strong>Recipient:&nbsp</strong><a id="toSn" href="#"><s:property value="SnmailTo"/></a></h5>
+				            <h5 class="modal-title"><strong>CC:&nbsp</strong><a id="ccSn" href="#"><s:property value="SnmailCC"/></a></h5>  
 				         </div>
 				         <div class="modal-body" id="contentsSn">
 				            <dl>
@@ -471,11 +589,13 @@ $(document).ready(function() {
 				            <dd style="text-indent:1em;">Please give this matter your prompt attention.</dd>
 				            <dd style="text-indent:1em;">Thanks!</dd>
 				         </dl></div>
+				         </div>
 				         <div class="modal-footer">
 				            <button type="button" class="btn btn-default" 
 				               data-dismiss="modal">
 				               取消
 				            </button>
+				            <button type="button" class="btn btn-success" style="width:70px;" data-toggle="button" id="editMailSn" onclick="SnmailEditF()">编&nbsp&nbsp辑</button>
 				            <button class="btn btn-primary" type="button" data-toggle="button" id="sanityMail" onclick="sendMailSn()">
 				               确认发送
 				            </button>
@@ -509,35 +629,35 @@ $(document).ready(function() {
 	    	  </ul>
 	    	  </div><br><br>
 	    
-		<div style="position:absolute;margin-top:30px;width:980px;margin-left:190px;">
-        		
+	    <div style="position:absolute;margin-top:30px;width:980px;margin-left:190px;">
 				<img style="float:left; margin-left:0px;margin-top:4px; display: inline" height="30" width="30" alt="picture" src="images/mtbfc.gif">	
 				<img style="float:left; margin-left:0px; margin-top:23px; display: inline" height="6" width="890" alt="line" src="images/caolv.png">	
-        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:0px; margin-top:-25px;">最新报告</div>   
-        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:280px; margin-top:-25px;">表单名</div>
-        	    <div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:790px; margin-top:-25px;">时间</div>
+        		<div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-top:-25px;">最新报告</div>   
+        		<div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-left:28%;margin-top:-25px;">表单名</div>
+        	    <div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-left:82%;margin-top:-25px;">时间</div>
+        	   <button type="button" class="btn" data-toggle="modal" data-target="#myModalSm" style="font-size:12px;font-weight:bold;float:right;margin-right:-14px;margin-top:8px;background-color:#2E8B57;color:#FAFFF0;padding:5px 10px;">发送邮件</button>
         	   </div>
-        	   <div style="position:absolute;width:980px;margin-left:220px;margin-top:70px;">
-        	       <span style="float:left;width:36%;font-size:19px;"><s:property value="currentProjectSm"/>_<s:property value="#request.smokeLastInfo.versionForNum"/></span>
-        	       <span style="width:50%;margin-left:10px;font-size:19px;"><s:property value="#request.smokeLastInfo.testFormName"/></span>
-				   <span style="float:right;width:10%;margin-right:90px;font-size:19px;"><s:property value="#request.smokeLastInfo.testDate"/></span>
-				    <button type="button" class="btn" data-toggle="modal"  data-target="#myModalSm" 
-				 	style="font-size:12px;font-weight:bold;clear:both;float:right;margin-right:5px;margin-top:-27px;background-color:#2E8B57;color:#FAFFF0;padding:5px 10px;">发送邮件</button>		
+        	   <div style="position:absolute;width:890px;margin-left:220px;margin-top:70px;word-wrap:break-word;word-break:break-all;white-space:normal">
+        	       <div style="float:left;width:40%;font-size:18px;"><s:property value="currentProjectSm"/>_<s:property value="#request.smokeLastInfo.versionForNum"/></div>
+        	       <div style="float:left;width:50%;font-size:18px;"><s:property value="#request.smokeLastInfo.testFormName"/></div>
+				   <div style="float:right;width:10%;font-size:18px;"><s:property value="#request.smokeLastInfo.testDate"/></div>	    		
         </div>
+		
 		    <!-- 模态框（Modal） -->
 				<div class="modal fade in" id="myModalSm" tabindex="-1" role="dialog" 
 				   aria-labelledby="myModalLabel" aria-hidden="true">
-				   <div class="modal-dialog" style="position:absolute;margin:252px 0px 0 380px;">
-				      <div class="modal-content" style="width:750px;">
+				   <div class="modal-dialog" style="position:absolute;margin:80px 150px 0 200px;word-wrap:break-word;word-break:break-all;white-space:normal">
+				      <div class="modal-content" style="width:1000px;">
+				        <div id="SmmailEditable">
 				         <div class="modal-header">
 				            <button type="button" class="close" data-dismiss="modal" 
 				               aria-hidden="true">×
 				            </button>
-				            <h4 class="modal-title"><strong>发送邮件：</strong><strong id="subjectSm"><s:property value="currentProjectSm"/>_<s:property value="#request.smokeLastInfo.versionForNum"/> Smoke test results! [focus]</strong></h4>
+				            <h4 class="modal-title"><strong>SENDING EMAIL:&nbsp</strong><strong id="subjectSm"><s:property value="currentProjectSm"/>_<s:property value="#request.smokeLastInfo.versionForNum"/> Smoke test results! [focus]</strong></h4>
 				            </div>
 				            <div class="modal-header">
-				            <h5 class="modal-title" id="myModalLabel"><strong>收件人：</strong><a id="toSm" href="#"><s:property value="SmmailTo"/></a></h5>
-				            <h5 class="modal-title"><strong>抄送人：</strong><a id="ccSm" href="#"><s:property value="SmmailCC"/></a></h5>  
+				            <h5 class="modal-title" id="myModalLabel"><strong>Recipient:&nbsp</strong><a id="toSm" href="#"><s:property value="SmmailTo"/></a></h5>
+				            <h5 class="modal-title"><strong>CC:&nbsp</strong><a id="ccSm" href="#"><s:property value="SmmailCC"/></a></h5>  
 				         </div>
 				         <div class="modal-body" id="contentsSm">
 				            <dl>
@@ -551,11 +671,13 @@ $(document).ready(function() {
 				            <dd style="text-indent:1em;">Please give this matter your prompt attention.</dd>
 				            <dd style="text-indent:1em;">Thanks!</dd>
 				         </dl></div>
+				         </div>
 				         <div class="modal-footer">
 				            <button type="button" class="btn btn-default" 
 				               data-dismiss="modal">
 				               取消
 				            </button>
+				            <button type="button" class="btn btn-success" style="width:70px;" data-toggle="button" id="editMailSm" onclick="SmmailEditF()">编&nbsp&nbsp辑</button>
 				            <button class="btn btn-primary" type="button" data-toggle="button" id="smokeMail" onclick="sendMailSm()">
 				               确认发送
 				            </button>
@@ -588,35 +710,35 @@ $(document).ready(function() {
 	    	  </ul>
 	    	  </div><br><br>
 	    
-		<div style="position:absolute;margin-top:30px;width:980px;margin-left:190px;">
-        		
+	    <div style="position:absolute;margin-top:30px;width:980px;margin-left:190px;">        		
 				<img style="float:left; margin-left:0px;margin-top:4px; display: inline" height="30" width="30" alt="picture" src="images/mtbfc.gif">	
 				<img style="float:left; margin-left:0px; margin-top:23px; display: inline" height="6" width="890" alt="line" src="images/caolv.png">	
-        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:0px; margin-top:-25px;">最新报告</div>   
-        		<div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:318px; margin-top:-25px;">表单名</div>
-        	    <div style="float:left;font-weight:bold;font-size:18px;color:#458B74;margin-left:790px; margin-top:-25px;">时间</div>
+        		<div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-top:-25px;">最新报告</div>   
+        		<div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-left:28%;margin-top:-25px;">表单名</div>
+        	    <div style="float:left; font-weight:bold;font-size:18px;color:#458B74;margin-left:82%;margin-top:-25px;">时间</div>
+        	   <button type="button" class="btn" data-toggle="modal" data-target="#myModalMu" style="font-size:12px;font-weight:bold;float:right;margin-right:-14px;margin-top:8px;background-color:#2E8B57;color:#FAFFF0;padding:5px 10px;">发送邮件</button>
         	   </div>
-        	   <div style="position:absolute;width:980px;margin-left:220px;margin-top:70px;">
-        	       <span style="float:left;width:40%;font-size:19px;"><s:property value="currentProjectMu"/>_<s:property value="#request.mtbf_uiLastInfo.softwareVsn"/></span>
-        	       <span style="width:50%;margin-left:10px;font-size:19px;"><s:property value="#request.mtbf_uiLastInfo.formName"/></span>
-				   <span style="float:right;width:10%;margin-right:90px;font-size:19px;"><s:property value="#request.mtbf_uiLastInfo.testDate"/></span>
-				    <button type="button" class="btn" data-toggle="modal"  data-target="#myModalMu" 
-				 	style="font-size:12px;font-weight:bold;clear:both;float:right;margin-right:5px;margin-top:-27px;background-color:#2E8B57;color:#FAFFF0;padding:5px 10px;">发送邮件</button>		
+        	   <div style="position:absolute;width:890px;margin-left:220px;margin-top:70px;word-wrap:break-word;word-break:break-all;white-space:normal">
+        	       <div style="float:left;width:40%;font-size:18px;"><s:property value="currentProjectMu"/>_<s:property value="#request.mtbf_uiLastInfo.softwareVsn"/></div>
+        	       <div style="float:left;width:50%;font-size:18px;"><s:property value="#request.mtbf_uiLastInfo.formName"/></div>
+				   <div style="float:right;width:10%;font-size:18px;"><s:property value="#request.mtbf_uiLastInfo.testDate"/></div>	    		
         </div>
+        
 		    <!-- 模态框（Modal） -->
 				<div class="modal fade in" id="myModalMu" tabindex="-1" role="dialog" 
 				   aria-labelledby="myModalLabel" aria-hidden="true">
-				   <div class="modal-dialog" style="position:absolute;margin:252px 0px 0 380px;">
-				      <div class="modal-content" style="width:750px;">
+				   <div class="modal-dialog" style="position:absolute;margin:80px 150px 0 200px;word-wrap:break-word;word-break:break-all;white-space:normal">
+				      <div class="modal-content" style="width:1000px;">
+				         <div id="MumailEditable">
 				         <div class="modal-header">
 				            <button type="button" class="close" data-dismiss="modal" 
 				               aria-hidden="true">×
 				            </button>
-				            <h4 class="modal-title"><strong>发送邮件：</strong><strong id="subjectMu"><s:property value="currentProjectMu"/>_<s:property value="#request.mtbf_uiLastInfo.softwareVsn"/> Mtbf_ui test results! [focus]</strong></h4>
+				            <h4 class="modal-title"><strong>SENDING EMAIL:&nbsp</strong><strong id="subjectMu"><s:property value="currentProjectMu"/>_<s:property value="#request.mtbf_uiLastInfo.softwareVsn"/> Mtbf_ui test results! [focus]</strong></h4>
 				            </div>
 				            <div class="modal-header">
-				            <h5 class="modal-title" id="myModalLabel"><strong>收件人：</strong><a id="toMu" href="#"><s:property value="MumailTo"/></a></h5>
-				            <h5 class="modal-title"><strong>抄送人：</strong><a id="ccMu" href="#"><s:property value="MumailCC"/></a></h5>  
+				            <h5 class="modal-title" id="myModalLabel"><strong>Recipient:&nbsp</strong><a id="toMu" href="#"><s:property value="MumailTo"/></a></h5>
+				            <h5 class="modal-title"><strong>CC:&nbsp</strong><a id="ccMu" href="#"><s:property value="MumailCC"/></a></h5>  
 				         </div>
 				         <div class="modal-body" id="contentsMu">
 				            <dl>
@@ -630,11 +752,13 @@ $(document).ready(function() {
 				            <dd style="text-indent:1em;">Please give this matter your prompt attention.</dd>
 				            <dd style="text-indent:1em;">Thanks!</dd>
 				         </dl></div>
+				         </div>
 				         <div class="modal-footer">
 				            <button type="button" class="btn btn-default" 
 				               data-dismiss="modal">
 				               取消
 				            </button>
+				            <button type="button" class="btn btn-success" style="width:70px;" data-toggle="button" id="editMailMu" onclick="MumailEditF()">编&nbsp&nbsp辑</button>
 				            <button class="btn btn-primary" type="button" data-toggle="button" id="mtbf_uiMail" onclick="sendMailMu()">
 				               确认发送
 				            </button>
@@ -653,24 +777,76 @@ $(document).ready(function() {
 
 	  </div>  
    </div>
+    </s:form>
  </div>
+
 
 
 <!-- 页面taps 次页展示文件共享fileUpload-->					
 <div class="tab-pane" id="fileUpload">
-	
-	
-	     
-	     <div class="box">
-	     <span style="float:left;margin-top:2px;font-size:20px;color:#FF6100">上传文件:</span>
-	     <input type="text" name="copyFile"  class="textbox" />
-	     <a href="javascript:void(0);"  class="link">浏览</a>
-	     <input type="file" class="uploadFile" name="upload"
-	     onchange="" />
-    </div>
-    
+<s:form id="form2" name="form2" action="upload" theme="simple" enctype="multipart/form-data" method="post" >
+	<div class="container">
+	<div class="row" style="margin-left:18px;">
+		<div class="span12">
+			<div class="media">
+				 <a href="#" class="pull-left"><img height="100" width="100" src="images/share.png" class="media-object" alt='' /></a>
+				<div class="media-body" style="border:2px #00C78C solid;width:990px;">
+					 <div class="box" style="float:left;margin-top:20px;margin-left:20px;width:500px;height:260px;">
+					     <span style="float:left;margin-top:1px;font-size:20px;color:#FF4500;text-decoration:blink;"><strong>上传文件:</strong></span>
+					    
+ 					     <input type="file" id="fileUpload" name="file" class="textbox"/>  
+<%-- 				         <s:file name="file" cssStyle="width:250px;margin-left:56px;margin-top:4px;"/> --%>
+                          <s:submit id="upSubmit" name="fileUpload" method="fileUpload" value="开始上传" style="float:left;margin-top:32px;width:90px;margin-left:-43px;display:none;"/>
+                          
+                          
+                            <div style="float:left;margin-top:20px;margin-left:3px;width:500px;">
+					  		<label style="font-size:18px;color:#FF4500;">工具类型：</label>
+							<input type="text" id="toolType" style="margin-left:5px;font-size:14px;float：right;width:250px;" placeholder="请输入…"/>			
+							</div>
+                            
+                            <div style="float:left;margin-top:20px;margin-left:3px;width:500px;">
+					  		<label style="font-size:18px;color:#FF4500;">软件语言：</label>
+							<s:select style="margin-left:5px;font-size:14px;float：right" id="languageSelect" list="#{'C/C++':'C/C++','Java':'Java','Objective-C':'Objective-C','C#':'C#','Python':'Python','JavaScript':'JavaScript','Php':'Php','Others':'Others'}" > 
+	                          </s:select>			
+							</div>
+							
+							<div style="float:left;margin-top:20px;margin-left:3px;width:500px;">
+	                          <label style="font-size:18px;color:#FF4500;">适用系统：</label>
+							<s:select style="margin-left:5px;font-size:14px;float：right" id="osSelect" list="#{'WindowsXP':'WindowsXP','Windows7/8':'Windows7/8','Linux':'Linux','MacOS':'MacOS','Android':'Android','IOS':'IOS','Windows Mobile':'Windows Mobile','FirefoxOS':'FirefoxOS','Others':'Others'}" > 
+	                          </s:select>			
+							</div>
+							
+							<div style="float:left;margin-top:20px;margin-left:3px;width:500px;">
+	                          <label style="font-size:18px;color:#FF4500;">公司位置：</label>
+							<s:select style="margin-left:5px;font-size:14px;float：right" id="locationSelect" list="#{'天津':'天津','北京':'北京','上海':'上海','深圳':'深圳','成都':'成都','圣迭哥':'圣迭哥','韩国':'韩国','印度':'印度','台北':'台北','其他':'其他'}" > 
+	                          </s:select>			
+							</div>						
+                     </div>
+                     
+                     <div style="float:right;width:450px;">
+                      
+							<fieldset style="margin-top:24px;">
+							<legend style="font-size:20px;color:#FF4500;"><strong>工具简介:</strong></legend>
+							<textarea rows="3" id="introduction" type="text" value="请输入工具简介…" placeholder="请输入工具简介…" style="width:420px;height:75px;margin-top:-10px;"></textarea>				
+							</fieldset>
+							
+						    <fieldset style="margin-top:10px;">
+							<legend style="font-size:20px;color:#FF4500;"><strong>使用方法:</strong></legend>
+							<textarea rows="3" id="usageMethod" type="text" placeholder="请输入详细使用方法…" style="width:420px;height:100px;margin-top:-10px;"></textarea>				
+							</fieldset>
+	                </div>	
+	               
+				</div>
+				<a type=“button” class="btn" style="float:right;font-size:15px;font-weight:bold;margin-top:2px;margin-right:30px;background-color:#2E8B57;color:#FAFFF0;padding:5px 15px;" href="fileSharing.jsp">查看分享</a>
+				<button type="button" class="btn" data-toggle="button" onclick="uploadFile()" style="font-size:15px;font-weight:bold;float:right;margin-right:35px;margin-top:2px;background-color:#1E90FF;color:#FAFFF0;padding:5px 15px;">确认提交</button>  
+			</div>
+		</div>
+	</div>
+</div>     
+	    
 
 
+</s:form>
 
 
 </div>
@@ -694,7 +870,7 @@ $(document).ready(function() {
 		
 
       
-</s:form>
+
 </body>
   
 </html>

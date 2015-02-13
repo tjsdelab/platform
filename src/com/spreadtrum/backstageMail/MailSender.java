@@ -61,16 +61,21 @@ public class MailSender {
 		mailSession = Session.getDefaultInstance(emailProperties, null);
 		emailMessage = new MimeMessage(mailSession);
 		// To
-		System.out.println(to);
+		//System.out.println(to);
 		for (int i = 0; i < toEmails.length; i++) {
 			emailMessage.addRecipient(Message.RecipientType.TO,
 					new InternetAddress(toEmails[i]));
 					//new InternetAddress(toEmails[i] + "/Spreadtrum@SPREADTRUM"));
 		}
 		// CC
-		for (int i = 0; i < ccEmails.length; i++) {
-			emailMessage.addRecipient(Message.RecipientType.CC,
-					new InternetAddress(ccEmails[i] ));
+		//System.out.println("cc"+cc);
+		
+		if (!cc.equals("")) {
+			//System.out.println("cc"+ccEmails);
+			for (int i = 0; i < ccEmails.length; i++) {
+				emailMessage.addRecipient(Message.RecipientType.CC,
+						new InternetAddress(ccEmails[i] ));
+			}
 		}
 		emailMessage.setSubject(emailSubject);
 		emailMessage.setFrom(new InternetAddress ("tjsdelab@spreadtrum.com"));

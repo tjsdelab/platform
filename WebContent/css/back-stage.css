@@ -262,9 +262,9 @@ font-size:16px;
 	float:left;
 }
 
+
 .box{
         position:absolutely;
-        width:500px;
     }
     input.uploadFile{
         position:absolute;
@@ -279,25 +279,32 @@ font-size:16px;
     }
     input.textbox{
         float:left;
-        margin-left:20px;
-        padding:5px;
+        margin-left:16px;
+        padding:1px;
         color:#999;
         height:24px;
         line-height:24px;
-        border:1px #1E90FF solid;
+        font-size:16px;
+        border:1px 	#808A87 solid;
         width:300px;
-        margin-right:4px;
+        margin-right:0px;
         margin-top:4px;
     }
     a.link{
         float:left;
+        margin-top:4px;
+        margin-left:-4px;
         display:inline-block;
-        padding:3px 14px;
+        padding:2px 12px;
         color:#fff;
         font:16px "Microsoft YaHei", Verdana, Geneva, sans-serif;
         cursor:pointer;
         background-color:#0099ff;
-        line-height:28px;
+        line-height:20px;
         text-decoration:none;
     }
+    .btn-inverse{
+    	background-color:#A6A6A6;
+    }
+    
     
